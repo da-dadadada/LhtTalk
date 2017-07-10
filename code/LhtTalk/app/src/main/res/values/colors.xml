@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2017 leobert-lan
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  -->
+
+<resources>
+    <!--<color name="theme1">@color/main_green_light</color>-->
+    <!--<color name="theme1_dark">@color/main_green_dark</color>-->
+
+    <!--bg_dark 图片预览暂时使用中-->
+    <color name="bg_dark">#0c0c0c</color>
+    <color name="bg_white">#FFFFFF</color>
+
+    <!--主色-->
+
+    <!--<color name="main_green_light">#ffe2efff</color>-->
+    <!--&lt;!&ndash;todo&ndash;&gt;-->
+    <!--用于按钮-->
+
+    <color name="main_green_dark">#ff01c77b</color>
+
+
+    <!--基础色-->
+
+    <!--辅色-->
+    <!--主要用于提示的强调色-->
+
+    <!--主色的触摸反馈-->
+    <color name="sub_pressed_green">#00d885</color>
+
+
+    <!--主要用于删除等危险行为-->
+
+    <!--用于登录部分-->
+
+
+    <!--灰阶-->
+    <!--输入框76不透明-->
+
+    <!--顶部下拉背景-->
+
+    <!--提示文字-->
+
+    <!--正文-->
+    <color name="cyy_h4">#666666</color>
+
+    <!--标题-->
+
+    <!--边线、分隔线-->
+
+    <!--底色-->
+    <color name="cyy_h7">#efeff4</color>
+
+    <!--头部色-->
+
+    <!--主导航栏底色-->
+
+
+    <!--评论字体-->
+
+    <!--评论边线-->
+
+    <color name="primary_background">@color/cyy_h7</color>
+
+    <color name="text_gray_content">@color/cyy_h4</color>
+
+    <!-- ........................................................  -->
+
+    <color name="transparent">@android:color/transparent</color>
+
+
+    <color name="myPrimaryColor">@color/main_green_dark</color>
+    <color name="myPrimaryDarkColor">@color/sub_pressed_green</color>
+    <color name="myAccentColor">@color/main_green_dark</color>
+    <color name="myTextPrimaryColor">@color/text_gray_content</color>
+    <color name="myWindowBackground">#DEDEDE</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <!--<color name="black_alpha">#33000000</color>-->
+
+    <!--<color name="temp_fast_register_btn_text_normal">#00ff00</color>-->
+    <!--<color name="temp_fast_register_btn_text_pressed">#ffff00</color>-->
+</resources>

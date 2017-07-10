@@ -1,0 +1,168 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2017 leobert-lan
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  -->
+
+<resources>
+
+    <!--命名规则：-->
+    <!--v{{version_code}}_{{Type}}_{{ContentAttr}}_{{subAttr}}_{{name}}-->
+    <!--enum Type: {title,dialog,toast,menu,view,default} 该分类不要缺省-->
+    <!--ContentAttr： 文本的内容性质属性，例如dialog type下，
+    title是dialog标题，content是正文内容，button是操作按钮的文本，-->
+    <!--subAttr: 附加额外的属性-->
+    <!--name: 直接和内容相关-->
+
+    <string name="app_name">LhtTalk</string>
+
+    <!--activity title-->
+    <string name="title_activity_messageinfo">消息详情</string>
+
+    <!--mask-->
+
+    <!--HomeActivity的tab-->
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <!--登录页面文字-->
+
+
+    <!-- 忘记密码 -->
+
+    <string name="cancel">取消</string>
+    <string name="no_internet">无可用网络</string>
+
+
+    <!-- 重置密码-->
+
+    <!-- 第三方的注册-->
+
+    <!-- 设置-->
+
+
+    <!-- 意见反馈-->
+
+
+    <!-- 我的关注-->
+
+    <!-- 分享-->
+
+
+    <!-- 个人认证-->
+
+    <!-- -->
+
+    <!--account combine-->
+
+
+    <!--我的关注-->
+
+    <!-- 搜索-->
+
+    <!-- 网络异常提示-->
+
+
+    <!--手机绑定-->
+
+
+    <string name="v1000_toast_net_exception">网络连接超时</string>
+    <string name="v1000_toast_server_error">网络异常、请稍后重试</string>
+    <string name="v1000_toast_net_401">身份认证已过期</string>
+
+    <string name="v1020_versionupdate_dialog_btn_update">立即更新</string>
+    <string name="v1020_versionupdate_dialog_btn_noupdate">以后再说</string>
+    <string name="v1020_versionupdate_notification_ticker">版本更新通知</string>
+    <string name="v1020_versionupdate_dialog_notification_title">FLAG社</string>
+    <string name="v1020_versionupdate_dialog_notification_description">版本更新提醒！发现新版本啦，更新后享受更多功能。</string>
+
+    <string name="v1022_dialog_permission_camera">暂无相机权限，请在权限管理中允许相机访问权限</string>
+    <string name="v1022_dialog_permission_sd">暂无存储读写权限，请在权限管理中允许存储访问权限</string>
+    <string name="v1022_dialog_permission_pbtn">去设置</string>
+    <string name="v1022_dialog_permission_nbtn">暂不设置</string>
+
+    <!--登录-->
+
+
+    <!-- 注册-->
+    <string name="v1000_toast_error_null_pwd">请输入密码</string>
+    <string name="v1000_toast_register_text_pwd_illegal">密码为6-20位数字/字母及组合</string>
+
+    <!--账号管理Activity-->
+
+    <!--修改密码-->
+
+    <!--三方账号-->
+
+    <!--设置-->
+
+    <!--关联账号-->
+
+    <!--设置密码-->
+
+    <!--发布文章-->
+
+
+    <!--我的-->
+
+    <!-- 个人信息-->
+
+
+    <!-- 个人资料 -->
+
+    <!--修改昵称-->
+
+    <!-- 修改密码-->
+
+    <!--手机绑定-->
+
+    <!--选择身份（引流页）-->
+
+    <!--选择圈子-->
+
+    <!--快捷绑定-->
+
+    <!-- 发布项目 -->
+
+    <!--选择项目类型-->
+
+    <!--验证手机号-->
+
+    <!--消息-->
+
+    <!--我的项目-->
+
+
+    <!-- 引导页 -->
+
+
+    <!--home 圈子-->
+    <!--home 项目-->
+
+
+    <!--选择项目状态-->
+
+    <!--圈子详情-->
+
+</resources>
