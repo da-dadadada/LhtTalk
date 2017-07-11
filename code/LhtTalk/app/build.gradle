@@ -88,4 +88,6 @@ dependencies {
     compile('com.alibaba.android:vlayout:1.0.6@aar') {
         transitive = true
     }
+
+    compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.5'
 }

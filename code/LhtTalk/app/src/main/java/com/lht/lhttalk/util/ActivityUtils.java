@@ -23,40 +23,33 @@
  *
  */
 
-package com.lht.lhttalk.customview.tab;
+package com.lht.lhttalk.util;
 
-import android.view.View;
-import android.widget.CompoundButton;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
-import java.util.HashMap;
-import java.util.Set;
+import static com.lht.lhttalk.util.ObjectUtil.checkNotNull;
+
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.clazz
- * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> OnCheckedChangeListenerImpl
- * <p><b>Description</b>: 自定义的tabhost控制RadioButton只有一个被选中的监听器类
- * Created by leobert on 2016/7/19.
+ * This provides methods to help Activities load their UI.
  */
-public class OnCheckedChangeListenerImpl implements View.OnClickListener {
+public class ActivityUtils {
 
-    private HashMap<CompoundButton, CompoundButton.OnCheckedChangeListener> callbacks;
-
-    public OnCheckedChangeListenerImpl(HashMap<CompoundButton, CompoundButton.OnCheckedChangeListener> callbacks) {
-        this.callbacks = callbacks;
+    /**
+     * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
+     * performed by the {@code fragmentManager}.
+     *
+     */
+    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
+                                              @NonNull Fragment fragment, int frameId) {
+        checkNotNull(fragmentManager);
+        checkNotNull(fragment);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(frameId, fragment);
+        transaction.commit();
     }
 
-    @Override
-    public void onClick(View v) {
-        Set<CompoundButton> keys = callbacks.keySet();
-        for (CompoundButton key : keys) {
-            if(key == v) {
-                callbacks.get(key).onCheckedChanged(key,true);
-                key.setChecked(true);
-            } else {
-                callbacks.get(key).onCheckedChanged(key,false);
-                key.setChecked(false);
-            }
-        }
-    }
 }
