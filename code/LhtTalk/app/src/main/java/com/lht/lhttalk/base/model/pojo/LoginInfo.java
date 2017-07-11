@@ -25,7 +25,7 @@
 
 package com.lht.lhttalk.base.model.pojo;
 
-import com.lht.lhttalk.module.user.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 import com.lht.lhttalk.util.string.StringUtil;
 
 /**

@@ -23,40 +23,41 @@
  *
  */
 
-package com.lht.lhttalk.customview.tab;
+package com.lht.lhttalk.module.cache;
 
-import android.view.View;
-import android.widget.CompoundButton;
-
-import java.util.HashMap;
-import java.util.Set;
+import java.io.File;
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.clazz
- * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> OnCheckedChangeListenerImpl
- * <p><b>Description</b>: 自定义的tabhost控制RadioButton只有一个被选中的监听器类
- * Created by leobert on 2016/7/19.
+ * <p><b>Package:</b> com.lht.lhttalk.interfaces.cache </p>
+ * <p><b>Project:</b> czspace </p>
+ * <p><b>Classname:</b> ICacheController </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/4/17.
  */
-public class OnCheckedChangeListenerImpl implements View.OnClickListener {
 
-    private HashMap<CompoundButton, CompoundButton.OnCheckedChangeListener> callbacks;
+public interface ICacheController {
 
-    public OnCheckedChangeListenerImpl(HashMap<CompoundButton, CompoundButton.OnCheckedChangeListener> callbacks) {
-        this.callbacks = callbacks;
-    }
+    void notifyUserChanged(String user);
 
-    @Override
-    public void onClick(View v) {
-        Set<CompoundButton> keys = callbacks.keySet();
-        for (CompoundButton key : keys) {
-            if(key == v) {
-                callbacks.get(key).onCheckedChanged(key,true);
-                key.setChecked(true);
-            } else {
-                callbacks.get(key).onCheckedChanged(key,false);
-                key.setChecked(false);
-            }
-        }
+    void registerCacheChangedListener(OnCacheChangedListener listener);
+
+
+    File getSystemImageDir();
+
+    File getLocalDownloadCacheDir();
+
+    File getSystemDownloadDir();
+
+    File getLocalThumbnailCacheDir();
+
+    File getLocalPreviewCacheDir();
+
+    /**
+     * @return the bytes count that the current user used
+     */
+    long getUserLocalCacheSize();
+
+    interface OnCacheChangedListener {
+        void onCacheChanged(ICacheController cacheController);
     }
 }

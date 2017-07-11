@@ -25,8 +25,6 @@
 
 package com.lht.lhttalk.base.model.pojo;
 
-import com.lht.lhttalk.hybrid.native4js.expandreqbean.NF_DownloadReqBean;
-import com.lht.lhttalk.module.setting.model.CheckVersionUpdateModel;
 
 /**
  * <p><b>Package</b> com.lht.vsocyy.mvp.model.pojo
@@ -85,21 +83,21 @@ public class DownloadEntity {
         return entity;
     }
 
-    public static DownloadEntity copyFromVersionResBean(CheckVersionUpdateModel.VersionResBean.VersionInfoData versionInfoData) {
-        DownloadEntity entity = new DownloadEntity();
-        int index = versionInfoData.getUrl().lastIndexOf("/");
-        versionInfoData.setFileName(versionInfoData.getUrl().substring(index + 1));
-        entity.setFileName(versionInfoData.getFileName());
-//        entity.setFileSize(versionResBean.getFileSize());
-        entity.setFileUrl(versionInfoData.getUrl());
-        return entity;
-    }
-
-    public static DownloadEntity copyFromDownloadBean(NF_DownloadReqBean bean) {
-        DownloadEntity entity = new DownloadEntity();
-        entity.setFileUrl(bean.getUrl_download());
-        entity.setFileName(bean.getFile_name());
-        entity.setFileSize(bean.getFile_size());
-        return entity;
-    }
+//    public static DownloadEntity copyFromVersionResBean(CheckVersionUpdateModel.VersionResBean.VersionInfoData versionInfoData) {
+//        DownloadEntity entity = new DownloadEntity();
+//        int index = versionInfoData.getUrl().lastIndexOf("/");
+//        versionInfoData.setFileName(versionInfoData.getUrl().substring(index + 1));
+//        entity.setFileName(versionInfoData.getFileName());
+////        entity.setFileSize(versionResBean.getFileSize());
+//        entity.setFileUrl(versionInfoData.getUrl());
+//        return entity;
+//    }
+//
+//    public static DownloadEntity copyFromDownloadBean(NF_DownloadReqBean bean) {
+//        DownloadEntity entity = new DownloadEntity();
+//        entity.setFileUrl(bean.getUrl_download());
+//        entity.setFileName(bean.getFile_name());
+//        entity.setFileSize(bean.getFile_size());
+//        return entity;
+//    }
 }

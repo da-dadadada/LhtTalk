@@ -31,7 +31,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.lht.lhttalk.base.MainApplication;
-import com.lht.lhttalk.module.setting.ui.SettingActivity;
 import com.lht.lhttalk.util.debug.DLog;
 
 import java.io.File;
@@ -113,7 +112,7 @@ public class CleanUtil {
         String key = "";
     }
 
-    class CalcThread extends Thread {
+    private class CalcThread extends Thread {
         private final Handler mHandler;
 
         public CalcThread(Handler hanlder) {
@@ -134,7 +133,6 @@ public class CleanUtil {
                 long cacheSize = getFileSize(previewFile)
                                 + getFileSize(localThumbFile);
 //                                + getFileSize(innerCache);
-                DLog.i(SettingActivity.class, new DLog.LogLocation(), "cache size:" + cacheSize);
                 b.putLong(MyHandler.KEY_DOWNLOADSIZE, downSize);
                 b.putLong(MyHandler.KEY_CACHESIZE, cacheSize);
             } catch (Exception e) {

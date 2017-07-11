@@ -23,33 +23,33 @@
  *
  */
 
-package com.lht.lhttalk.base.launcher;
+package com.lht.lhttalk.util;
 
-import android.content.Context;
-import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
-import com.lht.lhttalk.module.login.LoginActivity;
+import static com.lht.lhttalk.util.ObjectUtil.checkNotNull;
+
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.clazz
- * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> LoginIntentFactory
- * <p><b>Description</b>: TODO
- * Created by leobert on 2016/5/6.
+ * This provides methods to help Activities load their UI.
  */
-public class LoginIntentFactory {
+public class ActivityUtils {
 
-    public static Intent create(Context context, ITriggerCompare iTriggerCompare) {
-//        Intent intent = new Intent(context, LoginActivity.class);
-//        intent.putExtra(LoginActivity.KEY_TRIGGER,iTriggerCompare.getSerializable());
-//        return intent;
-        return new LoginIntent(context, iTriggerCompare);
+    /**
+     * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
+     * performed by the {@code fragmentManager}.
+     *
+     */
+    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
+                                              @NonNull Fragment fragment, int frameId) {
+        checkNotNull(fragmentManager);
+        checkNotNull(fragment);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(frameId, fragment);
+        transaction.commit();
     }
 
-    public static class LoginIntent extends Intent {
-        public LoginIntent(Context context,ITriggerCompare iTriggerCompare) {
-            super(context, LoginActivity.class);
-            putExtra(LoginActivity.KEY_TRIGGER,iTriggerCompare.getSerializable());
-        }
-    }
 }

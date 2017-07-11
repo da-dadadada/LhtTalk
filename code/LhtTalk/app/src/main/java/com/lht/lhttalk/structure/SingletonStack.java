@@ -23,19 +23,26 @@
  *
  */
 
-package com.lht.lhttalk.util;
+package com.lht.lhttalk.structure;
+
+import java.util.Stack;
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.util
+ * <p><b>Package</b> com.lht.vsocyy.clazz
  * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> VsoUtil
+ * <p><b>Classname</b> SingletonStack
  * <p><b>Description</b>: TODO
- * <p> Create by Leobert on 2016/9/7
+ * <p>Created by leobert on 2016/12/28.
  */
-public class VsoUtil {
-//    @Deprecated
-//    public static String createVsoSessionCode(String username, String userid) {
-//        String _s = IPublicConst.VSO_SESSION_PREFIX + username + userid;
-//        return Md5Util.getStringMd5(_s);
-//    }
+
+public class SingletonStack<E> extends Stack<E> {
+
+    @Override
+    public synchronized boolean add(E object) {
+        if (contains(object)) {
+            remove(object);
+        }
+
+        return super.add(object);
+    }
 }

@@ -29,7 +29,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.lht.lhttalk.customview.toast.HeadUpToast;
+//import com.lht.lhttalk.customview.toast.HeadUpToast;
 
 import java.util.ArrayList;
 
@@ -114,9 +114,9 @@ public class ToastUtils {
             return;
         preMsg = msg;
         ToastJob job = new ToastJob();
-        HeadUpToast toast = new HeadUpToast(c);
-        toast.setContent(type, msg);
-        job.setToast(toast.getToast());
+//        HeadUpToast toast = new HeadUpToast(c);
+//        toast.setContent(type, msg);
+//        job.setToast(toast.getToast());
         job.setTime(shortTime);
         synchronized (syncLock) {
             ToastList.add(job);

@@ -26,6 +26,7 @@
 package com.lht.lhttalk.base.presenter;
 
 import com.lht.lhttalk.Event.AppEvent;
+import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.launcher.ITriggerCompare;
 import com.lht.lhttalk.base.model.pojo.LoginInfo;
@@ -41,7 +42,7 @@ import com.lht.lhttalk.base.model.pojo.LoginInfo;
  * <p/>
  * Created by leobert on 2016/5/5.
  */
-public abstract class ABSVerifyNeedPresenter implements IVerifyHolder{
+public abstract class ABSVerifyNeedPresenter implements IVerifyHolder,BasePresenter{
 
     /**
      * desc: 页面接收到订阅事件后，调用presenter#identifyTrigger，执行逻辑，需要区分触发事件是不是登录事件
@@ -78,14 +79,6 @@ public abstract class ABSVerifyNeedPresenter implements IVerifyHolder{
     protected final boolean isLogin() {
         return getLoginInfo().isLogin();
     }
-
-//    /**
-//     * desc: update status,implement the method with an appropriate design
-//     *
-//     * @param isLogin
-//     */
-//    public abstract void setLoginStatus(boolean isLogin);
-
 
     @Override
     public final LoginInfo getLoginInfo() {

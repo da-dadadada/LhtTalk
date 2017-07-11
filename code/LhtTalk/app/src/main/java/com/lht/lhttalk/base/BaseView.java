@@ -23,14 +23,10 @@
  *
  */
 
-package com.lht.lhttalk.customview.zdepth.shadow;
+package com.lht.lhttalk.base;
 
-import android.graphics.Canvas;
+public interface BaseView<T> {
 
-import com.lht.lhttalk.customview.zdepth.ZDepthParam;
+    void setPresenter(T presenter);
 
-
-public interface Shadow {
-    public void setParameter(ZDepthParam parameter, int left, int top, int right, int bottom);
-    public void onDraw(Canvas canvas);
 }
