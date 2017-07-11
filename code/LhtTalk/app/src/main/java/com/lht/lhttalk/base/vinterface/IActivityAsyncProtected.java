@@ -28,8 +28,6 @@ package com.lht.lhttalk.base.vinterface;
 import android.content.res.Resources;
 import android.widget.ProgressBar;
 
-import com.lht.lhttalk.umeng.IUmengReport;
-
 /**
  * @package com.lht.vsocyy.mvp.viewinterface
  * @project AndroidBase
@@ -37,7 +35,7 @@ import com.lht.lhttalk.umeng.IUmengReport;
  * @description: 同步等待窗，阻拦屏幕事件等
  * Created by leobert on 2016/4/1.
  */
-public interface IActivityAsyncProtected extends IUmengReport{
+public interface IActivityAsyncProtected {
 
     /**
      * desc: 提供等待窗

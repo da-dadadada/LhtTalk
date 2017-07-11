@@ -42,7 +42,7 @@ import com.lht.lhttalk.module.publ.SplashActivity;
 import com.lht.lhttalk.structure.SingletonStack;
 import com.lht.lhttalk.util.AppPreference;
 import com.lht.lhttalk.util.debug.DLog;
-import com.umeng.analytics.MobclickAgent;
+//import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -122,11 +122,6 @@ public class MainApplication extends Application {
                 });
 
 
-        //umeng
-        {
-            MobclickAgent.setDebugMode(true);
-//            DLog.d(getClass(), "device info:" + UMengTestHelpler.getDeviceInfo(getOurInstance()));
-        }
 
         EventBus.getDefault().register(this);
 

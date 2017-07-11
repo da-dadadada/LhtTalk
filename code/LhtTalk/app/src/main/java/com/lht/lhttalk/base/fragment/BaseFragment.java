@@ -35,7 +35,6 @@ import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.MainApplication;
 import com.lht.lhttalk.base.model.pojo.LoginInfo;
 import com.lht.lhttalk.util.debug.DLog;
-import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 
@@ -76,8 +75,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void onRestrictPause() {
-        MobclickAgent.onPageEnd(getPageName());
-
 //        Log.e("lmsg", getPageName() + " onRestrictPause");
         if (getCurrentChildFragment() != null) {
             if (getCurrentChildFragment() instanceof BaseFragment) {
@@ -88,8 +85,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void onRestrictResume() {
-        MobclickAgent.onPageStart(getPageName());
-
 //        Log.e("lmsg", getPageName() + " onRestrictResume");
         if (getCurrentChildFragment() != null) {
             if (getCurrentChildFragment() instanceof BaseFragment) {

@@ -23,34 +23,33 @@
  *
  */
 
-package com.lht.lhttalk.umeng.customerror;
-
-import android.content.Context;
+package com.lht.lhttalk.module.ucenter;
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.clazz
- * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> IUmengCustomError
- * <p><b>Description</b>: TODO
- * <p>Created by leobert on 2016/12/14.
+ * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
+ * <p><b>Project:</b> LhtTalk </p>
+ * <p><b>Classname:</b> LoginAccount </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/7/11.
  */
 
-public interface IUmengCustomError {
+public class LoginAccount {
+    private String account;
+    private String password;
 
-    void setErrorType(String type);
+    public String getAccount() {
+        return account;
+    }
 
-    void setErrorInfo(String info);
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
-    void setErrorData(String data);
+    public String getPassword() {
+        return password;
+    }
 
-    /**
-     * if you are sure the application is alive,you can use this;
-     */
-    void report();
-
-    /**
-     * better use this to report
-     * @param context
-     */
-    void report(Context context);
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

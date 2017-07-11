@@ -32,13 +32,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.lht.lhttalk.base.activity.BaseActivity;
-import com.lht.lhttalk.base.activity.UMengActivity;
+import com.lht.lhttalk.base.activity.ExclusivePopupWinsActivity;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.base.vinterface.IActivityAsyncProtected;
 import com.lht.lhttalk.util.debug.DLog;
 import com.lht.lhttalk.util.toast.ToastUtils;
 
-public abstract class AsyncProtectedActivity extends UMengActivity
+public abstract class AsyncProtectedActivity extends ExclusivePopupWinsActivity
         implements IActivityAsyncProtected {
 
     @Override

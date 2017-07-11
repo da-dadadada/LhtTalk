@@ -27,9 +27,6 @@ package com.lht.lhttalk.module.login;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.lht.lhttalk.R;
@@ -61,10 +58,6 @@ public class LoginActivity extends AsyncProtectedActivity {
         return null;
     }
 
-    @Override
-    protected String getPageName() {
-        return null;
-    }
 
     @Override
     public BaseActivity getActivity() {

@@ -466,13 +466,13 @@ public abstract class BaseActivity extends AppCompatActivity
     private void restrict2DestOnFinish() {
         try {
             if (StringUtil.isEmpty(originClassShouldRedirectOnfinish)) {
-                DLog.i(UMengActivity.class, "开始时重定向页面未指定,重新判断是否中途重定向");
+                DLog.i(BaseActivity.class, "开始时重定向页面未指定,重新判断是否中途重定向");
                 parseOriginClassShouldRestrictOnfinish(getIntent());
                 if (StringUtil.isEmpty(originClassShouldRedirectOnfinish)) {
-                    DLog.i(UMengActivity.class, "始终未进行页面重定向");
+                    DLog.i(BaseActivity.class, "始终未进行页面重定向");
                     return;
                 } else {
-                    DLog.d(UMengActivity.class, "中途重定向：" + originClassShouldRedirectOnfinish);
+                    DLog.d(BaseActivity.class, "中途重定向：" + originClassShouldRedirectOnfinish);
                 }
             }
 
