@@ -44,6 +44,7 @@ import android.content.Context;
  *
  * Created by leobert on 2016/7/7.
  */
+@Deprecated
 public interface IApiRequestModel extends ICancelRequest {
     /**
      * 执行请求

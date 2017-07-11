@@ -65,9 +65,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
+
     testCompile 'junit:junit:4.12'
-
-
     compile 'individual.leobert.libs:actionsheet:1.0.0'
     compile 'individual.leobert.libs:numbadge:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -84,10 +83,9 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'individual.leobert.libs:vlayoutext:1.1.0'
     testCompile 'junit:junit:4.12'
-
     compile('com.alibaba.android:vlayout:1.0.6@aar') {
         transitive = true
     }
-
     compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.5'
+
 }

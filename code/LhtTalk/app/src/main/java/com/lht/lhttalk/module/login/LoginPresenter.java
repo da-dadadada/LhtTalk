@@ -23,32 +23,41 @@
  *
  */
 
-package com.lht.lhttalk.util;
+package com.lht.lhttalk.module.login;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.content.Context;
+import android.widget.Toast;
 
-import static com.lht.lhttalk.util.ObjectUtil.checkNotNull;
-
+import com.lht.lhttalk.util.string.StringUtil;
 
 /**
- * This provides methods to help Activities load their UI.
+ * Created by chhyu on 2017/7/11.
  */
-public class ActivityUtils {
 
-    /**
-     * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
-     * performed by the {@code fragmentManager}.
-     *
-     */
-    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
-                                              @NonNull Fragment fragment, int frameId) {
-        checkNotNull(fragmentManager);
-        checkNotNull(fragment);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(frameId, fragment);
-        transaction.commit();
+public class LoginPresenter implements LoginContract.Presenter {
+    private Context context;
+    private LoginContract.View view;
+
+    public LoginPresenter(Context context, LoginContract.View view) {
+        this.context = context;
+        this.view = view;
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void doLogin(String username, String pwd) {
+        if (StringUtil.isEmpty(username)) {
+            Toast.makeText(context, "请输入用户名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (StringUtil.isEmpty(pwd)) {
+            Toast.makeText(context, "请输入密码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
     }
 }

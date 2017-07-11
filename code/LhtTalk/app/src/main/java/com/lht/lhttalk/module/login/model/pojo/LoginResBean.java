@@ -34,4 +34,5 @@ package com.lht.lhttalk.module.login.model.pojo;
  */
 
 public class LoginResBean {
+
 }

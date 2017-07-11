@@ -26,22 +26,34 @@
 package com.lht.lhttalk.module.publ;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 
 import com.lht.lhttalk.R;
+import com.lht.lhttalk.module.login.LoginActivity;
 
 public class SplashActivity extends Activity {
+
+    private RelativeLayout rlSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-
-
+        initView();
     }
 
+    private void initView() {
+        rlSplash = (RelativeLayout) findViewById(R.id.rl_splash);
+        rlSplash.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 2000);
 
-
-
+    }
 }

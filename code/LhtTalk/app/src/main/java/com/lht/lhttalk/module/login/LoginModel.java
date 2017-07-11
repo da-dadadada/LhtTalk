@@ -23,32 +23,29 @@
  *
  */
 
-package com.lht.lhttalk.util;
+package com.lht.lhttalk.module.login;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.content.Context;
 
-import static com.lht.lhttalk.util.ObjectUtil.checkNotNull;
-
+import com.lht.lhttalk.base.model.apimodel.IApiRequestModel;
 
 /**
- * This provides methods to help Activities load their UI.
+ * Created by chhyu on 2017/7/11.
  */
-public class ActivityUtils {
 
-    /**
-     * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
-     * performed by the {@code fragmentManager}.
-     *
-     */
-    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
-                                              @NonNull Fragment fragment, int frameId) {
-        checkNotNull(fragmentManager);
-        checkNotNull(fragment);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(frameId, fragment);
-        transaction.commit();
+public class LoginModel implements IApiRequestModel {
+
+    public LoginModel(String username, String password) {
+
+    }
+
+    @Override
+    public void doRequest(Context context) {
+
+    }
+
+    @Override
+    public void cancelRequestByContext(Context context) {
+
     }
 }
