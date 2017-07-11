@@ -114,11 +114,7 @@ public class LoginActivity extends AsyncProtectedActivity{
     protected IApiRequestPresenter getApiRequestPresenter() {
         return null;
     }
-
-    @Override
-    protected String getPageName() {
-        return null;
-    }
+    
 
     @Override
     public BaseActivity getActivity() {
