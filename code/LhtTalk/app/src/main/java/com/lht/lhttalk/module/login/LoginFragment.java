@@ -25,9 +25,11 @@
 
 package com.lht.lhttalk.module.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ import android.widget.ProgressBar;
 
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 
 /**
  * Created by chhyu on 2017/7/11.
@@ -49,7 +52,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     private EditText etPassword;
     private Button btnLogin;
     private ProgressBar progressBar;
-    private LoginPresenter presenter;
+    private LoginContract.Presenter presenter;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -58,8 +61,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fg_login, null);
-        return view;
+        return inflater.inflate(R.layout.fg_login, null);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     protected void initVariable() {
-        presenter = new LoginPresenter(getActivity(), this);
+
     }
 
     @Override
@@ -91,6 +93,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
             public void onClick(View v) {
                 String username = tvUsername.getText().toString();
                 String password = etPassword.getText().toString();
+
+                Log.e("lmsg", "username=" + username + ",password=" + password);
                 presenter.doLogin(username, password);
             }
         });
@@ -102,7 +106,22 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     }
 
     @Override
-    public void setPresenter(@NonNull LoginContract.Presenter presenter) {
+    public void setPresenter(@NonNull LoginContract.Presenter presenter1) {
+        presenter = presenter1;
+    }
 
+
+    @Override
+    public void showWaitView(boolean isShow) {
+        if (isShow) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void jump2MainActivity(LoginResBean data) {
+        // TODO: 2017/7/11 login success jump to mainactivity 
     }
 }

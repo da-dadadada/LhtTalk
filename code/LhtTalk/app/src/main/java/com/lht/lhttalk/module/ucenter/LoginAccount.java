@@ -25,6 +25,8 @@
 
 package com.lht.lhttalk.module.ucenter;
 
+import android.support.annotation.NonNull;
+
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
  * <p><b>Project:</b> LhtTalk </p>
@@ -36,6 +38,11 @@ package com.lht.lhttalk.module.ucenter;
 public class LoginAccount {
     private String account;
     private String password;
+
+    public LoginAccount(@NonNull String account,@NonNull String password) {
+        this.account = account;
+        this.password = password;
+    }
 
     public String getAccount() {
         return account;

@@ -27,6 +27,7 @@ package com.lht.lhttalk.module.api;
 
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
+import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.util.string.StringUtil;
 import com.loopj.android.http.RequestParams;
 
@@ -68,16 +69,6 @@ public interface IApiNewCollections {
             return params;
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -166,10 +157,10 @@ public interface IApiNewCollections {
             return null;
         }
 
-        public RequestParams newRequestParams(String usr, String pwd) {
+        public RequestParams newRequestParams(LoginAccount account) {
             RequestParams params = super.newRequestParams();
-            params.add(KEY_NAME, usr);
-            params.add(KEY_PASSWORD, pwd);
+            params.add(KEY_NAME, account.getAccount());
+            params.add(KEY_PASSWORD, account.getPassword());
             params.add(KEY_CLIENT_ID, VALUE_CLIENT_ID);
             params.add("auto_login", "1");
             return params;
@@ -202,7 +193,6 @@ public interface IApiNewCollections {
         }
 
     }
-
 
 
 //    /**

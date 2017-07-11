@@ -25,6 +25,12 @@
 
 package com.lht.lhttalk.module.ucenter;
 
+import android.content.Context;
+
+import com.lht.lhttalk.base.model.apimodel.ApiModelCallback;
+import com.lht.lhttalk.module.login.LoginApiRequest;
+import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
  * <p><b>Project:</b> LhtTalk </p>
@@ -34,8 +40,7 @@ package com.lht.lhttalk.module.ucenter;
  */
 
 public class UserModel {
-    private final  UserBean userBean;
-
+    private final UserBean userBean;
 
 
     public UserModel(UserBean userBean) {
@@ -46,8 +51,13 @@ public class UserModel {
 
     }
 
-    public void login() {
+    public void login(Context context, ApiModelCallback<LoginResBean> modelCallback) {
+        LoginApiRequest request = new LoginApiRequest(userBean.getLoginAccount(), modelCallback);
+        request.doRequest(context);
+    }
 
+    public boolean isLogin() {
+        return false;
     }
 
     public void getBasicInfo() {

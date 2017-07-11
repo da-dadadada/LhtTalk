@@ -32,7 +32,7 @@ package com.lht.lhttalk.base.model.apimodel;
  * <p><b>Description</b>: 分页类型的API-Model
  * <p> Create by Leobert on 2016/8/23
  */
-public interface IPagedApiRequestModel extends IApiRequestModel {
+public interface IPagedApiRequest extends IApiRequest {
 
     void setParams(String usr, int offset);
 

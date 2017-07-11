@@ -27,6 +27,7 @@ package com.lht.lhttalk.module.login;
 
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.BaseView;
+import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 
 /**
  * Created by chhyu on 2017/7/11.
@@ -36,6 +37,9 @@ public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showWaitView(boolean isShow);
+
+        void jump2MainActivity(LoginResBean data);
     }
 
     interface Presenter extends BasePresenter {

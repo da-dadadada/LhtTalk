@@ -26,8 +26,16 @@
 package com.lht.lhttalk.module.login;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.lht.lhttalk.base.model.apimodel.ApiModelCallback;
+import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
+import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
+import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.ucenter.LoginAccount;
+import com.lht.lhttalk.module.ucenter.UserBean;
+import com.lht.lhttalk.module.ucenter.UserModel;
 import com.lht.lhttalk.util.string.StringUtil;
 
 /**
@@ -38,9 +46,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     private Context context;
     private LoginContract.View view;
 
+    private LoginAccount loginAccount;
+
     public LoginPresenter(Context context, LoginContract.View view) {
         this.context = context;
         this.view = view;
+
+        view.setPresenter(this);
     }
 
     @Override
@@ -50,6 +62,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String username, String pwd) {
+        view.showWaitView(true);
         if (StringUtil.isEmpty(username)) {
             Toast.makeText(context, "请输入用户名", Toast.LENGTH_SHORT).show();
             return;
@@ -58,6 +71,32 @@ public class LoginPresenter implements LoginContract.Presenter {
             Toast.makeText(context, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
+        loginAccount = new LoginAccount(username, pwd);
+        UserModel userModel = new UserModel(new UserBean(loginAccount));
+        userModel.login(context, new LoginRequestCallbask());
 
+    }
+
+    class LoginRequestCallbask implements ApiModelCallback<LoginResBean> {
+
+        @Override
+        public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
+            view.showWaitView(false);
+            Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+            LoginResBean data = beanContainer.getData();
+            view.jump2MainActivity(data);
+        }
+
+        @Override
+        public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
+            view.showWaitView(false);
+            Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onHttpFailure(int httpStatus) {
+            view.showWaitView(false);
+            Toast.makeText(context, "网诺异常", Toast.LENGTH_SHORT).show();
+        }
     }
 }

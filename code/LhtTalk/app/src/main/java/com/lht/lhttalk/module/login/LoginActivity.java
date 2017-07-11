@@ -42,6 +42,7 @@ public class LoginActivity extends AsyncProtectedActivity {
 
 
     public static String KEY_TRIGGER = "trigger_key";
+    private LoginPresenter loginPresenter;
     // UI references.
 
     @Override
@@ -78,10 +79,11 @@ public class LoginActivity extends AsyncProtectedActivity {
     @Override
     protected void initEvent() {
         LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if(loginFragment==null){
-            loginFragment=loginFragment.newInstance();
+        if (loginFragment == null) {
+            loginFragment = loginFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.contentFrame);
         }
+        loginPresenter = new LoginPresenter(this, loginFragment);
     }
 
 

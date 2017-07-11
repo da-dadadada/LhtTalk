@@ -25,6 +25,8 @@
 
 package com.lht.lhttalk.module.ucenter;
 
+import android.support.annotation.NonNull;
+
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
  * <p><b>Project:</b> LhtTalk </p>
@@ -34,23 +36,34 @@ package com.lht.lhttalk.module.ucenter;
  */
 
 public class UserBean {
-
-
     private String username;
     private String token;
 
-    
-    private LoginAccount loginAccount;
+    private final LoginAccount loginAccount;
 
 
-
-
-    public UserBean() {
+    public UserBean(@NonNull LoginAccount loginAccount) {
+        this.loginAccount  = loginAccount;
     }
 
-
-
-    public UserBean(LoginAccount loginAccount) {
-
+    public String getUsername() {
+        return username;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LoginAccount getLoginAccount() {
+        return loginAccount;
+    }
+
 }

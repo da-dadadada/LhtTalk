@@ -25,8 +25,11 @@
 
 package com.lht.lhttalk.base.model.apimodel;
 
+import android.content.Context;
+
 import com.lht.lhttalk.util.internet.AsyncResponseHandlerComposite;
 import com.lht.lhttalk.util.internet.HttpAction;
+import com.lht.lhttalk.util.internet.HttpUtil;
 import com.lht.lhttalk.util.internet.RestfulApiResponseDebugHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -38,7 +41,25 @@ import com.loopj.android.http.RequestParams;
  * Created by leobert on 2017/3/7.
  */
 
-public class AbsRestfulApiModel {
+public abstract class AbsApiRequest<T> implements IApiRequest {
+    private final T data;
+    protected final HttpUtil httpUtil;
+
+    public AbsApiRequest(T data) {
+        this.data = data;
+        httpUtil = HttpUtil.getInstance();
+    }
+
+    protected T getData() {
+        return data;
+    }
+
+
+    @Override
+    public final void cancelRequestByContext(Context context) {
+        httpUtil.onActivityDestroy(context);
+    }
+
 
     protected final AsyncResponseHandlerComposite
     newAsyncResponseHandlerComposite(HttpAction action,
