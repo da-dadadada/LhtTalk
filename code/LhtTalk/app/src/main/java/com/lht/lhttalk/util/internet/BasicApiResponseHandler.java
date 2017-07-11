@@ -38,7 +38,7 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.MainApplication;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.cfg.SPConstants;
-import com.lht.lhttalk.module.home.ui.ac.HomeActivity;
+import com.lht.lhttalk.module.publ.SplashActivity;
 import com.lht.lhttalk.util.SPUtil;
 import com.lht.lhttalk.util.debug.DLog;
 import com.lht.lhttalk.util.toast.ToastUtils;
@@ -151,10 +151,11 @@ public class BasicApiResponseHandler extends AsyncHttpResponseHandler {
     }
 
     private void handleUnAuth() {
+        // TODO: 2017/7/11 navigation to login?
         Activity current = MainApplication.getOurInstance().getCurrentTopActivity();
         if (current == null) {
             Intent intent = new Intent();
-            intent.setClass(MainApplication.getOurInstance(), HomeActivity.class);
+            intent.setClass(MainApplication.getOurInstance(), SplashActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             EventBus.getDefault().post(new AppEvent.LogoutEvent());
@@ -168,7 +169,7 @@ public class BasicApiResponseHandler extends AsyncHttpResponseHandler {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent();
-                    intent.setClass(MainApplication.getOurInstance(), HomeActivity.class);
+                    intent.setClass(MainApplication.getOurInstance(), SplashActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     EventBus.getDefault().post(new AppEvent.LogoutEvent());

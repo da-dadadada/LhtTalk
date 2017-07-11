@@ -23,14 +23,41 @@
  *
  */
 
-package com.lht.lhttalk.customview.zdepth.shadow;
+package com.lht.lhttalk.module.cache;
 
-import android.graphics.Canvas;
+import java.io.File;
 
-import com.lht.lhttalk.customview.zdepth.ZDepthParam;
+/**
+ * <p><b>Package:</b> com.lht.lhttalk.interfaces.cache </p>
+ * <p><b>Project:</b> czspace </p>
+ * <p><b>Classname:</b> ICacheController </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/4/17.
+ */
+
+public interface ICacheController {
+
+    void notifyUserChanged(String user);
+
+    void registerCacheChangedListener(OnCacheChangedListener listener);
 
 
-public interface Shadow {
-    public void setParameter(ZDepthParam parameter, int left, int top, int right, int bottom);
-    public void onDraw(Canvas canvas);
+    File getSystemImageDir();
+
+    File getLocalDownloadCacheDir();
+
+    File getSystemDownloadDir();
+
+    File getLocalThumbnailCacheDir();
+
+    File getLocalPreviewCacheDir();
+
+    /**
+     * @return the bytes count that the current user used
+     */
+    long getUserLocalCacheSize();
+
+    interface OnCacheChangedListener {
+        void onCacheChanged(ICacheController cacheController);
+    }
 }

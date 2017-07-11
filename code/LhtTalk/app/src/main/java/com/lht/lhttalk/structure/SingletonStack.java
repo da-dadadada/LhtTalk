@@ -23,41 +23,26 @@
  *
  */
 
-package com.lht.lhttalk.customview.share;
+package com.lht.lhttalk.structure;
+
+import java.util.Stack;
 
 /**
- * @ClassName: ThirdPartyShareViewItem
- * @Description: TODO
- * @date 2016年3月29日 上午9:50:46
- * 
- * @author leobert.lan
- * @version 1.0
+ * <p><b>Package</b> com.lht.vsocyy.clazz
+ * <p><b>Project</b> VsoCyy
+ * <p><b>Classname</b> SingletonStack
+ * <p><b>Description</b>: TODO
+ * <p>Created by leobert on 2016/12/28.
  */
-public class ThirdPartyShareViewItem {
-	/**
-	 * drawableRes:图片资源
-	 */
-	int drawableRes;
 
-	/**
-	 * name:文字信息
-	 */
-	String name;
+public class SingletonStack<E> extends Stack<E> {
 
-	public int getDrawableRes() {
-		return drawableRes;
-	}
+    @Override
+    public synchronized boolean add(E object) {
+        if (contains(object)) {
+            remove(object);
+        }
 
-	public void setDrawableRes(int drawableRes) {
-		this.drawableRes = drawableRes;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+        return super.add(object);
+    }
 }

@@ -23,33 +23,15 @@
  *
  */
 
-package com.lht.lhttalk.base.launcher;
-
-import android.content.Context;
-import android.content.Intent;
-
-import com.lht.lhttalk.module.login.LoginActivity;
+package com.lht.lhttalk.module.login.model.pojo;
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.clazz
- * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> LoginIntentFactory
- * <p><b>Description</b>: TODO
- * Created by leobert on 2016/5/6.
+ * <p><b>Package:</b> com.lht.lhttalk.module.login.model.pojo </p>
+ * <p><b>Project:</b> LhtTalk </p>
+ * <p><b>Classname:</b> LoginResBean </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/7/11.
  */
-public class LoginIntentFactory {
 
-    public static Intent create(Context context, ITriggerCompare iTriggerCompare) {
-//        Intent intent = new Intent(context, LoginActivity.class);
-//        intent.putExtra(LoginActivity.KEY_TRIGGER,iTriggerCompare.getSerializable());
-//        return intent;
-        return new LoginIntent(context, iTriggerCompare);
-    }
-
-    public static class LoginIntent extends Intent {
-        public LoginIntent(Context context,ITriggerCompare iTriggerCompare) {
-            super(context, LoginActivity.class);
-            putExtra(LoginActivity.KEY_TRIGGER,iTriggerCompare.getSerializable());
-        }
-    }
+public class LoginResBean {
 }
