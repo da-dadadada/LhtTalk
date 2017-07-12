@@ -30,67 +30,71 @@ import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.base.model.apimodel.AbsApiRequest;
-import com.lht.lhttalk.base.model.apimodel.ApiModelCallback;
+import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.module.api.IApiNewCollections;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
-import com.lht.lhttalk.util.internet.AsyncResponseHandlerComposite;
 import com.lht.lhttalk.util.internet.HttpAction;
 import com.lht.lhttalk.util.internet.HttpUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
-
 /**
  * Created by chhyu on 2017/7/11.
  */
 
-public class LoginApiRequest extends AbsApiRequest<LoginAccount> {
+public class LoginApiRequest
+        extends AbsApiRequest<IApiNewCollections.LoginApi,LoginAccount> {
 
-    private HttpUtil httpUtil;
-    private ApiModelCallback<LoginResBean> modelCallback;
-    private RequestParams params;
-    private RequestHandle handle;
-    IApiNewCollections.LoginApi api;
+    private ApiRequestCallback<LoginResBean> modelCallback;
 
-    public LoginApiRequest(@NonNull LoginAccount account, ApiModelCallback<LoginResBean> modelCallback) {
-        super(account);
-        httpUtil = HttpUtil.getInstance();
+
+    public LoginApiRequest(@NonNull LoginAccount account, ApiRequestCallback<LoginResBean> modelCallback) {
+        super(IApiNewCollections.LoginApi.class,account);
         this.modelCallback = modelCallback;
-        api = new IApiNewCollections.LoginApi();
-        params = api.newRequestParams(account);
     }
 
     @Override
-    public void doRequest(Context context) {
-        String url = api.formatUrl(null);
-        AsyncResponseHandlerComposite composite = new AsyncResponseHandlerComposite(HttpAction.POST, url, params);
-        composite.addHandler(new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                if (bytes == null || bytes.length < 1) {
-                    return;
-                }
-                String res = new String(bytes);
-                BaseVsoApiResBean bean = JSON.parseObject(res, BaseVsoApiResBean.class);
-                if (bean.isSuccess()) {
-                    LoginResBean data = JSON.parseObject(bean.getData(), LoginResBean.class);
-                    modelCallback.onSuccess(new BaseBeanContainer<>(data));
-                } else {
-                    modelCallback.onFailure(new BaseBeanContainer<>(bean));
-                }
-            }
+    protected void handleSuccess(BaseVsoApiResBean baseVsoApiResBean) {
+        LoginResBean data = JSON.parseObject(baseVsoApiResBean.getData(),
+                LoginResBean.class);
+        modelCallback.onSuccess(new BaseBeanContainer<>(data));
+    }
 
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                modelCallback.onHttpFailure(i);
-            }
-        });
-        handle = httpUtil.postWithParams(context, url, params, composite);
+    @Override
+    protected void handleFailure(BaseVsoApiResBean baseVsoApiResBean) {
+        modelCallback.onFailure(new BaseBeanContainer<>(baseVsoApiResBean));
+    }
 
+    @Override
+    protected void handleHttpFailure(int httpCode) {
+        modelCallback.onHttpFailure(httpCode);
+    }
+
+    @Override
+    protected RequestHandle handle(HttpUtil httpUtil,
+                                   Context context,
+                                   String url,
+                                   RequestParams params,
+                                   AsyncHttpResponseHandler handler) {
+        return httpUtil.postWithParams(context, url, params, handler);
+    }
+
+    @Override
+    protected String formatUrl(IApiNewCollections.LoginApi apiImpl) {
+        return apiImpl.formatUrl(null);
+    }
+
+    @Override
+    protected RequestParams formatParam(IApiNewCollections.LoginApi apiImpl) {
+        return apiImpl.newRequestParams(getData());
+    }
+
+    @Override
+    protected HttpAction getHttpAction() {
+        return HttpAction.POST;
     }
 }
