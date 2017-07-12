@@ -27,16 +27,17 @@ package com.lht.lhttalk.module.main;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.activity.BaseActivity;
 import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
+import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
+import com.lht.lhttalk.module.contact.ContactFragment;
+import com.lht.lhttalk.module.friend.FriendFragment;
+import com.lht.lhttalk.module.mine.MineFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ import devlight.io.library.ntb.NavigationTabBar;
 public class MainActivity extends AsyncProtectedActivity {
 
     public static final String PAGENAME = "MainActivity";
+    public static String USER_LOGIN_INFO = "user_login_info";
     private NavigationTabBar tabBar;
     private ViewPager vpContainer;
 
@@ -64,22 +66,19 @@ public class MainActivity extends AsyncProtectedActivity {
         vpContainer = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
     }
 
-    List<View> views = new ArrayList<>();
-
+    List<BaseFragment> fragments = new ArrayList<>();
+    private HomeFragmentPagerAdapter fragmentPagerAdapter;
     @Override
     protected void initVariable() {
-        View view = new View(this);
-        view.setBackgroundColor(Color.BLUE);
-        View view2 = new View(this);
-        view.setBackgroundColor(Color.GREEN);
-        View view3 = new View(this);
-        view.setBackgroundColor(Color.YELLOW);
+        ContactFragment contactFragment = new ContactFragment();
+        FriendFragment friendFragment = new FriendFragment();
+        MineFragment mineFragment = new MineFragment();
 
-        views.add(view);
-        views.add(view2);
-        views.add(view3);
-//        views.add(view4);
-//        views.add(view5);
+        fragments.add(contactFragment);
+        fragments.add(friendFragment);
+        fragments.add(mineFragment);
+
+        fragmentPagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager(),fragments);
     }
 
     int[] colors = {Color.RED, Color.GREEN, Color.YELLOW};
@@ -87,29 +86,7 @@ public class MainActivity extends AsyncProtectedActivity {
     @Override
     protected void initEvent() {
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
-        vpContainer.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return views == null ? 0 : views.size();
-            }
-
-            @Override
-            public boolean isViewFromObject(final View view, final Object object) {
-                return view.equals(object);
-            }
-
-            @Override
-            public void destroyItem(final View container, final int position, final Object object) {
-                ((ViewPager) container).removeView((View) object);
-            }
-
-            @Override
-            public Object instantiateItem(final ViewGroup container, final int position) {
-                View view = views.get(position);
-                container.addView(view);
-                return view;
-            }
-        });
+        vpContainer.setAdapter(fragmentPagerAdapter);
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.mipmap.ic_launcher), colors[0])

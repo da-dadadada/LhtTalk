@@ -25,16 +25,35 @@
 
 package com.lht.lhttalk.module.publ;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
+import com.lht.lhttalk.base.activity.BaseActivity;
+import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
+import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
+import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
+import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
+import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.module.login.LoginActivity;
+import com.lht.lhttalk.module.login.LoginPresenter;
+import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.main.MainActivity;
+import com.lht.lhttalk.module.ucenter.LoginAccount;
+import com.lht.lhttalk.module.ucenter.UserBean;
+import com.lht.lhttalk.module.ucenter.UserModel;
+import com.lht.lhttalk.util.SPUtil;
+import com.lht.lhttalk.util.string.StringUtil;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
-public class SplashActivity extends Activity {
-
+public class SplashActivity extends AsyncProtectedActivity {
+    public static final String PAGENAME = "SplashActivity";
     private RelativeLayout rlSplash;
 
     @Override
@@ -42,18 +61,96 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initView();
+        initVariable();
+        initEvent();
     }
 
-    private void initView() {
+    @Override
+    public BaseActivity getActivity() {
+        return SplashActivity.this;
+    }
+
+    @Override
+    protected void initView() {
         rlSplash = (RelativeLayout) findViewById(R.id.rl_splash);
         rlSplash.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                autoLogin();
             }
         }, 2000);
+    }
 
+    private void autoLogin() {
+        SharedPreferences sp = getSharedPreferences(LoginPresenter.SP_NAME, MODE_PRIVATE);
+        String username = sp.getString(LoginPresenter.AUTO_LOGIN_USERNAME, "");
+        String password = sp.getString(LoginPresenter.AUTO_LOGIN_PASSWORD, "");
+        Log.e("lmsg", "userInfo=" + username + "+" + password);
+        if (StringUtil.isEmpty(username)) {
+            jump2LoginActivity();
+            return;
+        }
+        if (StringUtil.isEmpty(password)) {
+            jump2LoginActivity();
+            return;
+        }
+        LoginAccount loginAccount = new LoginAccount(username, password);
+        UserModel userModel = new UserModel(new UserBean(loginAccount));
+        userModel.login(this, new LoginRequestCallback());
+    }
+
+    @Override
+    protected IApiRequestPresenter getApiRequestPresenter() {
+        return null;
+    }
+
+
+    @Override
+    protected void initVariable() {
+
+    }
+
+    @Override
+    protected void initEvent() {
+
+    }
+
+    class LoginRequestCallback implements ApiRequestCallback<LoginResBean> {
+        @Override
+        public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
+            Log.e("lmsg", "自动登录成功");
+            LoginResBean data = beanContainer.getData();
+            jump2MainActivity(data);
+        }
+
+        @Override
+        public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
+            Log.e("lmsg", "自动登录失败");
+            jump2LoginActivity();
+        }
+
+        @Override
+        public void onHttpFailure(int httpStatus) {
+            jump2LoginActivity();
+            ToastUtils.show(SplashActivity.this, "网诺异常", ToastUtils.Duration.s);
+        }
+    }
+
+    private void jump2MainActivity(LoginResBean data) {
+        //自动登录成功
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MainActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
+        startActivity(intent);
+    }
+
+    @Override
+    public ProgressBar getProgressBar() {
+        return null;
+    }
+
+    public void jump2LoginActivity() {
+        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

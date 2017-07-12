@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
@@ -122,8 +123,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     public void jump2MainActivity(LoginResBean data) {
-        ((LoginActivity) getActivity()).finish();
         Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra(MainActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
+        ((LoginActivity) getActivity()).finish();
     }
 }

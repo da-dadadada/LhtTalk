@@ -23,39 +23,53 @@
  *
  */
 
-package com.lht.lhttalk.customview;
+package com.lht.lhttalk.module.friend;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.GridView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.lht.lhttalk.R;
+import com.lht.lhttalk.base.fragment.BaseFragment;
 
 /**
- * <p><b>Package</b> com.lht.vsocyy.customview
- * <p><b>Project</b> VsoCyy
- * <p><b>Classname</b> ConflictGridView
- * <p><b>Description</b>: TODO
- * Created by leobert on 2016/8/12.
+ * Created by chhyu on 2017/7/12.
  */
-public class ConflictGridView extends GridView {
-    public ConflictGridView(Context context) {
-        super(context);
-        setFocusable(false);
-    }
 
-    public ConflictGridView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        setFocusable(false);
-    }
+public class FriendFragment extends BaseFragment {
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-    public ConflictGridView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setFocusable(false);
+        return inflater.inflate(R.layout.fg_contact, null);
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view);
+        initVariable();
+        initEvent();
+    }
+    @Override
+    protected void initView(View contentView) {
+
     }
 
     @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE/2,
-                MeasureSpec.AT_MOST);
-        super.onMeasure(widthMeasureSpec, expandSpec);
+    protected void initVariable() {
+
+    }
+
+    @Override
+    protected void initEvent() {
+
+    }
+
+    @Override
+    protected String getPageName() {
+        return null;
     }
 }
