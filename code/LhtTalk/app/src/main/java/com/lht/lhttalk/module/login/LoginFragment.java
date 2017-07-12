@@ -122,6 +122,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     public void jump2MainActivity(LoginResBean data) {
-        // TODO: 2017/7/11 login success jump to mainactivity 
+        // TODO: 2017/7/11 login success jump to mainactivity
     }
 }
