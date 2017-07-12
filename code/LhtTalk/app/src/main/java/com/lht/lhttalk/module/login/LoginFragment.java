@@ -41,6 +41,7 @@ import android.widget.ProgressBar;
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.main.MainActivity;
 
 /**
  * Created by chhyu on 2017/7/11.
@@ -94,7 +95,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
                 String username = tvUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                Log.e("lmsg", "username=" + username + ",password=" + password);
                 presenter.doLogin(username, password);
             }
         });
@@ -122,6 +122,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     public void jump2MainActivity(LoginResBean data) {
-        // TODO: 2017/7/11 login success jump to mainactivity
+        ((LoginActivity) getActivity()).finish();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 }

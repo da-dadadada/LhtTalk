@@ -62,7 +62,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String username, String pwd) {
-        view.showWaitView(true);
+
         if (StringUtil.isEmpty(username)) {
             Toast.makeText(context, "请输入用户名", Toast.LENGTH_SHORT).show();
             return;
@@ -71,6 +71,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             Toast.makeText(context, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
+        view.showWaitView(true);
         loginAccount = new LoginAccount(username, pwd);
         UserModel userModel = new UserModel(new UserBean(loginAccount));
         userModel.login(context, new LoginRequestCallbask());
