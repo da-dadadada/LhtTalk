@@ -89,6 +89,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         @Override
         public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
             view.showWaitView(false);
+            beanContainer.getData();
             Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
         }
 
