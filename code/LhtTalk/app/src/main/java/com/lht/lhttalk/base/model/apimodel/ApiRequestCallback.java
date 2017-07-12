@@ -32,7 +32,7 @@ package com.lht.lhttalk.base.model.apimodel;
  * <p><b>Description</b>: TODO
  * Created by leobert on 2016/7/15.
  */
-public interface ApiModelCallback<T> {
+public interface ApiRequestCallback<T> {
     void onSuccess(BaseBeanContainer<T> beanContainer);
 
     void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer);

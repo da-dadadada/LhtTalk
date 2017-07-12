@@ -26,10 +26,9 @@
 package com.lht.lhttalk.module.login;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.lht.lhttalk.base.model.apimodel.ApiModelCallback;
+import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
@@ -77,7 +76,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     }
 
-    class LoginRequestCallbask implements ApiModelCallback<LoginResBean> {
+    class LoginRequestCallbask implements ApiRequestCallback<LoginResBean> {
 
         @Override
         public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {

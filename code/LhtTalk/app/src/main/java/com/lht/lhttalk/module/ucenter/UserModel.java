@@ -27,7 +27,7 @@ package com.lht.lhttalk.module.ucenter;
 
 import android.content.Context;
 
-import com.lht.lhttalk.base.model.apimodel.ApiModelCallback;
+import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.module.login.LoginApiRequest;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 
@@ -51,7 +51,7 @@ public class UserModel {
 
     }
 
-    public void login(Context context, ApiModelCallback<LoginResBean> modelCallback) {
+    public void login(Context context, ApiRequestCallback<LoginResBean> modelCallback) {
         LoginApiRequest request = new LoginApiRequest(userBean.getLoginAccount(), modelCallback);
         request.doRequest(context);
     }

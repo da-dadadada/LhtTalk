@@ -27,11 +27,18 @@ package com.lht.lhttalk.base.model.apimodel;
 
 import android.content.Context;
 
+import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.util.internet.AsyncResponseHandlerComposite;
 import com.lht.lhttalk.util.internet.HttpAction;
 import com.lht.lhttalk.util.internet.HttpUtil;
-import com.lht.lhttalk.util.internet.RestfulApiResponseDebugHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * <p><b>Package:</b> com.lht.lhttalk.mvp.model </p>
@@ -41,37 +48,83 @@ import com.loopj.android.http.RequestParams;
  * Created by leobert on 2017/3/7.
  */
 
-public abstract class AbsApiRequest<T> implements IApiRequest {
+public abstract class AbsApiRequest<API, T> implements IApiRequest {
     private final T data;
-    protected final HttpUtil httpUtil;
+    private final HttpUtil httpUtil;
+    private RequestParams params;
+    private RequestHandle handle;
+    private API apiImpl;
 
-    public AbsApiRequest(T data) {
+    public AbsApiRequest(Class<API> apiClass, T data) {
         this.data = data;
         httpUtil = HttpUtil.getInstance();
+        try {
+            Constructor<API> constructor = apiClass.getConstructor();
+            apiImpl = constructor.newInstance();
+        } catch (NoSuchMethodException
+                | SecurityException
+                | InstantiationException
+                | IllegalAccessException
+                | IllegalArgumentException
+                | InvocationTargetException e) {
+            e.printStackTrace();
+
+            throw new IllegalArgumentException(
+                    apiClass.getSimpleName()
+                            + "must have a public none param constructor");
+
+        }
     }
 
-    protected T getData() {
+    protected abstract String formatUrl(API apiImpl);
+    protected abstract RequestParams formatParam(API apiImpl);
+    protected abstract HttpAction getHttpAction();
+
+    protected final T getData() {
         return data;
     }
 
 
     @Override
     public final void cancelRequestByContext(Context context) {
-        httpUtil.onActivityDestroy(context);
+        if (handle != null) {
+            handle.cancel(true);
+        }
     }
 
-
-    protected final AsyncResponseHandlerComposite
-    newAsyncResponseHandlerComposite(HttpAction action,
-                                     String url,
-                                     RequestParams params) {
+    @Override
+    public final void doRequest(Context context) {
+        String url = formatUrl(apiImpl);
+        params = formatParam(apiImpl);
         AsyncResponseHandlerComposite composite =
-                new AsyncResponseHandlerComposite(action, url, params);
+                new AsyncResponseHandlerComposite(getHttpAction(), url, params);
+        composite.addHandler(new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                String res = new String(bytes);
+                BaseVsoApiResBean bean = JSON.parseObject(res, BaseVsoApiResBean.class);
+                if (bean.isSuccess()) {
+                   handleSuccess(bean);
+                } else {
+                   handleFailure(bean);
+                }
+            }
 
-        RestfulApiResponseDebugHandler debugHandler =
-                new RestfulApiResponseDebugHandler(url, params, true);
-        debugHandler.setDebugger(action);
-        composite.useCustomDebugHandler(debugHandler);
-        return composite;
+            @Override
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                handleHttpFailure(i);
+            }
+        });
+        handle = handle(httpUtil,context,url,params,composite);
     }
+
+    protected abstract void handleSuccess(BaseVsoApiResBean baseVsoApiResBean);
+
+    protected abstract void handleFailure(BaseVsoApiResBean baseVsoApiResBean);
+
+    protected abstract void handleHttpFailure(int httpCode);
+
+    protected abstract RequestHandle handle(HttpUtil httpUtil,Context context,
+                                            String url,RequestParams params,
+                                            AsyncHttpResponseHandler handler);
 }
