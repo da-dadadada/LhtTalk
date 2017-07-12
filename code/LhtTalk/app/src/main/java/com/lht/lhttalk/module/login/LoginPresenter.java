@@ -26,15 +26,18 @@
 package com.lht.lhttalk.module.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.main.MainActivity;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.module.ucenter.UserModel;
+import com.lht.lhttalk.util.SPUtil;
 import com.lht.lhttalk.util.string.StringUtil;
 
 /**
@@ -42,6 +45,10 @@ import com.lht.lhttalk.util.string.StringUtil;
  */
 
 public class LoginPresenter implements LoginContract.Presenter {
+
+    public static final String AUTO_LOGIN_USERNAME = "username";
+    public static final String AUTO_LOGIN_PASSWORD = "password";
+    public static final String SP_NAME = "user_login_info";
     private Context context;
     private LoginContract.View view;
 
@@ -61,7 +68,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String username, String pwd) {
-        view.showWaitView(true);
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
         if (StringUtil.isEmpty(username)) {
             Toast.makeText(context, "请输入用户名", Toast.LENGTH_SHORT).show();
             return;
@@ -70,13 +78,22 @@ public class LoginPresenter implements LoginContract.Presenter {
             Toast.makeText(context, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
+        view.showWaitView(true);
         loginAccount = new LoginAccount(username, pwd);
         UserModel userModel = new UserModel(new UserBean(loginAccount));
-        userModel.login(context, new LoginRequestCallbask());
+        userModel.login(context, new LoginRequestCallbask(username, pwd));
 
     }
 
     class LoginRequestCallbask implements ApiRequestCallback<LoginResBean> {
+
+        private String username;
+        private String password;
+
+        public LoginRequestCallbask(String username, String pwd) {
+            this.username = username;
+            this.password = pwd;
+        }
 
         @Override
         public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
@@ -84,6 +101,9 @@ public class LoginPresenter implements LoginContract.Presenter {
             Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
             LoginResBean data = beanContainer.getData();
             view.jump2MainActivity(data);
+
+            SPUtil.modifyString(context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE), AUTO_LOGIN_USERNAME, username);
+            SPUtil.modifyString(context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE), AUTO_LOGIN_PASSWORD, password);
         }
 
         @Override
