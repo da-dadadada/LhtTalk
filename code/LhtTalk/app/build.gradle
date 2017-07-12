@@ -74,8 +74,6 @@ dependencies {
     compile('com.alibaba.android:vlayout:1.0.6@aar') {
         transitive = true
     }
-
-    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'individual.leobert.libs:actionsheet:1.0.0'
     compile 'individual.leobert.libs:numbadge:1.0.0'
     compile 'com.android.support:design:25.3.1'
@@ -90,19 +88,9 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'individual.leobert.libs:vlayoutext:1.1.0'
     compile 'devlight.io:navigationtabbar:1.2.5'
-    testCompile 'junit:junit:4.12'
-<<<<<<< HEAD
-    compile('com.alibaba.android:vlayout:1.0.6@aar') {
-        transitive = true
-    }
-
-    compile 'devlight.io:navigationtabbar:1.2.5'
 
 
     compile "org.igniterealtime.smack:smack-android-extensions:4.2.0"
     compile "org.igniterealtime.smack:smack-experimental:4.2.0"
     compile "org.igniterealtime.smack:smack-tcp:4.2.0"
-
-=======
->>>>>>> 02b25dcc30b295090468bbb069b9f227d666c4d3
 }
