@@ -25,6 +25,7 @@
 
 package com.lht.lhttalk.module.ucenter;
 
+import com.lht.lhttalk.module.publ.bean.UserBasicInfo;
 import com.lht.lhttalk.util.string.StringUtil;
 
 /**
@@ -38,6 +39,8 @@ import com.lht.lhttalk.util.string.StringUtil;
 public class UserBean {
     private String username;
     private String token;
+
+    private UserBasicInfo userBasicInfo;
 
 //    private final
 //    @InstanceType
@@ -80,9 +83,27 @@ public class UserBean {
         return !StringUtil.isEmpty(token);
     }
 
+    public UserBasicInfo getUserBasicInfo() {
+        return userBasicInfo;
+    }
+
+    public void setUserBasicInfo(UserBasicInfo userBasicInfo) {
+        this.userBasicInfo = userBasicInfo;
+    }
+
     public void clear() {
         username = null;
         token = null;
+        userBasicInfo = null;
     }
 
+    public void copy(UserBean userBean) {
+        if (userBean == null) {
+            copy(new UserBean());
+            return;
+        }
+        this.setToken(userBean.getToken());
+        this.setUsername(userBean.getUsername());
+        this.setUserBasicInfo(userBean.getUserBasicInfo());
+    }
 }

@@ -32,11 +32,8 @@ package com.lht.lhttalk.module.publ.bean;
 public class BasicInfoParam {
     private String vso_token;
     private String username;
+    private String auth_name;
 
-    public BasicInfoParam(String vso_token, String username) {
-        this.vso_token = vso_token;
-        this.username = username;
-    }
 
     public String getVso_token() {
         return vso_token;
@@ -52,5 +49,13 @@ public class BasicInfoParam {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getAuth_name() {
+        return auth_name;
+    }
+
+    public void setAuth_name(String auth_name) {
+        this.auth_name = auth_name;
     }
 }

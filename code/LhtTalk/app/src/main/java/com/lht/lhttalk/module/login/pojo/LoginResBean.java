@@ -43,26 +43,9 @@ public class LoginResBean {
 
     private String username;
 
-//    private int id;
-
     private String nickname;
 
-    private String email;
-
     private String mobile;
-
-//    private int status;//"status": "1",
-
-//    private String password; 不解析
-
-    private int logined;//        "logined": "1",
-
-    /**
-     * 是否需要重置密码（1=>不需要，2=>需要），用于三方
-     */
-    private int isnewpwd;
-
-    private int choose_role_source;//用户分流（0=>未分流，1=>注册时，2=>登录，3=>后台）
 
     /**
      * 头像url
@@ -70,14 +53,19 @@ public class LoginResBean {
     private String avatar;
 
     /**
-     * uc数据库，鬼知道是什么鬼
-     */
-    private String uid;
-
-    /**
      * redis中存储用户信息的key
      */
     private String vso_token;//
+
+    private int sex;
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
 
     public String getUsername() {
         return username;
@@ -87,28 +75,12 @@ public class LoginResBean {
         this.username = username;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
     public String getNickname() {
         return nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getMobile() {
@@ -119,14 +91,6 @@ public class LoginResBean {
         this.mobile = mobile;
     }
 
-    public int getLogined() {
-        return logined;
-    }
-
-    public void setLogined(int logined) {
-        this.logined = logined;
-    }
-
     public String getAvatar() {
         return avatar;
     }
@@ -135,44 +99,12 @@ public class LoginResBean {
         this.avatar = avatar;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
     public String getVso_token() {
         return vso_token;
     }
 
     public void setVso_token(String vso_token) {
         this.vso_token = vso_token;
-    }
-
-    public int getChoose_role_source() {
-        return choose_role_source;
-    }
-
-    public void setChoose_role_source(int choose_role_source) {
-        this.choose_role_source = choose_role_source;
-    }
-
-    public boolean hasChooseRole() {
-        return choose_role_source != 0;
-    }
-
-    public int getIsnewpwd() {
-        return isnewpwd;
-    }
-
-    public void setIsnewpwd(int isnewpwd) {
-        this.isnewpwd = isnewpwd;
-    }
-
-    public boolean hasPwdManualSet() {
-        return isnewpwd != 2;
     }
 
     public static String parseMsgByRet(int ret, BaseVsoApiResBean bean) {

@@ -28,14 +28,19 @@ package com.lht.lhttalk.module.login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.module.login.pojo.LoginResBean;
+import com.lht.lhttalk.module.publ.bean.UserBasicInfo;
 import com.lht.lhttalk.module.smack.service.SmackService;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
+import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.module.ucenter.UserModel;
 import com.lht.lhttalk.util.SPUtil;
 import com.lht.lhttalk.util.string.StringUtil;
@@ -80,12 +85,12 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
         view.showWaitView(true);
         loginAccount = new LoginAccount(username, pwd);
         UserModel userModel = new UserModel();
-        userModel.login(context,loginAccount, new LoginRequestCallback());
+        userModel.login(context, loginAccount, new LoginRequestCallback());
     }
 
     @Override
     public void doXmppConnect(Context context) {
-        Intent intent = new Intent(context,SmackService.class);
+        Intent intent = new Intent(context, SmackService.class);
         context.startService(intent);
     }
 
@@ -109,9 +114,14 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
             view.showWaitView(false);
             view.showMsg("登录成功");
             LoginResBean data = beanContainer.getData();
-
             SPUtil.modifyString(spToken, KEY_USERNAME, data.getUsername());
             SPUtil.modifyString(spToken, KEY_ACCESS_TOKEN, data.getVso_token());
+
+            UserBean userBean=new UserBean();
+            userBean.setToken(data.getVso_token());
+            userBean.setUsername(data.getUsername());
+            userBean.setUserBasicInfo(UserBasicInfo.getInstanceFor(data));
+            IVerifyHolder.mUserBean.copy(userBean);
 
             view.onLoginSuccess();
             view.jump2MainActivity(data);

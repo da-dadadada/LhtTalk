@@ -29,6 +29,7 @@ import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.module.publ.bean.BasicInfoParam;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
+import com.lht.lhttalk.util.debug.DLog;
 import com.lht.lhttalk.util.string.StringUtil;
 import com.loopj.android.http.RequestParams;
 
@@ -62,6 +63,103 @@ public interface IApiNewCollections {
             RequestParams params = new RequestParams();
             params.add("lang", "zh-CN");
 
+            params.add(KEY_AUTH_USER, StringUtil.nullStrToEmpty(IVerifyHolder.mUserBean
+                    .getUsername()));
+            params.add(KEY_AUTH_TOKEN, StringUtil.nullStrToEmpty(IVerifyHolder.mUserBean
+                    .getToken()));
+
+            return params;
+        }
+    }
+
+
+    /**
+     * <p><b>Package</b> com.lht.cloudjob.interfaces.net
+     * <p><b>Project</b> Chuangyiyun
+     * <p><b>Classname</b> AbsRestApi
+     * <p><b>Description</b>: 抽象restful api，主要作用：
+     * 格式化rest api，特殊情况下同时格式化queryString，
+     * <p/>
+     * 2016-9-8 09:47:26：因为使用curl原因，不再支持格式化queryString
+     * <p/>
+     * Created by leobert on 2016/6/30.
+     */
+    abstract class ReqApi implements IRestfulApi {
+
+        private static final String CURL = "api/curl";
+
+        private static final String KEY_PATH = "url";
+
+        private static final String KEY_AUTH_USER = "auth_username";
+
+        private static final String KEY_AUTH_TOKEN = "auth_token";
+
+        private static final String HOST_CURL = "req.vsochina.com"; // 正式环境
+//                "req.vsochina.com:8443";//测试环境  已弃用
+
+
+        public String getHost() {
+            return HOST_CURL;
+        }
+
+        protected abstract String getUnformatedPath();
+
+        /**
+         * @return null if do not need to format qs
+         */
+        protected abstract String getUnformatedQuerystring();
+
+        @Override
+        public String formatUrl(String[] pathParams) {
+            return this.formatUrl(pathParams, null);
+        }
+
+        @Override
+        public String formatUrl(String[] pathParams, String[] queryStringParams) {
+            return this.formatUrl(Protocol.HTTPS, pathParams, queryStringParams);
+        }
+
+        @Override
+        public String formatUrl(Protocol protocol, String[] pathParams) {
+            return this.formatUrl(protocol, pathParams, null);
+        }
+
+        private String[] pathParams;
+        private String[] queryStringParams;
+
+        @Override
+        public String formatUrl(Protocol protocol, String[] pathParams, String[]
+                queryStringParams) {
+
+            this.pathParams = pathParams;
+            this.queryStringParams = queryStringParams;
+
+            StringBuilder builder = new StringBuilder(Protocol.HTTPS.toString());
+            builder.append(getHost()).append(SEPARATOR);
+            builder.append(CURL);
+
+            String ret = trim(builder);
+            log(ret);
+            return ret;
+        }
+
+//        private boolean isCurlComplete = false;
+
+        protected void log(String s) {
+            DLog.d(getClass(), "format url:" + s);
+        }
+
+        protected String trim(StringBuilder builder) {
+            return builder.toString().trim();
+        }
+
+        public RequestParams newRequestParams() {
+            RequestParams params = new RequestParams();
+            params.add("lang", "zh-CN");
+
+            Object[] p1 = pathParams;
+            String path = String.format(getUnformatedPath(), p1);
+            params.add(KEY_PATH, path);
             params.add(KEY_AUTH_USER, StringUtil.nullStrToEmpty(IVerifyHolder.mUserBean
                     .getUsername()));
             params.add(KEY_AUTH_TOKEN, StringUtil.nullStrToEmpty(IVerifyHolder.mUserBean
@@ -137,7 +235,7 @@ public interface IApiNewCollections {
      * "password" => 'xxx'
      * ]
      */
-    class LoginApi extends ApiNewRestOauthApi {
+    class LoginApi extends ReqApi {
 
         private static final String PATH = "user/login/index";
 
@@ -225,13 +323,14 @@ public interface IApiNewCollections {
 //        }
 //    }
 
-    class QueryUserBasicInfoApi extends ApiNewRestOauthApi {
+    class QueryUserBasicInfoApi extends ReqApi {
         private static final String KEY_USERNAME = "username";
-        private static final String KEY_TOKEN = "vso_token";
+        private static final String KEY_TOKEN = "auth_token";
+        private static final String KEY_AUTH_USERNAME = "auth_username";
 
         @Override
         protected String getUnformatedPath() {
-            return "user/info/view";
+            return "user/info/view-req-app";
         }
 
         @Override
@@ -243,6 +342,7 @@ public interface IApiNewCollections {
             RequestParams params = super.newRequestParams();
             params.add(KEY_TOKEN, param.getVso_token());
             params.add(KEY_USERNAME, param.getUsername());
+            params.add(KEY_AUTH_USERNAME, param.getAuth_name());
             return params;
         }
     }

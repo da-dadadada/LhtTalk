@@ -25,6 +25,8 @@
 
 package com.lht.lhttalk.module.publ.bean;
 
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
+
 /**
  * Created by chhyu on 2017/7/13.
  */
@@ -75,5 +77,16 @@ public class UserBasicInfo {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+
+    public static UserBasicInfo getInstanceFor(LoginResBean loginResBean) {
+        UserBasicInfo ret = new UserBasicInfo();
+        ret.setUsername(loginResBean.getUsername());
+        ret.setAvatar(loginResBean.getAvatar());
+        ret.setMobile(loginResBean.getMobile());
+        ret.setNickname(loginResBean.getNickname());
+        ret.setSex(loginResBean.getSex());
+        return ret;
     }
 }
