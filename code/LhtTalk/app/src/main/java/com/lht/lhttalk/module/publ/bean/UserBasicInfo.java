@@ -23,35 +23,57 @@
  *
  */
 
-package com.lht.lhttalk.module.login;
-
-import android.content.Context;
-
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
+package com.lht.lhttalk.module.publ.bean;
 
 /**
- * Created by chhyu on 2017/7/11.
+ * Created by chhyu on 2017/7/13.
  */
 
-public interface LoginContract {
+public class UserBasicInfo {
 
-    interface View extends BaseView<Presenter> {
+    private String username;
+    private String nickname;
+    private String mobile;
+    private int sex;
+    private String avatar;
 
-        void showWaitView(boolean isShow);
-
-        void jump2MainActivity(LoginResBean data);
-
-        void showInfoEmptyToast(String text);
-
-        void showLoginStateToast(String text);
-
-        Context getmContext();
+    public String getUsername() {
+        return username;
     }
 
-    interface Presenter extends BasePresenter {
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-        void doLogin(String username, String pwd);
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

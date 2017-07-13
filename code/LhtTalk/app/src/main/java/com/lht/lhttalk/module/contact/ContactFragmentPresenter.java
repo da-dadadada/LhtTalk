@@ -23,35 +23,27 @@
  *
  */
 
-package com.lht.lhttalk.module.login;
+package com.lht.lhttalk.module.contact;
 
 import android.content.Context;
 
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
-
 /**
- * Created by chhyu on 2017/7/11.
+ * Created by chhyu on 2017/7/12.
  */
 
-public interface LoginContract {
+public class ContactFragmentPresenter implements ContactFgContact.Presenter {
 
-    interface View extends BaseView<Presenter> {
+    private Context context;
+    private ContactFgContact.View view;
 
-        void showWaitView(boolean isShow);
-
-        void jump2MainActivity(LoginResBean data);
-
-        void showInfoEmptyToast(String text);
-
-        void showLoginStateToast(String text);
-
-        Context getmContext();
+    public ContactFragmentPresenter(Context context, ContactFgContact.View view) {
+        this.context = context;
+        this.view = view;
+        view.setPresenter(this);
     }
 
-    interface Presenter extends BasePresenter {
+    @Override
+    public void start() {
 
-        void doLogin(String username, String pwd);
     }
 }

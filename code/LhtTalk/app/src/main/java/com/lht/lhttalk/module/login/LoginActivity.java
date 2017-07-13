@@ -25,6 +25,7 @@
 
 package com.lht.lhttalk.module.login;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
@@ -33,6 +34,7 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.activity.BaseActivity;
 import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
+import com.lht.lhttalk.cfg.SPConstants;
 import com.lht.lhttalk.util.ActivityUtils;
 
 /**
@@ -83,7 +85,8 @@ public class LoginActivity extends AsyncProtectedActivity {
             loginFragment = loginFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.contentFrame);
         }
-        loginPresenter = new LoginPresenter(this, loginFragment);
+        SharedPreferences sp = getSharedPreferences(SPConstants.Basic.SP_NAME, MODE_PRIVATE);
+        loginPresenter = new LoginPresenter(sp, loginFragment);
     }
 
 

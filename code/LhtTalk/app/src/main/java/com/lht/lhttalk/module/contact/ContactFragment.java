@@ -27,7 +27,6 @@ package com.lht.lhttalk.module.contact;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,9 @@ import com.lht.lhttalk.base.fragment.BaseFragment;
  * Created by chhyu on 2017/7/12.
  */
 
-public class ContactFragment extends BaseFragment {
+public class ContactFragment extends BaseFragment implements ContactFgContact.View {
+    private static final String PAGENAME = "ContactFragment";
+    private ContactFgContact.Presenter presenter;
 
     @Nullable
     @Override
@@ -73,6 +74,11 @@ public class ContactFragment extends BaseFragment {
 
     @Override
     protected String getPageName() {
-        return null;
+        return ContactFragment.PAGENAME;
+    }
+
+    @Override
+    public void setPresenter(ContactFgContact.Presenter presenter) {
+        presenter = presenter;
     }
 }

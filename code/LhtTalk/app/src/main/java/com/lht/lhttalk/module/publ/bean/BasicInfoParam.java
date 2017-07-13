@@ -23,35 +23,34 @@
  *
  */
 
-package com.lht.lhttalk.module.login;
-
-import android.content.Context;
-
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
+package com.lht.lhttalk.module.publ.bean;
 
 /**
- * Created by chhyu on 2017/7/11.
+ * Created by chhyu on 2017/7/13.
  */
 
-public interface LoginContract {
+public class BasicInfoParam {
+    private String vso_token;
+    private String username;
 
-    interface View extends BaseView<Presenter> {
-
-        void showWaitView(boolean isShow);
-
-        void jump2MainActivity(LoginResBean data);
-
-        void showInfoEmptyToast(String text);
-
-        void showLoginStateToast(String text);
-
-        Context getmContext();
+    public BasicInfoParam(String vso_token, String username) {
+        this.vso_token = vso_token;
+        this.username = username;
     }
 
-    interface Presenter extends BasePresenter {
+    public String getVso_token() {
+        return vso_token;
+    }
 
-        void doLogin(String username, String pwd);
+    public void setVso_token(String vso_token) {
+        this.vso_token = vso_token;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

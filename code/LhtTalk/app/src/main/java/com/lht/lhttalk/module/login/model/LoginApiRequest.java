@@ -23,7 +23,7 @@
  *
  */
 
-package com.lht.lhttalk.module.login;
+package com.lht.lhttalk.module.login.model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -34,7 +34,7 @@ import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.module.api.IApiNewCollections;
-import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.util.internet.HttpAction;
 import com.lht.lhttalk.util.internet.HttpUtil;

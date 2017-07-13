@@ -28,8 +28,8 @@ package com.lht.lhttalk.module.ucenter;
 import android.content.Context;
 
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
-import com.lht.lhttalk.module.login.LoginApiRequest;
-import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.login.model.LoginApiRequest;
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
 
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
