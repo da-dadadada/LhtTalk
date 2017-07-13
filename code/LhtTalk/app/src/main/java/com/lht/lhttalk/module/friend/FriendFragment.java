@@ -44,7 +44,7 @@ public class FriendFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fg_contact, null);
+        return inflater.inflate(R.layout.fg_friend, null);
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

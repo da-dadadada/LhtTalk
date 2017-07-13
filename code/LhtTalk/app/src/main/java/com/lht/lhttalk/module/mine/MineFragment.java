@@ -45,7 +45,7 @@ public class MineFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fg_contact, null);
+        return inflater.inflate(R.layout.fg_mine, null);
     }
 
     @Override
