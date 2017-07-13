@@ -45,11 +45,11 @@ import com.loopj.android.http.RequestParams;
  * Created by chhyu on 2017/7/13.
  */
 
-public class QueryUserBasicInfoRequest extends AbsApiRequest<IApiNewCollections.QueryUserBasicInfoApi, BasicInfoParam> {
+public class AuthRequest extends AbsApiRequest<IApiNewCollections.QueryUserBasicInfoApi, BasicInfoParam> {
 
     private ApiRequestCallback<UserBasicInfo> modelCallback;
 
-    public QueryUserBasicInfoRequest(BasicInfoParam param, ApiRequestCallback<UserBasicInfo> modelCallback) {
+    public AuthRequest(BasicInfoParam param, ApiRequestCallback<UserBasicInfo> modelCallback) {
         super(IApiNewCollections.QueryUserBasicInfoApi.class, param);
         this.modelCallback = modelCallback;
     }

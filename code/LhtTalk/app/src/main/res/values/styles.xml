@@ -36,7 +36,7 @@
         <item name="android:windowBackground">@color/myWindowBackground</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowAnimationStyle">@style/CustomActivityTransitionStyle</item>
+        <!--<item name="android:windowAnimationStyle">@style/CustomActivityTransitionStyle</item>-->
 
     </style>
 
@@ -63,18 +63,18 @@
 
     <!-- 加载滚动条样式 -->
 
-    <!--定义了activity的过场动画-->
-    <style name="CustomActivityTransitionStyle">
-        <item name="android:activityOpenEnterAnimation">@anim/activity_in_from_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_out_to_left</item>
-        <!--<item name="android:activityCloseEnterAnimation">@anim/activity_in_from_left</item>-->
-        <!--<item name="android:activityCloseExitAnimation">@anim/activity_out_to_right</item>-->
+    <!--&lt;!&ndash;定义了activity的过场动画&ndash;&gt;-->
+    <!--<style name="CustomActivityTransitionStyle">-->
+        <!--<item name="android:activityOpenEnterAnimation">@anim/activity_in_from_right</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/activity_out_to_left</item>-->
+        <!--&lt;!&ndash;<item name="android:activityCloseEnterAnimation">@anim/activity_in_from_left</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:activityCloseExitAnimation">@anim/activity_out_to_right</item>&ndash;&gt;-->
 
-        <!--<item name="android:taskOpenEnterAnimation">@anim/activity_in_from_right</item>-->
-        <!--<item name="android:taskOpenExitAnimation">@anim/activity_out_to_left</item>-->
-        <!--<item name="android:taskCloseEnterAnimation">@anim/activity_in_from_left</item>-->
-        <!--<item name="android:taskCloseExitAnimation">@anim/activity_out_to_right</item>-->
-    </style>
+        <!--&lt;!&ndash;<item name="android:taskOpenEnterAnimation">@anim/activity_in_from_right</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:taskOpenExitAnimation">@anim/activity_out_to_left</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:taskCloseEnterAnimation">@anim/activity_in_from_left</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:taskCloseExitAnimation">@anim/activity_out_to_right</item>&ndash;&gt;-->
+    <!--</style>-->
 
     <!--定义了activity的过场动画-->
     <style name="FadeActivityTransitionStyle">
@@ -97,7 +97,7 @@
         <item name="android:windowBackground">@color/myWindowBackground</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowAnimationStyle">@style/CustomActivityTransitionStyle</item>
+        <!--<item name="android:windowAnimationStyle">@style/CustomActivityTransitionStyle</item>-->
     </style>
 
     <style name="AppTheme.ImagePreview" parent="FullscreenTheme">

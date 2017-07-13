@@ -25,8 +25,6 @@
 
 package com.lht.lhttalk.base.model.apimodel;
 
-import android.content.Context;
-
 /**
  * <p><b>Package</b> com.lht.vsocyy.interfaces.net
  * <p><b>Project</b> VsoCyy
@@ -35,5 +33,5 @@ import android.content.Context;
  * Created by leobert on 2016/5/4.
  */
 public interface ICancelRequest {
-    void cancelRequestByContext(Context context);
+    void cancelRequest();
 }

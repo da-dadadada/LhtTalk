@@ -28,30 +28,36 @@ package com.lht.lhttalk.module.publ;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
+import com.lht.lhttalk.base.MainApplication;
 import com.lht.lhttalk.base.activity.BaseActivity;
 import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
-import com.lht.lhttalk.cfg.SPConstants;
 import com.lht.lhttalk.module.login.LoginActivity;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
 import com.lht.lhttalk.module.main.HomeActivity;
 import com.lht.lhttalk.module.publ.bean.BasicInfoParam;
 import com.lht.lhttalk.module.publ.bean.UserBasicInfo;
 import com.lht.lhttalk.util.string.StringUtil;
-import com.lht.lhttalk.util.toast.ToastUtils;
+
+import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_ACCESS_TOKEN;
+import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_USERNAME;
 
 public class SplashActivity extends AsyncProtectedActivity {
-    public static final String PAGENAME = "SplashActivity";
-    private RelativeLayout rlSplash;
+//    public static final String PAGENAME = "SplashActivity";
+//    private RelativeLayout rlSplash;
+
+    private boolean authSuccess = false;
+
+    private AuthRequest authRequest;
+
+    private UserBasicInfo userBasicInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,38 +75,25 @@ public class SplashActivity extends AsyncProtectedActivity {
 
     @Override
     protected void initView() {
-        rlSplash = (RelativeLayout) findViewById(R.id.rl_splash);
-        rlSplash.postDelayed(new Runnable() {
+//        rlSplash = (RelativeLayout) findViewById(R.id.rl_splash);
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //// TODO: 2017/7/13
-                jump2LoginActivity();
+                if (authSuccess) {
+                    authRequest.cancelRequest();
+                    jump2MainActivity(userBasicInfo);
+                } else
+                    jump2LoginActivity();
             }
         }, 2000);
+        autoLogin();
     }
 
     private void autoLogin() {
-<<<<<<< HEAD
-//        SharedPreferences sp = getSharedPreferences(LoginPresenter.SP_NAME, MODE_PRIVATE);
-//        String username = sp.getString(LoginPresenter.AUTO_LOGIN_USERNAME, "");
-//        String password = sp.getString(LoginPresenter.AUTO_LOGIN_PASSWORD, "");
-//        Log.e("lmsg", "userInfo=" + username + "+" + password);
-//        if (StringUtil.isEmpty(username)) {
-//            jump2LoginActivity();
-//            return;
-//        }
-//        if (StringUtil.isEmpty(password)) {
-//            jump2LoginActivity();
-//            return;
-//        }
-//        LoginAccount loginAccount = new LoginAccount(username, password);
-//        UserModel userModel = new UserModel(new UserBean(loginAccount));
-//        userModel.login(this, new LoginRequestCallback());
-=======
-        SharedPreferences sp = getSharedPreferences(SPConstants.Basic.SP_NAME, MODE_PRIVATE);
-        String sp_token = sp.getString(SPConstants.Token.SP_TOKEN, "");
-        String username = sp.getString(SPConstants.Token.KEY_USERNAME, "");
-        if (StringUtil.isEmpty(sp_token)) {
+        SharedPreferences sp = MainApplication.getOurInstance().getTokenSp();
+        String token = sp.getString(KEY_ACCESS_TOKEN, "");
+        String username = sp.getString(KEY_USERNAME, "");
+        if (StringUtil.isEmpty(token)) {
             jump2LoginActivity();
             return;
         }
@@ -109,12 +102,10 @@ public class SplashActivity extends AsyncProtectedActivity {
             return;
         }
         //验证token
-        Log.e("lmsg", "token:" + sp_token);
-        Log.e("lmsg", "username:" + username);
 
-        QueryUserBasicInfoRequest request = new QueryUserBasicInfoRequest(new BasicInfoParam(sp_token, username), new QueryBasicInfoRequestCallback());
-        request.doRequest(this);
->>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
+        authRequest = new AuthRequest(new BasicInfoParam(token, username),
+                new AuthCallback());
+        authRequest.doRequest(this);
     }
 
     @Override
@@ -133,25 +124,23 @@ public class SplashActivity extends AsyncProtectedActivity {
 
     }
 
-    class QueryBasicInfoRequestCallback implements ApiRequestCallback<UserBasicInfo> {
+    private class AuthCallback implements ApiRequestCallback<UserBasicInfo> {
 
         @Override
         public void onSuccess(BaseBeanContainer<UserBasicInfo> beanContainer) {
-            UserBasicInfo data = beanContainer.getData();
-            Log.e("lmsg", "查询用户基本信息成功" + "\r\n" + "info=" + JSON.toJSONString(data));
-            jump2MainActivity(data);
+            userBasicInfo = beanContainer.getData();
+            // TODO: 2017/7/13 写数据
+            authSuccess = true;
         }
 
         @Override
         public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
-
-            Log.e("lmsg", "查询用户基本信息失败" + "\r\n" + "info=" + JSON.toJSONString(beanContainer.getData()));
-            jump2LoginActivity();
+            authSuccess = false;
         }
 
         @Override
         public void onHttpFailure(int httpStatus) {
-
+            authSuccess = false;
         }
     }
 
@@ -160,6 +149,7 @@ public class SplashActivity extends AsyncProtectedActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
+        finishWithoutOverrideAnim();
     }
 
     @Override
@@ -170,6 +160,6 @@ public class SplashActivity extends AsyncProtectedActivity {
     public void jump2LoginActivity() {
         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
         startActivity(intent);
-        finish();
+        finishWithoutOverrideAnim();
     }
 }

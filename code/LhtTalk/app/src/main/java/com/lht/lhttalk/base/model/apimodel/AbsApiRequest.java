@@ -77,7 +77,9 @@ public abstract class AbsApiRequest<API, T> implements IApiRequest {
     }
 
     protected abstract String formatUrl(API apiImpl);
+
     protected abstract RequestParams formatParam(API apiImpl);
+
     protected abstract HttpAction getHttpAction();
 
     protected final T getData() {
@@ -86,8 +88,8 @@ public abstract class AbsApiRequest<API, T> implements IApiRequest {
 
 
     @Override
-    public final void cancelRequestByContext(Context context) {
-        if (handle != null) {
+    public final void cancelRequest() {
+        if (handle != null && !handle.isFinished()) {
             handle.cancel(true);
         }
     }
@@ -104,9 +106,9 @@ public abstract class AbsApiRequest<API, T> implements IApiRequest {
                 String res = new String(bytes);
                 BaseVsoApiResBean bean = JSON.parseObject(res, BaseVsoApiResBean.class);
                 if (bean.isSuccess()) {
-                   handleSuccess(bean);
+                    handleSuccess(bean);
                 } else {
-                   handleFailure(bean);
+                    handleFailure(bean);
                 }
             }
 
@@ -115,7 +117,7 @@ public abstract class AbsApiRequest<API, T> implements IApiRequest {
                 handleHttpFailure(i);
             }
         });
-        handle = handle(httpUtil,context,url,params,composite);
+        handle = handle(httpUtil, context, url, params, composite);
     }
 
     protected abstract void handleSuccess(BaseVsoApiResBean baseVsoApiResBean);
@@ -124,7 +126,7 @@ public abstract class AbsApiRequest<API, T> implements IApiRequest {
 
     protected abstract void handleHttpFailure(int httpCode);
 
-    protected abstract RequestHandle handle(HttpUtil httpUtil,Context context,
-                                            String url,RequestParams params,
+    protected abstract RequestHandle handle(HttpUtil httpUtil, Context context,
+                                            String url, RequestParams params,
                                             AsyncHttpResponseHandler handler);
 }

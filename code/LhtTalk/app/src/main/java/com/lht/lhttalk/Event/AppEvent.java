@@ -27,7 +27,6 @@ package com.lht.lhttalk.Event;
 
 import com.lht.lhttalk.base.launcher.ITriggerCompare;
 import com.lht.lhttalk.base.model.pojo.LoginInfo;
-import com.lht.lhttalk.util.string.StringUtil;
 
 /**
  * <p><b>Package</b> com.lht.vsocyy.Event
@@ -66,32 +65,32 @@ public class AppEvent {
         }
     }
 
-    public static class RegisterBackgroundLoginSuccessEvent {
-        private LoginInfo loginInfo;
-
-        public RegisterBackgroundLoginSuccessEvent(LoginInfo loginInfo) {
-            this.loginInfo = loginInfo;
-        }
-
-        public LoginInfo getLoginInfo() {
-            return loginInfo;
-        }
-    }
-
-    /**
-     * 三方快速绑定成功静默登录成功事件
-     */
-    public static class TpRegSilentLoginSuccessEvent {
-        private LoginInfo loginInfo;
-
-        public TpRegSilentLoginSuccessEvent(LoginInfo loginInfo) {
-            this.loginInfo = loginInfo;
-        }
-
-        public LoginInfo getLoginInfo() {
-            return loginInfo;
-        }
-    }
+//    public static class RegisterBackgroundLoginSuccessEvent {
+//        private LoginInfo loginInfo;
+//
+//        public RegisterBackgroundLoginSuccessEvent(LoginInfo loginInfo) {
+//            this.loginInfo = loginInfo;
+//        }
+//
+//        public LoginInfo getLoginInfo() {
+//            return loginInfo;
+//        }
+//    }
+//
+//    /**
+//     * 三方快速绑定成功静默登录成功事件
+//     */
+//    public static class TpRegSilentLoginSuccessEvent {
+//        private LoginInfo loginInfo;
+//
+//        public TpRegSilentLoginSuccessEvent(LoginInfo loginInfo) {
+//            this.loginInfo = loginInfo;
+//        }
+//
+//        public LoginInfo getLoginInfo() {
+//            return loginInfo;
+//        }
+//    }
 
     /**
      * 手动关闭登录页事件
@@ -105,177 +104,6 @@ public class AppEvent {
     public static class LoginInterruptedEvent {
     }
 
-//    /**
-//     * 用户信息更新事件
-//     * 用户信息编辑后查询成功发出该事件
-//     */
-//    public static class UserInfoUpdatedEvent {
-//        private final BasicInfoResBean basicInfoResBean;
-//
-//        private boolean hasBriefSet = false;
-//
-//        private String brief;
-//
-//        public UserInfoUpdatedEvent(BasicInfoResBean basicInfoResBean) {
-//            this.basicInfoResBean = basicInfoResBean;
-//        }
-//
-//        public BasicInfoResBean getBasicInfoResBean() {
-//            return basicInfoResBean;
-//        }
-//
-//        public String getBrief() {
-//            return brief;
-//        }
-//
-//        public void setBrief(String brief) {
-//            hasBriefSet = true;
-//            this.brief = brief;
-//        }
-//
-//        public boolean isHasBriefSet() {
-//            return hasBriefSet;
-//        }
-//    }
-
     public static class LogoutEvent {
     }
-
-
-    /**
-     * 绑定手机成功事件
-     */
-    public static class PhoneBindEvent {
-    }
-
-
-    public static class LocationPickedEvent {
-        private String province;
-        private String city;
-//        private String area;
-
-        public String getProvince() {
-            return province;
-        }
-
-        public void setProvince(String province) {
-            this.province = province;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-
-
-        public boolean isEmpty() {
-            return isEmpty(province) && isEmpty(city);// && isEmpty(area);
-        }
-
-        private boolean isEmpty(String s) {
-            return StringUtil.isEmpty(s);
-        }
-    }
-
-    /**
-     * 嵌套滑动布局的内容顶部到底事件
-     * 可能需要扩展view来判断
-     */
-    public static class NestedContentScrollEvent {
-        private final boolean isTopArrived;
-
-        public NestedContentScrollEvent(boolean isTopArrived) {
-            this.isTopArrived = isTopArrived;
-        }
-
-        public boolean isTopArrived() {
-            return isTopArrived;
-        }
-    }
-
-    public static class HomeTabDisplayEvent {
-        private final boolean isShown;
-
-        public HomeTabDisplayEvent(boolean isShown) {
-            this.isShown = isShown;
-        }
-
-        public boolean isShown() {
-            return isShown;
-        }
-    }
-
-    public static class ImageGetEvent extends TriggerHolderEvent {
-        private String path;
-
-        private boolean isSuccess = false;
-
-        public ImageGetEvent(String path, boolean isSuccess) {
-            this.path = path;
-            this.isSuccess = isSuccess;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public boolean isSuccess() {
-            return isSuccess;
-        }
-    }
-
-    public static class PwdResettedEvent {
-    }
-
-
-    /**
-     * 三方流程中自动设置登录account的事件
-     */
-    public static class AuthSetAccountEvent {
-        private final String account;
-
-        public AuthSetAccountEvent(String account) {
-            this.account = account;
-        }
-
-        public String getAccount() {
-            return account;
-        }
-    }
-
-
-    /**
-     * 只返回父类型（子类型为null的时候）
-     */
-    public static class ModifyNicknameEvent {
-        private String nickname;
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
-    }
-
-    public static class ArticlePublishSuccessEvent {
-    }
-
-    public static class BriefSetEvent {
-        private final String brief;
-
-        public BriefSetEvent(String brief) {
-            this.brief = brief;
-        }
-
-        public String getBrief() {
-            return brief;
-        }
-    }
-
 }

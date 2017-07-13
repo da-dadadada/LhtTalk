@@ -64,5 +64,9 @@ public class UserModel {
 
     }
 
+    public void auth() {
+
+    }
+
 
 }
