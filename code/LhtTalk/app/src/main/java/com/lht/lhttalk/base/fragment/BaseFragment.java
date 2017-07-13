@@ -33,7 +33,7 @@ import android.view.View;
 import com.lht.lhttalk.Event.AppEvent;
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.MainApplication;
-import com.lht.lhttalk.base.model.pojo.LoginInfo;
+import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.util.debug.DLog;
 
 import java.io.File;
@@ -96,19 +96,19 @@ public abstract class BaseFragment extends Fragment {
 
 
     protected boolean hasLogin() {
-        return IVerifyHolder.mLoginInfo.isLogin();
+        return IVerifyHolder.mUserBean.isLogin();
     }
 
     protected void setUi2UnLoginState() {
         //stub
     }
 
-    protected void setUi2LoginState(LoginInfo loginInfo) {
+    protected void setUi2LoginState(UserBean loginInfo) {
         //stub
     }
 
     public void onEventMainThread(AppEvent.LoginSuccessEvent event) {
-        setUi2LoginState(event.getLoginInfo());
+        setUi2LoginState(event.getUserBean());
     }
 
     @Override

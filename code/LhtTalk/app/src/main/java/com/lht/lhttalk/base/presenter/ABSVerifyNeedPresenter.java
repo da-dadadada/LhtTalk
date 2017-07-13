@@ -29,7 +29,7 @@ import com.lht.lhttalk.Event.AppEvent;
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.launcher.ITriggerCompare;
-import com.lht.lhttalk.base.model.pojo.LoginInfo;
+import com.lht.lhttalk.module.ucenter.UserBean;
 
 /**
  * <p><b>Package</b> com.lht.vsocyy.mvp.presenter
@@ -40,6 +40,7 @@ import com.lht.lhttalk.base.model.pojo.LoginInfo;
  * <p/>
  * 注意，只有会触发登录的页面的P才有必要继承
  * <p/>
+ * lhttalk中暂不需要
  * Created by leobert on 2016/5/5.
  */
 public abstract class ABSVerifyNeedPresenter implements IVerifyHolder,BasePresenter{
@@ -77,11 +78,11 @@ public abstract class ABSVerifyNeedPresenter implements IVerifyHolder,BasePresen
      * @return true while login,false otherwise
      */
     protected final boolean isLogin() {
-        return getLoginInfo().isLogin();
+        return getUserBean().isLogin();
     }
 
     @Override
-    public final LoginInfo getLoginInfo() {
-        return mLoginInfo;
+    public final UserBean getUserBean() {
+        return mUserBean;
     }
 }

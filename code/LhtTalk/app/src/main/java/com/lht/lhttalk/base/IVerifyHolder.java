@@ -26,7 +26,7 @@
 package com.lht.lhttalk.base;
 
 import com.lht.lhttalk.Event.AppEvent;
-import com.lht.lhttalk.base.model.pojo.LoginInfo;
+import com.lht.lhttalk.module.ucenter.UserBean;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -38,7 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
  * Created by leobert on 2016/5/5.
  */
 public interface IVerifyHolder {
-    LoginInfo mLoginInfo = new LoginInfo();
+    UserBean mUserBean = new UserBean(null,null);
 
     /**
      * desc: 主线程回调登录成功
@@ -57,6 +57,6 @@ public interface IVerifyHolder {
     @Subscribe
     void onEventMainThread(AppEvent.LoginCancelEvent event);
 
-    LoginInfo getLoginInfo();
+    UserBean getUserBean();
 
 }

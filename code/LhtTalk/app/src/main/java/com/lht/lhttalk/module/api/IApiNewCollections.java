@@ -62,10 +62,10 @@ public interface IApiNewCollections {
             RequestParams params = new RequestParams();
             params.add("lang", "zh-CN");
 
-            params.add(KEY_AUTH_USER, StringUtil.nullStrToEmpty(IVerifyHolder.mLoginInfo
+            params.add(KEY_AUTH_USER, StringUtil.nullStrToEmpty(IVerifyHolder.mUserBean
                     .getUsername()));
-            params.add(KEY_AUTH_TOKEN, StringUtil.nullStrToEmpty(IVerifyHolder.mLoginInfo
-                    .getAccessToken()));
+            params.add(KEY_AUTH_TOKEN, StringUtil.nullStrToEmpty(IVerifyHolder.mUserBean
+                    .getToken()));
 
             return params;
         }

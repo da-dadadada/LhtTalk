@@ -305,7 +305,7 @@
 //
 //    @Override
 //    public LoginInfo getLoginInfo() {
-//        return mLoginInfo;
+//        return mUserBean;
 //    }
 //
 //    private String getUsername() {

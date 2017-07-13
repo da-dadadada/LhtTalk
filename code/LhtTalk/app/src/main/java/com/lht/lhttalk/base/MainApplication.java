@@ -34,7 +34,6 @@ import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.BuildConfig;
 import com.lht.lhttalk.Event.AppEvent;
 import com.lht.lhttalk.base.activity.BaseActivity;
-import com.lht.lhttalk.base.model.pojo.LoginInfo;
 import com.lht.lhttalk.cfg.SPConstants;
 import com.lht.lhttalk.module.cache.CacheController;
 import com.lht.lhttalk.module.cache.ICacheController;
@@ -42,13 +41,14 @@ import com.lht.lhttalk.module.publ.SplashActivity;
 import com.lht.lhttalk.structure.SingletonStack;
 import com.lht.lhttalk.util.AppPreference;
 import com.lht.lhttalk.util.debug.DLog;
-//import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
+
+//import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -142,8 +142,8 @@ public class MainApplication extends Application {
 
     public void initUserInfo() {
         SharedPreferences sp = getTokenSp();
-        IVerifyHolder.mLoginInfo.setUsername(sp.getString(SPConstants.Token.KEY_USERNAME, ""));
-        IVerifyHolder.mLoginInfo.setAccessToken(sp.getString(SPConstants.Token.KEY_ACCESS_TOKEN,
+        IVerifyHolder.mUserBean.setUsername(sp.getString(SPConstants.Token.KEY_USERNAME, ""));
+        IVerifyHolder.mUserBean.setToken(sp.getString(SPConstants.Token.KEY_ACCESS_TOKEN,
                 ""));
     }
 
@@ -153,12 +153,12 @@ public class MainApplication extends Application {
 
     @Subscribe
     public void onEventMainThread(AppEvent.LoginSuccessEvent event) {
-        cacheController.notifyUserChanged(event.getLoginInfo().getUsername());
+        cacheController.notifyUserChanged(event.getUserBean().getUsername());
     }
 
     @Subscribe
     public void onEventMainThread(AppEvent.LogoutEvent event) {
-        IVerifyHolder.mLoginInfo.copy(new LoginInfo());
+        IVerifyHolder.mUserBean.clear();
         EventBus.getDefault().removeStickyEvent(AppEvent.LoginSuccessEvent.class);
         cacheController.notifyUserChanged(null);
         finishAll();
@@ -167,7 +167,7 @@ public class MainApplication extends Application {
     public void bindDevice() {
         // TODO: 2017/4/6 极光集成后使用
         DLog.i(getClass(), "处理完极光之后再使用");
-//        String username = IVerifyHolder.mLoginInfo.getUsername();
+//        String username = IVerifyHolder.mUserBean.getUsername();
 //        String registrationId = JPushInterface.getRegistrationID(getOurInstance());
 //        DeviceBindModel model = new DeviceBindModel(username, registrationId);
 //        model.doRequest(getOurInstance());
@@ -204,8 +204,8 @@ public class MainApplication extends Application {
 //        Intent intent = new Intent(getOurInstance(), HomeActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////        intent.putExtra(HomeActivity.KEY_ISLOGIN, IVerifyHolder.mLoginInfo.isLogin());
-////        intent.putExtra(HomeActivity.KEY_DATA, JSON.toJSONString(IVerifyHolder.mLoginInfo));
+////        intent.putExtra(HomeActivity.KEY_ISLOGIN, IVerifyHolder.mUserBean.isLogin());
+////        intent.putExtra(HomeActivity.KEY_DATA, JSON.toJSONString(IVerifyHolder.mUserBean));
 //        startActivity(intent);
 //    }
 

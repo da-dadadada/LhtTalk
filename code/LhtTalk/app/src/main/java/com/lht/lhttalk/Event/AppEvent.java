@@ -26,7 +26,7 @@
 package com.lht.lhttalk.Event;
 
 import com.lht.lhttalk.base.launcher.ITriggerCompare;
-import com.lht.lhttalk.base.model.pojo.LoginInfo;
+import com.lht.lhttalk.module.ucenter.UserBean;
 
 /**
  * <p><b>Package</b> com.lht.vsocyy.Event
@@ -54,43 +54,18 @@ public class AppEvent {
      * 登录成功事件
      */
     public static class LoginSuccessEvent extends TriggerHolderEvent {
-        private LoginInfo loginInfo;
+        private UserBean userBean;
 
-        public LoginSuccessEvent(LoginInfo loginInfo) {
-            this.loginInfo = loginInfo;
+        public LoginSuccessEvent(UserBean userBean) {
+            this.userBean = userBean;
         }
 
-        public LoginInfo getLoginInfo() {
-            return loginInfo;
+        public UserBean getUserBean() {
+            return userBean;
         }
     }
 
-//    public static class RegisterBackgroundLoginSuccessEvent {
-//        private LoginInfo loginInfo;
-//
-//        public RegisterBackgroundLoginSuccessEvent(LoginInfo loginInfo) {
-//            this.loginInfo = loginInfo;
-//        }
-//
-//        public LoginInfo getLoginInfo() {
-//            return loginInfo;
-//        }
-//    }
-//
-//    /**
-//     * 三方快速绑定成功静默登录成功事件
-//     */
-//    public static class TpRegSilentLoginSuccessEvent {
-//        private LoginInfo loginInfo;
-//
-//        public TpRegSilentLoginSuccessEvent(LoginInfo loginInfo) {
-//            this.loginInfo = loginInfo;
-//        }
-//
-//        public LoginInfo getLoginInfo() {
-//            return loginInfo;
-//        }
-//    }
+
 
     /**
      * 手动关闭登录页事件

@@ -180,7 +180,7 @@ public class CacheController implements ICacheController {
     }
 
     private String getUsername() {
-        String usr = IVerifyHolder.mLoginInfo.getUsername();
+        String usr = IVerifyHolder.mUserBean.getUsername();
         if (StringUtil.isEmpty(usr)) {
             return DEFAULT_USER;
         } else {

@@ -40,19 +40,21 @@ import com.lht.lhttalk.module.login.pojo.LoginResBean;
  */
 
 public class UserModel {
-    private final UserBean userBean;
-
-
-    public UserModel(UserBean userBean) {
-        this.userBean = userBean;
-    }
+//    private final UserBean userBean;
+//
+//
+//    public UserModel(UserBean userBean) {
+//        this.userBean = userBean;
+//    }
 
     public void logout() {
 
     }
 
-    public void login(Context context, ApiRequestCallback<LoginResBean> modelCallback) {
-        LoginApiRequest request = new LoginApiRequest(userBean.getLoginAccount(), modelCallback);
+    public void login(Context context,LoginAccount loginAccount,
+                      ApiRequestCallback<LoginResBean> modelCallback) {
+        LoginApiRequest request = new LoginApiRequest(loginAccount,
+                modelCallback);
         request.doRequest(context);
     }
 

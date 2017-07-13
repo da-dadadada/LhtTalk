@@ -59,8 +59,8 @@ import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.MainApplication;
 import com.lht.lhttalk.base.keyback.IKeyBackHandlerChain;
 import com.lht.lhttalk.base.launcher.LoginIntentFactory;
-import com.lht.lhttalk.base.model.pojo.LoginInfo;
 import com.lht.lhttalk.customview.popup.IPopupHolder;
+import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.util.AppPreference;
 import com.lht.lhttalk.util.I18N;
 import com.lht.lhttalk.util.PlatformUtils;
@@ -426,19 +426,19 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     protected boolean hasLogin() {
-        return IVerifyHolder.mLoginInfo.isLogin();
+        return IVerifyHolder.mUserBean.isLogin();
     }
 
     protected void setUi2UnLoginState() {
         //stub
     }
 
-    protected void setUi2LoginState(LoginInfo loginInfo) {
+    protected void setUi2LoginState(UserBean loginInfo) {
         //stub
     }
 
     public void onEventMainThread(AppEvent.LoginSuccessEvent event) {
-        setUi2LoginState(event.getLoginInfo());
+        setUi2LoginState(event.getUserBean());
     }
 
     @Override

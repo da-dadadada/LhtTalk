@@ -55,8 +55,8 @@ public interface IPublicConst {
 
 //    class MsgInfoUrlHelpler {
 //       public static String formatUrl(String msgId) {
-//           return  String.format(MSGINFO_URL_FORMAT, msgId, IVerifyHolder.mLoginInfo.getAccessToken(),
-//                   IVerifyHolder.mLoginInfo.getUsername());
+//           return  String.format(MSGINFO_URL_FORMAT, msgId, IVerifyHolder.mUserBean.getAccessToken(),
+//                   IVerifyHolder.mUserBean.getUsername());
 //       }
 //    }
 //

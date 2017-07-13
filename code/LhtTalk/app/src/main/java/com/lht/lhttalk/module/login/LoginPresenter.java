@@ -36,7 +36,6 @@ import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.module.login.pojo.LoginResBean;
 import com.lht.lhttalk.module.smack.service.SmackService;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
-import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.module.ucenter.UserModel;
 import com.lht.lhttalk.util.SPUtil;
 import com.lht.lhttalk.util.string.StringUtil;
@@ -80,8 +79,8 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
         }
         view.showWaitView(true);
         loginAccount = new LoginAccount(username, pwd);
-        UserModel userModel = new UserModel(new UserBean(loginAccount));
-        userModel.login(context, new LoginRequestCallback());
+        UserModel userModel = new UserModel();
+        userModel.login(context,loginAccount, new LoginRequestCallback());
     }
 
     @Override
