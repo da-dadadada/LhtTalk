@@ -139,7 +139,7 @@ public class BasicApiResponseHandler extends AsyncHttpResponseHandler {
 //            ToastUtils.show(MainApplication.getOurInstance(), bean.getMessage(), ToastUtils
 //                    .Duration.l);
             SharedPreferences sp = MainApplication.getOurInstance().getTokenSp();
-            SPUtil.modifyString(sp, SPConstants.Token.KEY_ACCESS_ID, "");
+//            SPUtil.modifyString(sp, SPConstants.Token.KEY_ACCESS_ID, "");
             SPUtil.modifyString(sp, SPConstants.Token.KEY_ACCESS_TOKEN, "");
             SPUtil.modifyString(sp, SPConstants.Token.KEY_USERNAME, "");
 

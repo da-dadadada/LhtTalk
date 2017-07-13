@@ -51,8 +51,7 @@
         app:ntb_badge_size="12sp"
         app:ntb_badge_title_color="#ffffffff"
         app:ntb_badge_use_typeface="true"
-        app:ntb_badged="true"
-        app:ntb_typeface="fonts/agency.ttf" />
+        app:ntb_badged="true" />
 
 
 </RelativeLayout>

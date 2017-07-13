@@ -25,6 +25,9 @@
 
 package com.lht.lhttalk.module.login;
 
+import android.content.Context;
+import android.support.annotation.StringRes;
+
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.BaseView;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
@@ -33,17 +36,25 @@ import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
  * Created by chhyu on 2017/7/11.
  */
 
-public interface LoginContract {
+/*public*/ interface LoginContract {
 
     interface View extends BaseView<Presenter> {
 
         void showWaitView(boolean isShow);
 
+        void onLoginSuccess();
+
         void jump2MainActivity(LoginResBean data);
+
+        void showMsg(String msg);
+
+        void showMsg(@StringRes int msgResId);
     }
 
     interface Presenter extends BasePresenter {
 
-        void doLogin(String username, String pwd);
+        void doLogin(Context context, String username, String pwd);
+
+        void doXmppConnect(Context context);
     }
 }

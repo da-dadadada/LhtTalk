@@ -79,7 +79,7 @@ public class SmackConnection implements ConnectionListener,
     private final Context mApplicationContext;
     private final String mToken;
     private final String mUsername;
-    private final String mServiceName = "vsochina.com";
+    private final String mServiceName = "im.vsochina.com";
 
     private XMPPTCPConnection mConnection;
     private ArrayList<String> mRoster;
@@ -104,15 +104,14 @@ public class SmackConnection implements ConnectionListener,
     public void connect() throws IOException, XMPPException, SmackException {
         Log.i(TAG, "connect()");
 
-
         XMPPTCPConnectionConfiguration.Builder builder = XMPPTCPConnectionConfiguration.builder();
-        builder.setXmppDomain("server domain");
-        builder.setHostAddress(InetAddress.getByName("you host address"));
+        builder.setXmppDomain(mServiceName);
+        builder.setHostAddress(InetAddress.getByName("im.vsochina.com"));
         //default port 5222
-//        builder.setPort(you port);
+        builder.setPort(5222);
         builder.setDebuggerEnabled(true);
         builder.setCompressionEnabled(true);
-        builder.setSendPresence(false);
+        builder.setSendPresence(true);
         builder.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
         builder.setUsernameAndPassword(mUsername, mToken);
 

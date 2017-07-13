@@ -27,15 +27,21 @@ package com.lht.lhttalk.module.smack.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 
 
+import com.lht.lhttalk.base.MainApplication;
+
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 
 import java.io.IOException;
+
+import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_ACCESS_TOKEN;
+import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_USERNAME;
 
 public class SmackService extends Service {
 
@@ -51,6 +57,9 @@ public class SmackService extends Service {
     public static final String BUNDLE_TO = "b_to";
 
     public static SmackConnection.ConnectionState sConnectionState;
+
+    private String username;
+    private String token;
 
 
     public static SmackConnection.ConnectionState getState() {
@@ -129,8 +138,12 @@ public class SmackService extends Service {
 
     private void initConnection() {
         if(mConnection == null){
-            // TODO: 2017/7/12 username & token
-            mConnection = new SmackConnection(this,"TODO","TODO");
+            SharedPreferences spToken = MainApplication.getOurInstance().getTokenSp();
+            username = spToken.getString(KEY_USERNAME,"");
+            token = spToken.getString(KEY_ACCESS_TOKEN,"");
+
+
+            mConnection = new SmackConnection(this,username,token);
         }
         try {
             mConnection.connect();

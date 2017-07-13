@@ -55,9 +55,9 @@ public interface SPConstants {
      */
     interface Token {
 
-        String SP_TOKEN = "sp_token";
+        String SP_FILE_NAME = "sp_token";
 
-        String KEY_ACCESS_ID = "access_id";
+//        String KEY_ACCESS_ID = "access_id";
 
         String KEY_ACCESS_TOKEN = "access_token";
 

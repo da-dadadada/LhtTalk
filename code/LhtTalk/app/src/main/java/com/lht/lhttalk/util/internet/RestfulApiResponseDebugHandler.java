@@ -120,7 +120,7 @@ public class RestfulApiResponseDebugHandler extends AsyncHttpResponseHandler {
 
     private void handleUnAuth() {
         SharedPreferences sp = MainApplication.getOurInstance().getTokenSp();
-        SPUtil.modifyString(sp, SPConstants.Token.KEY_ACCESS_ID, "");
+//        SPUtil.modifyString(sp, SPConstants.Token.KEY_ACCESS_ID, "");
         SPUtil.modifyString(sp, SPConstants.Token.KEY_ACCESS_TOKEN, "");
         SPUtil.modifyString(sp, SPConstants.Token.KEY_USERNAME, "");
 

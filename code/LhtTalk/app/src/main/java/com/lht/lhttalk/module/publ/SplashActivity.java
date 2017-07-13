@@ -76,27 +76,28 @@ public class SplashActivity extends AsyncProtectedActivity {
         rlSplash.postDelayed(new Runnable() {
             @Override
             public void run() {
-                autoLogin();
+                //// TODO: 2017/7/13
+                jump2LoginActivity();
             }
         }, 2000);
     }
 
     private void autoLogin() {
-        SharedPreferences sp = getSharedPreferences(LoginPresenter.SP_NAME, MODE_PRIVATE);
-        String username = sp.getString(LoginPresenter.AUTO_LOGIN_USERNAME, "");
-        String password = sp.getString(LoginPresenter.AUTO_LOGIN_PASSWORD, "");
-        Log.e("lmsg", "userInfo=" + username + "+" + password);
-        if (StringUtil.isEmpty(username)) {
-            jump2LoginActivity();
-            return;
-        }
-        if (StringUtil.isEmpty(password)) {
-            jump2LoginActivity();
-            return;
-        }
-        LoginAccount loginAccount = new LoginAccount(username, password);
-        UserModel userModel = new UserModel(new UserBean(loginAccount));
-        userModel.login(this, new LoginRequestCallback());
+//        SharedPreferences sp = getSharedPreferences(LoginPresenter.SP_NAME, MODE_PRIVATE);
+//        String username = sp.getString(LoginPresenter.AUTO_LOGIN_USERNAME, "");
+//        String password = sp.getString(LoginPresenter.AUTO_LOGIN_PASSWORD, "");
+//        Log.e("lmsg", "userInfo=" + username + "+" + password);
+//        if (StringUtil.isEmpty(username)) {
+//            jump2LoginActivity();
+//            return;
+//        }
+//        if (StringUtil.isEmpty(password)) {
+//            jump2LoginActivity();
+//            return;
+//        }
+//        LoginAccount loginAccount = new LoginAccount(username, password);
+//        UserModel userModel = new UserModel(new UserBean(loginAccount));
+//        userModel.login(this, new LoginRequestCallback());
     }
 
     @Override

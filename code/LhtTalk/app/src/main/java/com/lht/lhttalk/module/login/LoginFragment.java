@@ -29,7 +29,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +43,7 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 import com.lht.lhttalk.module.main.MainActivity;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
 /**
  * Created by chhyu on 2017/7/11.
@@ -90,13 +91,15 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     protected void initEvent() {
+        tvUsername.setText("13404298601");
+        etPassword.setText("123456");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = tvUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                presenter.doLogin(username, password);
+                presenter.doLogin(getActivity(),username, password);
             }
         });
     }
@@ -122,10 +125,25 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     }
 
     @Override
+    public void onLoginSuccess() {
+        presenter.doXmppConnect(getActivity());
+    }
+
+    @Override
     public void jump2MainActivity(LoginResBean data) {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.putExtra(MainActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
-        ((LoginActivity) getActivity()).finish();
+        getActivity().finish();
+    }
+
+    @Override
+    public void showMsg(String msg) {
+        ToastUtils.show(getActivity(),msg, ToastUtils.Duration.s);
+    }
+
+    @Override
+    public void showMsg(@StringRes int msgResId) {
+        ToastUtils.show(getActivity(),msgResId, ToastUtils.Duration.s);
     }
 }

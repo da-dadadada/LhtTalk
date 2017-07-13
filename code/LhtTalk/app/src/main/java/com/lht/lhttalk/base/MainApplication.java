@@ -148,7 +148,7 @@ public class MainApplication extends Application {
     }
 
     public SharedPreferences getTokenSp() {
-        return getSharedPreferences(SPConstants.Token.SP_TOKEN, MODE_PRIVATE);
+        return getSharedPreferences(SPConstants.Token.SP_FILE_NAME, MODE_PRIVATE);
     }
 
     @Subscribe

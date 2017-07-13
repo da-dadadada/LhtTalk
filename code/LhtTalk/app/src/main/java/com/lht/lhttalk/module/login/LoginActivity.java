@@ -25,6 +25,7 @@
 
 package com.lht.lhttalk.module.login;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
@@ -33,6 +34,7 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.activity.BaseActivity;
 import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
+import com.lht.lhttalk.cfg.SPConstants;
 import com.lht.lhttalk.util.ActivityUtils;
 
 /**
@@ -42,7 +44,8 @@ public class LoginActivity extends AsyncProtectedActivity {
 
 
     public static String KEY_TRIGGER = "trigger_key";
-    private LoginPresenter loginPresenter;
+    private LoginContract.Presenter loginPresenter;
+    private LoginFragment loginFragment;
     // UI references.
 
     @Override
@@ -56,34 +59,39 @@ public class LoginActivity extends AsyncProtectedActivity {
 
     @Override
     protected IApiRequestPresenter getApiRequestPresenter() {
+        if (loginPresenter instanceof IApiRequestPresenter)
+            return (IApiRequestPresenter) loginPresenter;
         return null;
     }
 
 
     @Override
     public BaseActivity getActivity() {
-        return null;
+        return this;
     }
 
     @Override
     protected void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        loginFragment = (LoginFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+        if (loginFragment == null) {
+            loginFragment = LoginFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment,
+                    R.id.contentFrame);
+        }
     }
 
     @Override
     protected void initVariable() {
-
+        SharedPreferences spToken = getSharedPreferences(SPConstants.Token.SP_FILE_NAME,MODE_PRIVATE);
+        loginPresenter = new LoginPresenter(spToken, loginFragment);
     }
 
     @Override
     protected void initEvent() {
-        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (loginFragment == null) {
-            loginFragment = loginFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.contentFrame);
-        }
-        loginPresenter = new LoginPresenter(this, loginFragment);
+
     }
 
 

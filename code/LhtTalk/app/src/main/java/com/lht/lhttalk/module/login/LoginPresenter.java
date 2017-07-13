@@ -27,35 +27,37 @@ package com.lht.lhttalk.module.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
+import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
-import com.lht.lhttalk.module.main.MainActivity;
+import com.lht.lhttalk.module.smack.service.SmackService;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.module.ucenter.UserModel;
 import com.lht.lhttalk.util.SPUtil;
 import com.lht.lhttalk.util.string.StringUtil;
 
+import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_ACCESS_TOKEN;
+import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_USERNAME;
+
 /**
  * Created by chhyu on 2017/7/11.
  */
 
-public class LoginPresenter implements LoginContract.Presenter {
+public class LoginPresenter implements LoginContract.Presenter, IApiRequestPresenter {
 
-    public static final String AUTO_LOGIN_USERNAME = "username";
-    public static final String AUTO_LOGIN_PASSWORD = "password";
-    public static final String SP_NAME = "user_login_info";
-    private Context context;
+    private SharedPreferences spToken;
     private LoginContract.View view;
 
     private LoginAccount loginAccount;
 
-    public LoginPresenter(Context context, LoginContract.View view) {
-        this.context = context;
+
+    public LoginPresenter(SharedPreferences spToken, LoginContract.View view) {
+        this.spToken = spToken;
         this.view = view;
 
         view.setPresenter(this);
@@ -67,56 +69,69 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void doLogin(String username, String pwd) {
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
+    public void doLogin(Context context, String username, String pwd) {
+//   for quick ui test     Intent intent = new Intent(context, MainActivity.class);
+//        context.startActivity(intent);
         if (StringUtil.isEmpty(username)) {
-            Toast.makeText(context, "请输入用户名", Toast.LENGTH_SHORT).show();
+            view.showMsg("请输入用户名");
             return;
         }
         if (StringUtil.isEmpty(pwd)) {
-            Toast.makeText(context, "请输入密码", Toast.LENGTH_SHORT).show();
+            view.showMsg("请输入密码");
             return;
         }
         view.showWaitView(true);
         loginAccount = new LoginAccount(username, pwd);
         UserModel userModel = new UserModel(new UserBean(loginAccount));
-        userModel.login(context, new LoginRequestCallbask(username, pwd));
+        userModel.login(context, new LoginRequestCallback());
 
     }
 
-    class LoginRequestCallbask implements ApiRequestCallback<LoginResBean> {
+    @Override
+    public void doXmppConnect(Context context) {
+        Intent intent = new Intent(context,SmackService.class);
+        context.startService(intent);
+    }
 
-        private String username;
-        private String password;
+    @Override
+    public void cancelRequestOnFinish(Context context) {
 
-        public LoginRequestCallbask(String username, String pwd) {
-            this.username = username;
-            this.password = pwd;
-        }
+    }
+
+    private class LoginRequestCallback implements ApiRequestCallback<LoginResBean> {
+
+//        private String username;
+//        private String password;
+//
+//        public LoginRequestCallback(String username, String pwd) {
+//            this.username = username;
+//            this.password = pwd;
+//        }
 
         @Override
         public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
             view.showWaitView(false);
-            Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+            view.showMsg("登录成功");
             LoginResBean data = beanContainer.getData();
-            view.jump2MainActivity(data);
 
-            SPUtil.modifyString(context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE), AUTO_LOGIN_USERNAME, username);
-            SPUtil.modifyString(context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE), AUTO_LOGIN_PASSWORD, password);
+            SPUtil.modifyString(spToken, KEY_USERNAME, data.getUsername());
+            SPUtil.modifyString(spToken, KEY_ACCESS_TOKEN, data.getVso_token());
+
+            view.onLoginSuccess();
+            view.jump2MainActivity(data);
         }
 
         @Override
         public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
             view.showWaitView(false);
             beanContainer.getData();
-            Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
+            view.showMsg("登录失败");
         }
 
         @Override
         public void onHttpFailure(int httpStatus) {
             view.showWaitView(false);
-            Toast.makeText(context, "网诺异常", Toast.LENGTH_SHORT).show();
+//            handle on debug
         }
     }
 }
