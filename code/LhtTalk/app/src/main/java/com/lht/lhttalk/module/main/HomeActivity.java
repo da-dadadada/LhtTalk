@@ -25,6 +25,7 @@
 
 package com.lht.lhttalk.module.main;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -38,6 +39,7 @@ import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.module.contact.ContactFragment;
 import com.lht.lhttalk.module.friend.FriendFragment;
 import com.lht.lhttalk.module.mine.MineFragment;
+import com.lht.lhttalk.module.smack.service.SmackService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,6 @@ import devlight.io.library.ntb.NavigationTabBar;
 
 public class HomeActivity extends AsyncProtectedActivity {
 
-    public static final String PAGENAME = "MainActivity";
     public static String USER_LOGIN_INFO = "user_login_info";
     private NavigationTabBar tabBar;
     private ViewPager vpContainer;
@@ -151,5 +152,12 @@ public class HomeActivity extends AsyncProtectedActivity {
     @Override
     public ProgressBar getProgressBar() {
         return null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent(this, SmackService.class);
+        stopService(intent);
     }
 }

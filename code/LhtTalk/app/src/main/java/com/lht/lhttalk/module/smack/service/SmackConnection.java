@@ -79,7 +79,7 @@ public class SmackConnection implements ConnectionListener,
     private final Context mApplicationContext;
     private final String mToken;
     private final String mUsername;
-    private final String mServiceName = "im.vsochina.com";
+    private final String mServiceName = "vsochina.com";
 
     private XMPPTCPConnection mConnection;
     private ArrayList<String> mRoster;
@@ -108,7 +108,7 @@ public class SmackConnection implements ConnectionListener,
         builder.setXmppDomain(mServiceName);
         builder.setHostAddress(InetAddress.getByName("im.vsochina.com"));
         //default port 5222
-        builder.setPort(5222);
+        builder.setResource("test android");
         builder.setDebuggerEnabled(true);
         builder.setCompressionEnabled(true);
         builder.setSendPresence(true);

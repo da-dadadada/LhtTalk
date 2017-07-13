@@ -26,10 +26,12 @@
 package com.lht.lhttalk.module.ucenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.module.login.model.LoginApiRequest;
 import com.lht.lhttalk.module.login.pojo.LoginResBean;
+import com.lht.lhttalk.module.smack.service.SmackService;
 
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
@@ -68,6 +70,11 @@ public class UserModel {
 
     public void auth() {
 
+    }
+
+    public void startXmpp(Context context) {
+        Intent intent = new Intent(context, SmackService.class);
+        context.startService(intent);
     }
 
 

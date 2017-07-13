@@ -29,7 +29,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.alibaba.fastjson.JSON;
@@ -46,7 +45,7 @@ import com.lht.lhttalk.module.login.LoginActivity;
 import com.lht.lhttalk.module.main.HomeActivity;
 import com.lht.lhttalk.module.publ.bean.BasicInfoParam;
 import com.lht.lhttalk.module.publ.bean.UserBasicInfo;
-import com.lht.lhttalk.module.ucenter.UserBean;
+import com.lht.lhttalk.module.ucenter.UserModel;
 import com.lht.lhttalk.util.string.StringUtil;
 
 import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_ACCESS_TOKEN;
@@ -136,6 +135,7 @@ public class SplashActivity extends AsyncProtectedActivity {
         public void onSuccess(BaseBeanContainer<UserBasicInfo> beanContainer) {
             userBasicInfo = beanContainer.getData();
             IVerifyHolder.mUserBean.setUserBasicInfo(userBasicInfo);
+            new UserModel().startXmpp(getActivity());
             authSuccess = true;
         }
 

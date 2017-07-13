@@ -43,6 +43,7 @@ import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.module.ucenter.UserModel;
 import com.lht.lhttalk.util.SPUtil;
+import com.lht.lhttalk.util.internet.HttpUtil;
 import com.lht.lhttalk.util.string.StringUtil;
 
 import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_ACCESS_TOKEN;
@@ -90,13 +91,12 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
 
     @Override
     public void doXmppConnect(Context context) {
-        Intent intent = new Intent(context, SmackService.class);
-        context.startService(intent);
+        new UserModel().startXmpp(context);
     }
 
     @Override
     public void cancelRequestOnFinish(Context context) {
-
+        HttpUtil.getInstance().onActivityDestroy(context);
     }
 
     private class LoginRequestCallback implements ApiRequestCallback<LoginResBean> {
