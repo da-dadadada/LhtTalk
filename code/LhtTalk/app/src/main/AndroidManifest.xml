@@ -39,9 +39,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+
+        <service android:name=".module.smack.service.SmackService" />
+
         <activity
             android:name=".module.publ.SplashActivity"
             android:label="@string/app_name">
@@ -56,7 +59,7 @@
             android:name=".module.login.LoginActivity"
             android:label="@string/title_activity_login" />
 
-        <activity android:name=".module.main.HomeActivity"></activity>
+        <activity android:name=".module.main.HomeActivity" />
     </application>
 
 </manifest>
