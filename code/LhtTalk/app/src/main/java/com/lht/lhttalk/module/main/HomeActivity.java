@@ -44,7 +44,7 @@ import java.util.List;
 
 import devlight.io.library.ntb.NavigationTabBar;
 
-public class MainActivity extends AsyncProtectedActivity {
+public class HomeActivity extends AsyncProtectedActivity {
 
     public static final String PAGENAME = "MainActivity";
     public static String USER_LOGIN_INFO = "user_login_info";
@@ -54,7 +54,7 @@ public class MainActivity extends AsyncProtectedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         initView();
         initVariable();
         initEvent();
@@ -140,7 +140,7 @@ public class MainActivity extends AsyncProtectedActivity {
 
     @Override
     public BaseActivity getActivity() {
-        return MainActivity.this;
+        return HomeActivity.this;
     }
 
     @Override

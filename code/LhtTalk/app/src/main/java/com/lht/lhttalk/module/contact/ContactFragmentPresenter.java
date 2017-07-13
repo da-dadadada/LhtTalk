@@ -23,46 +23,27 @@
  *
  */
 
-package com.lht.lhttalk.module.ucenter;
+package com.lht.lhttalk.module.contact;
 
 import android.content.Context;
 
-import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
-import com.lht.lhttalk.module.login.model.LoginApiRequest;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
-
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> UserModel </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/11.
+ * Created by chhyu on 2017/7/12.
  */
 
-public class UserModel {
-    private final UserBean userBean;
+public class ContactFragmentPresenter implements ContactFgContact.Presenter {
 
+    private Context context;
+    private ContactFgContact.View view;
 
-    public UserModel(UserBean userBean) {
-        this.userBean = userBean;
+    public ContactFragmentPresenter(Context context, ContactFgContact.View view) {
+        this.context = context;
+        this.view = view;
+        view.setPresenter(this);
     }
 
-    public void logout() {
+    @Override
+    public void start() {
 
     }
-
-    public void login(Context context, ApiRequestCallback<LoginResBean> modelCallback) {
-        LoginApiRequest request = new LoginApiRequest(userBean.getLoginAccount(), modelCallback);
-        request.doRequest(context);
-    }
-
-    public boolean isLogin() {
-        return false;
-    }
-
-    public void getBasicInfo() {
-
-    }
-
-
 }

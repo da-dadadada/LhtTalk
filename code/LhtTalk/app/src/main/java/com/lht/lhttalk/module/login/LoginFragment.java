@@ -25,11 +25,15 @@
 
 package com.lht.lhttalk.module.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+<<<<<<< HEAD
 import android.support.annotation.StringRes;
+=======
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +45,13 @@ import android.widget.ProgressBar;
 import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+<<<<<<< HEAD
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 import com.lht.lhttalk.module.main.MainActivity;
+=======
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
+import com.lht.lhttalk.module.main.HomeActivity;
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
 import com.lht.lhttalk.util.toast.ToastUtils;
 
 /**
@@ -131,8 +140,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     public void jump2MainActivity(LoginResBean data) {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.putExtra(MainActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
+        intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
         getActivity().finish();
     }
@@ -145,5 +154,20 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Override
     public void showMsg(@StringRes int msgResId) {
         ToastUtils.show(getActivity(),msgResId, ToastUtils.Duration.s);
+    }
+
+    @Override
+    public void showInfoEmptyToast(String text) {
+        ToastUtils.show(getActivity(), text, ToastUtils.Duration.s);
+    }
+
+    @Override
+    public void showLoginStateToast(String text) {
+        ToastUtils.show(getActivity(), text, ToastUtils.Duration.s);
+    }
+
+    @Override
+    public Context getmContext() {
+        return getActivity();
     }
 }

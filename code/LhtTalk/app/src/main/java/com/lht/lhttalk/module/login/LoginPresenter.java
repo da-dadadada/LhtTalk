@@ -25,16 +25,24 @@
 
 package com.lht.lhttalk.module.login;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
+=======
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
 import android.content.SharedPreferences;
 
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
+<<<<<<< HEAD
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
 import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 import com.lht.lhttalk.module.smack.service.SmackService;
+=======
+import com.lht.lhttalk.cfg.SPConstants;
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
 import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.module.ucenter.UserModel;
@@ -50,16 +58,23 @@ import static com.lht.lhttalk.cfg.SPConstants.Token.KEY_USERNAME;
 
 public class LoginPresenter implements LoginContract.Presenter, IApiRequestPresenter {
 
+<<<<<<< HEAD
     private SharedPreferences spToken;
+=======
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
     private LoginContract.View view;
-
+    private SharedPreferences sp;
     private LoginAccount loginAccount;
 
+<<<<<<< HEAD
 
     public LoginPresenter(SharedPreferences spToken, LoginContract.View view) {
         this.spToken = spToken;
+=======
+    public LoginPresenter(SharedPreferences sp, LoginContract.View view) {
+        this.sp = sp;
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
         this.view = view;
-
         view.setPresenter(this);
     }
 
@@ -69,6 +84,7 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
     }
 
     @Override
+<<<<<<< HEAD
     public void doLogin(Context context, String username, String pwd) {
 //   for quick ui test     Intent intent = new Intent(context, MainActivity.class);
 //        context.startActivity(intent);
@@ -78,12 +94,25 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
         }
         if (StringUtil.isEmpty(pwd)) {
             view.showMsg("请输入密码");
+=======
+    public void doLogin(String username, String pwd) {
+        if (StringUtil.isEmpty(username)) {
+            view.showInfoEmptyToast("请输入用户名");
+            return;
+        }
+        if (StringUtil.isEmpty(pwd)) {
+            view.showInfoEmptyToast("请输入密码");
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
             return;
         }
         view.showWaitView(true);
         loginAccount = new LoginAccount(username, pwd);
         UserModel userModel = new UserModel(new UserBean(loginAccount));
+<<<<<<< HEAD
         userModel.login(context, new LoginRequestCallback());
+=======
+        userModel.login(view.getmContext(), new LoginRequestCallbask());
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
 
     }
 
@@ -93,6 +122,7 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
         context.startService(intent);
     }
 
+<<<<<<< HEAD
     @Override
     public void cancelRequestOnFinish(Context context) {
 
@@ -112,26 +142,45 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
         public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
             view.showWaitView(false);
             view.showMsg("登录成功");
+=======
+        @Override
+        public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
+            view.showWaitView(false);
+            view.showLoginStateToast("登录成功");
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
             LoginResBean data = beanContainer.getData();
 
+<<<<<<< HEAD
             SPUtil.modifyString(spToken, KEY_USERNAME, data.getUsername());
             SPUtil.modifyString(spToken, KEY_ACCESS_TOKEN, data.getVso_token());
 
             view.onLoginSuccess();
             view.jump2MainActivity(data);
+=======
+            SPUtil.modifyString(sp, SPConstants.Token.SP_TOKEN, data.getVso_token());
+            SPUtil.modifyString(sp, SPConstants.Token.KEY_USERNAME, data.getUsername());
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
         }
 
         @Override
         public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
             view.showWaitView(false);
+<<<<<<< HEAD
             beanContainer.getData();
             view.showMsg("登录失败");
+=======
+            view.showLoginStateToast("登录失败");
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
         }
 
         @Override
         public void onHttpFailure(int httpStatus) {
             view.showWaitView(false);
+<<<<<<< HEAD
 //            handle on debug
+=======
+            view.showLoginStateToast("网络异常");
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
         }
     }
 }

@@ -25,7 +25,7 @@
 
 package com.lht.lhttalk.base.model.pojo;
 
-import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
 import com.lht.lhttalk.util.string.StringUtil;
 
 /**
@@ -35,6 +35,7 @@ import com.lht.lhttalk.util.string.StringUtil;
  * <p><b>Description</b>: 身份认证信息
  * Created by leobert on 2016/5/5.
  */
+@Deprecated
 public class LoginInfo {
     //最基本的信息
     private String username;

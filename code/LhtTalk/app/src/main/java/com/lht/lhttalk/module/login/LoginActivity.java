@@ -91,7 +91,17 @@ public class LoginActivity extends AsyncProtectedActivity {
 
     @Override
     protected void initEvent() {
+<<<<<<< HEAD
 
+=======
+        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (loginFragment == null) {
+            loginFragment = loginFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.contentFrame);
+        }
+        SharedPreferences sp = getSharedPreferences(SPConstants.Basic.SP_NAME, MODE_PRIVATE);
+        loginPresenter = new LoginPresenter(sp, loginFragment);
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
     }
 
 

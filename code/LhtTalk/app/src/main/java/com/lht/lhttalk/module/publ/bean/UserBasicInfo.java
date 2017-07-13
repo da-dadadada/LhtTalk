@@ -23,46 +23,57 @@
  *
  */
 
-package com.lht.lhttalk.module.ucenter;
-
-import android.content.Context;
-
-import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
-import com.lht.lhttalk.module.login.model.LoginApiRequest;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
+package com.lht.lhttalk.module.publ.bean;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> UserModel </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/11.
+ * Created by chhyu on 2017/7/13.
  */
 
-public class UserModel {
-    private final UserBean userBean;
+public class UserBasicInfo {
 
+    private String username;
+    private String nickname;
+    private String mobile;
+    private int sex;
+    private String avatar;
 
-    public UserModel(UserBean userBean) {
-        this.userBean = userBean;
+    public String getUsername() {
+        return username;
     }
 
-    public void logout() {
-
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void login(Context context, ApiRequestCallback<LoginResBean> modelCallback) {
-        LoginApiRequest request = new LoginApiRequest(userBean.getLoginAccount(), modelCallback);
-        request.doRequest(context);
+    public String getNickname() {
+        return nickname;
     }
 
-    public boolean isLogin() {
-        return false;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void getBasicInfo() {
-
+    public String getMobile() {
+        return mobile;
     }
 
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 }

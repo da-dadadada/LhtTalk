@@ -26,11 +26,14 @@
 package com.lht.lhttalk.module.login;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.support.annotation.StringRes;
+=======
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
 
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
 
 /**
  * Created by chhyu on 2017/7/11.
@@ -46,9 +49,17 @@ import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
 
         void jump2MainActivity(LoginResBean data);
 
+<<<<<<< HEAD
         void showMsg(String msg);
 
         void showMsg(@StringRes int msgResId);
+=======
+        void showInfoEmptyToast(String text);
+
+        void showLoginStateToast(String text);
+
+        Context getmContext();
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
     }
 
     interface Presenter extends BasePresenter {

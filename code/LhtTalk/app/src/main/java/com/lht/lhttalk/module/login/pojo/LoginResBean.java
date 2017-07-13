@@ -23,13 +23,13 @@
  *
  */
 
-package com.lht.lhttalk.module.login.model.pojo;
+package com.lht.lhttalk.module.login.pojo;
 
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.util.string.StringUtil;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.login.model.pojo </p>
+ * <p><b>Package:</b> com.lht.lhttalk.module.login.pojo </p>
  * <p><b>Project:</b> LhtTalk </p>
  * <p><b>Classname:</b> LoginResBean </p>
  * <p><b>Description:</b> TODO </p>

@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
@@ -41,14 +40,12 @@ import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
+import com.lht.lhttalk.cfg.SPConstants;
 import com.lht.lhttalk.module.login.LoginActivity;
-import com.lht.lhttalk.module.login.LoginPresenter;
-import com.lht.lhttalk.module.login.model.pojo.LoginResBean;
-import com.lht.lhttalk.module.main.MainActivity;
-import com.lht.lhttalk.module.ucenter.LoginAccount;
-import com.lht.lhttalk.module.ucenter.UserBean;
-import com.lht.lhttalk.module.ucenter.UserModel;
-import com.lht.lhttalk.util.SPUtil;
+import com.lht.lhttalk.module.login.pojo.LoginResBean;
+import com.lht.lhttalk.module.main.HomeActivity;
+import com.lht.lhttalk.module.publ.bean.BasicInfoParam;
+import com.lht.lhttalk.module.publ.bean.UserBasicInfo;
 import com.lht.lhttalk.util.string.StringUtil;
 import com.lht.lhttalk.util.toast.ToastUtils;
 
@@ -83,6 +80,7 @@ public class SplashActivity extends AsyncProtectedActivity {
     }
 
     private void autoLogin() {
+<<<<<<< HEAD
 //        SharedPreferences sp = getSharedPreferences(LoginPresenter.SP_NAME, MODE_PRIVATE);
 //        String username = sp.getString(LoginPresenter.AUTO_LOGIN_USERNAME, "");
 //        String password = sp.getString(LoginPresenter.AUTO_LOGIN_PASSWORD, "");
@@ -98,6 +96,25 @@ public class SplashActivity extends AsyncProtectedActivity {
 //        LoginAccount loginAccount = new LoginAccount(username, password);
 //        UserModel userModel = new UserModel(new UserBean(loginAccount));
 //        userModel.login(this, new LoginRequestCallback());
+=======
+        SharedPreferences sp = getSharedPreferences(SPConstants.Basic.SP_NAME, MODE_PRIVATE);
+        String sp_token = sp.getString(SPConstants.Token.SP_TOKEN, "");
+        String username = sp.getString(SPConstants.Token.KEY_USERNAME, "");
+        if (StringUtil.isEmpty(sp_token)) {
+            jump2LoginActivity();
+            return;
+        }
+        if (StringUtil.isEmpty(username)) {
+            jump2LoginActivity();
+            return;
+        }
+        //验证token
+        Log.e("lmsg", "token:" + sp_token);
+        Log.e("lmsg", "username:" + username);
+
+        QueryUserBasicInfoRequest request = new QueryUserBasicInfoRequest(new BasicInfoParam(sp_token, username), new QueryBasicInfoRequestCallback());
+        request.doRequest(this);
+>>>>>>> 35ddafcdc3e642cc72e16bdd4ac7a666c81e7709
     }
 
     @Override
@@ -116,31 +133,32 @@ public class SplashActivity extends AsyncProtectedActivity {
 
     }
 
-    class LoginRequestCallback implements ApiRequestCallback<LoginResBean> {
+    class QueryBasicInfoRequestCallback implements ApiRequestCallback<UserBasicInfo> {
+
         @Override
-        public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
-            Log.e("lmsg", "自动登录成功");
-            LoginResBean data = beanContainer.getData();
+        public void onSuccess(BaseBeanContainer<UserBasicInfo> beanContainer) {
+            UserBasicInfo data = beanContainer.getData();
+            Log.e("lmsg", "查询用户基本信息成功" + "\r\n" + "info=" + JSON.toJSONString(data));
             jump2MainActivity(data);
         }
 
         @Override
         public void onFailure(BaseBeanContainer<BaseVsoApiResBean> beanContainer) {
-            Log.e("lmsg", "自动登录失败");
+
+            Log.e("lmsg", "查询用户基本信息失败" + "\r\n" + "info=" + JSON.toJSONString(beanContainer.getData()));
             jump2LoginActivity();
         }
 
         @Override
         public void onHttpFailure(int httpStatus) {
-            jump2LoginActivity();
-            ToastUtils.show(SplashActivity.this, "网诺异常", ToastUtils.Duration.s);
+
         }
     }
 
-    private void jump2MainActivity(LoginResBean data) {
+    private void jump2MainActivity(UserBasicInfo data) {
         //自动登录成功
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(MainActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
     }
 

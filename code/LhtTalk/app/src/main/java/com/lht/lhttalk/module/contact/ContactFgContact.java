@@ -39,6 +39,6 @@ public interface ContactFgContact {
     }
 
     interface Presenter extends BasePresenter {
-        
+
     }
 }

@@ -27,6 +27,7 @@ package com.lht.lhttalk.module.api;
 
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
+import com.lht.lhttalk.module.publ.bean.BasicInfoParam;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.util.string.StringUtil;
 import com.loopj.android.http.RequestParams;
@@ -223,5 +224,27 @@ public interface IApiNewCollections {
 //            return params;
 //        }
 //    }
+
+    class QueryUserBasicInfoApi extends ApiNewRestOauthApi {
+        private static final String KEY_USERNAME = "username";
+        private static final String KEY_TOKEN = "vso_token";
+
+        @Override
+        protected String getUnformatedPath() {
+            return "user/info/view";
+        }
+
+        @Override
+        protected String getUnformatedQuerystring() {
+            return null;
+        }
+
+        public RequestParams newRequestParams(BasicInfoParam param) {
+            RequestParams params = super.newRequestParams();
+            params.add(KEY_TOKEN, param.getVso_token());
+            params.add(KEY_USERNAME, param.getUsername());
+            return params;
+        }
+    }
 
 }

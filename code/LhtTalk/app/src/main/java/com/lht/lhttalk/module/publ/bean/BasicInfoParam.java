@@ -23,46 +23,34 @@
  *
  */
 
-package com.lht.lhttalk.module.ucenter;
-
-import android.content.Context;
-
-import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
-import com.lht.lhttalk.module.login.model.LoginApiRequest;
-import com.lht.lhttalk.module.login.pojo.LoginResBean;
+package com.lht.lhttalk.module.publ.bean;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.ucenter </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> UserModel </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/11.
+ * Created by chhyu on 2017/7/13.
  */
 
-public class UserModel {
-    private final UserBean userBean;
+public class BasicInfoParam {
+    private String vso_token;
+    private String username;
 
-
-    public UserModel(UserBean userBean) {
-        this.userBean = userBean;
+    public BasicInfoParam(String vso_token, String username) {
+        this.vso_token = vso_token;
+        this.username = username;
     }
 
-    public void logout() {
-
+    public String getVso_token() {
+        return vso_token;
     }
 
-    public void login(Context context, ApiRequestCallback<LoginResBean> modelCallback) {
-        LoginApiRequest request = new LoginApiRequest(userBean.getLoginAccount(), modelCallback);
-        request.doRequest(context);
+    public void setVso_token(String vso_token) {
+        this.vso_token = vso_token;
     }
 
-    public boolean isLogin() {
-        return false;
+    public String getUsername() {
+        return username;
     }
 
-    public void getBasicInfo() {
-
+    public void setUsername(String username) {
+        this.username = username;
     }
-
-
 }
