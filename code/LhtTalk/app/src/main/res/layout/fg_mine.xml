@@ -31,10 +31,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_green_dark"
+        android:background="#0f0"
         android:gravity="center"
-        android:text="1"
-        android:textColor="@color/bg_white"
-        android:textSize="28sp"
+        android:text="3"
+        android:textColor="#f00"
         android:textStyle="bold" />
 </LinearLayout>
