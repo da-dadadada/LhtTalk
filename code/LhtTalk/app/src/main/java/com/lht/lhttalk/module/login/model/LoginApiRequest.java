@@ -33,7 +33,7 @@ import com.lht.lhttalk.base.model.apimodel.AbsApiRequest;
 import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
 import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
-import com.lht.lhttalk.module.api.IApiNewCollections;
+import com.lht.lhttalk.module.api.ReqApiCollections;
 import com.lht.lhttalk.module.login.pojo.LoginResBean;
 import com.lht.lhttalk.module.ucenter.LoginAccount;
 import com.lht.lhttalk.util.internet.HttpAction;
@@ -47,13 +47,13 @@ import com.loopj.android.http.RequestParams;
  */
 
 public class LoginApiRequest
-        extends AbsApiRequest<IApiNewCollections.LoginApi,LoginAccount> {
+        extends AbsApiRequest<ReqApiCollections.LoginApi,LoginAccount> {
 
     private ApiRequestCallback<LoginResBean> modelCallback;
 
 
     public LoginApiRequest(@NonNull LoginAccount account, ApiRequestCallback<LoginResBean> modelCallback) {
-        super(IApiNewCollections.LoginApi.class,account);
+        super(ReqApiCollections.LoginApi.class,account);
         this.modelCallback = modelCallback;
     }
 
@@ -84,12 +84,12 @@ public class LoginApiRequest
     }
 
     @Override
-    protected String formatUrl(IApiNewCollections.LoginApi apiImpl) {
+    protected String formatUrl(ReqApiCollections.LoginApi apiImpl) {
         return apiImpl.formatUrl(null);
     }
 
     @Override
-    protected RequestParams formatParam(IApiNewCollections.LoginApi apiImpl) {
+    protected RequestParams formatParam(ReqApiCollections.LoginApi apiImpl) {
         return apiImpl.newRequestParams(getData());
     }
 

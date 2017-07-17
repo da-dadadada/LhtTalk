@@ -41,11 +41,12 @@ import com.loopj.android.http.RequestParams;
  * Created by leobert on 2017/3/20.
  */
 
-public interface IApiNewCollections {
+public interface ReqApiCollections {
 
     /**
      * 新版APINEW的接口
      */
+    @Deprecated
     abstract class ApiNewRestOauthApi extends IRestfulApi.AbsRestApiBase {
         private static final String HOST = "apinew.vsochina.com";
 
@@ -170,51 +171,51 @@ public interface IApiNewCollections {
     }
 
 
-    /**
-     * User - 用户基础信息
-     * GET<br>
-     * user/info/view
-     * <p/>
-     * 参数
-     * appid	String 必须，全局通用appid
-     * <p/>
-     * token	String 必须，全局通用token
-     * <p/>
-     * username	String 必须，用户帐号
-     * <p/>
-     * to see ResBean at{@link BaseVsoApiResBean}
-     */
-    class BasicInfoApi extends ApiNewRestOauthApi {
-
-        private static final String KEY_USERNAME = "username";
-
-        @Override
-        protected String getUnformatedPath() {
-            return "user/info/view";
-        }
-
-        @Override
-        protected String getUnformatedQuerystring() {
-            return null;
-        }
-
-        public RequestParams newRequestParams(String username) {
-            RequestParams params = super.newRequestParams();
-            params.add(KEY_USERNAME, username);
-            return params;
-        }
-
-        public RequestParams newRequestParams(String username, String token) {
-            final String KEY_AUTH_USER = "auth_username";
-            final String KEY_AUTH_TOKEN = "auth_token";
-            RequestParams params = new RequestParams();
-            params.add(KEY_USERNAME, username);
-            params.add(KEY_AUTH_USER, username);
-            params.add(KEY_AUTH_TOKEN, token);
-
-            return params;
-        }
-    }
+//    /**
+//     * User - 用户基础信息
+//     * GET<br>
+//     * user/info/view
+//     * <p/>
+//     * 参数
+//     * appid	String 必须，全局通用appid
+//     * <p/>
+//     * token	String 必须，全局通用token
+//     * <p/>
+//     * username	String 必须，用户帐号
+//     * <p/>
+//     * to see ResBean at{@link BaseVsoApiResBean}
+//     */
+//    class BasicInfoApi extends ApiNewRestOauthApi {
+//
+//        private static final String KEY_USERNAME = "username";
+//
+//        @Override
+//        protected String getUnformattedPath() {
+//            return "user/info/view";
+//        }
+//
+//        @Override
+//        protected String getUnformattedQueryString() {
+//            return null;
+//        }
+//
+//        public RequestParams newRequestParams(String username) {
+//            RequestParams params = super.newRequestParams();
+//            params.add(KEY_USERNAME, username);
+//            return params;
+//        }
+//
+//        public RequestParams newRequestParams(String username, String token) {
+//            final String KEY_AUTH_USER = "auth_username";
+//            final String KEY_AUTH_TOKEN = "auth_token";
+//            RequestParams params = new RequestParams();
+//            params.add(KEY_USERNAME, username);
+//            params.add(KEY_AUTH_USER, username);
+//            params.add(KEY_AUTH_TOKEN, token);
+//
+//            return params;
+//        }
+//    }
 
 
     /**
@@ -279,7 +280,7 @@ public interface IApiNewCollections {
     class LogoutApi extends ApiNewRestOauthApi {
 
         @Override
-        protected String getUnformatedPath() {
+        protected String getUnformattedPath() {
             return "user/login/logout";
         }
 
@@ -287,7 +288,7 @@ public interface IApiNewCollections {
          * @return null if do not need to format qs
          */
         @Override
-        protected String getUnformatedQuerystring() {
+        protected String getUnformattedQueryString() {
             return null;
         }
 
@@ -306,12 +307,12 @@ public interface IApiNewCollections {
 //        private static final String KEY_TOKEN = "vso_token";
 //
 //        @Override
-//        protected String getUnformatedPath() {
+//        protected String getUnformattedPath() {
 //            return "user/login/status";
 //        }
 //
 //        @Override
-//        protected String getUnformatedQuerystring() {
+//        protected String getUnformattedQueryString() {
 //            return null;
 //        }
 //

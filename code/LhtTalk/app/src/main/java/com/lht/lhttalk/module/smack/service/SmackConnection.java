@@ -31,6 +31,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SmackException;
@@ -79,7 +81,11 @@ public class SmackConnection implements ConnectionListener,
     private final Context mApplicationContext;
     private final String mToken;
     private final String mUsername;
-    private final String mServiceName = "vsochina.com";
+    private final String mServiceName = "im.vsochina.com";
+    private final String mHostName = "im.vsochina.com";
+
+    /**渠道，渠道单点登录标识*/
+    private final String mResource = "im-android-test";
 
     private XMPPTCPConnection mConnection;
     private ArrayList<String> mRoster;
@@ -106,9 +112,11 @@ public class SmackConnection implements ConnectionListener,
 
         XMPPTCPConnectionConfiguration.Builder builder = XMPPTCPConnectionConfiguration.builder();
         builder.setXmppDomain(mServiceName);
-        builder.setHostAddress(InetAddress.getByName("im.vsochina.com"));
+        builder.setHostAddress(InetAddress.getByName(mHostName));
+//        builder.setXmppDomain("61.155.198.221");
+//        builder.setHost("im.vsochina.com");
         //default port 5222
-        builder.setResource("test android");
+        builder.setResource(mResource);
         builder.setDebuggerEnabled(true);
         builder.setCompressionEnabled(true);
         builder.setSendPresence(true);
@@ -179,6 +187,8 @@ public class SmackConnection implements ConnectionListener,
             }
             mRoster.add(entry.getJid().toString() + ": " + status);
         }
+
+        Log.d(TAG, JSON.toJSONString(mRoster));
 
         Intent intent = new Intent(SmackService.NEW_ROSTER);
         intent.setPackage(mApplicationContext.getPackageName());
@@ -296,6 +306,7 @@ public class SmackConnection implements ConnectionListener,
     public void authenticated(XMPPConnection connection, boolean resumed) {
         SmackService.sConnectionState = ConnectionState.CONNECTED;
         Log.i(TAG, "authenticated() is resume:" + resumed);
+        rebuildRoster();
     }
 
 

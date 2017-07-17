@@ -23,22 +23,34 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
+package com.lht.lhttalk.module.friend;
 
 import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
+ * <p><b>Project:</b> LhtTalk </p>
+ * <p><b>Classname:</b> PresenterImpl </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/7/14.
  */
 
-interface ContactFgContact {
+class PresenterImpl implements VPContact.Presenter{
 
-    interface View extends BaseView<Presenter> {
+    private VPContact.View view;
+
+    public PresenterImpl(VPContact.View view) {
+        this.view = view;
+    }
+
+    @Override
+    public void start() {
 
     }
 
-    interface Presenter extends BasePresenter {
+    @Override
+    public void refreshFriendList() {
 
     }
+
 }

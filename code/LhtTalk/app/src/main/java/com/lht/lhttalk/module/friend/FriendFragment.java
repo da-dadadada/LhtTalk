@@ -39,13 +39,15 @@ import com.lht.lhttalk.base.fragment.BaseFragment;
  * Created by chhyu on 2017/7/12.
  */
 
-public class FriendFragment extends BaseFragment {
+public class FriendFragment extends BaseFragment implements VPContact.View {
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fg_friend, null);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -53,6 +55,7 @@ public class FriendFragment extends BaseFragment {
         initVariable();
         initEvent();
     }
+
     @Override
     protected void initView(View contentView) {
 
@@ -71,5 +74,10 @@ public class FriendFragment extends BaseFragment {
     @Override
     protected String getPageName() {
         return null;
+    }
+
+    @Override
+    public void setPresenter(VPContact.Presenter presenter) {
+        // TODO: 2017/7/14
     }
 }

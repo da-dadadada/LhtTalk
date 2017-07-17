@@ -62,6 +62,11 @@ public class HomeActivity extends AsyncProtectedActivity {
     }
 
     @Override
+    protected int getCustomStatusBarColor() {
+        return 0;
+    }
+
+    @Override
     protected void initView() {
         tabBar = (NavigationTabBar) findViewById(R.id.home_tab);
         vpContainer = (ViewPager) findViewById(R.id.vp_horizontal_ntb);

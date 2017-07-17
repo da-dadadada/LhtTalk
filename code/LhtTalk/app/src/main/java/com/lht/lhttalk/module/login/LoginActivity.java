@@ -71,6 +71,11 @@ public class LoginActivity extends AsyncProtectedActivity {
     }
 
     @Override
+    protected int getCustomStatusBarColor() {
+        return 0;
+    }
+
+    @Override
     protected void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -97,6 +102,11 @@ public class LoginActivity extends AsyncProtectedActivity {
     @Override
     public ProgressBar getProgressBar() {
         return null;
+    }
+
+    @Override
+    public void finish() {
+        super.finishWithoutOverrideAnim();
     }
 }
 

@@ -23,22 +23,30 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
+package com.lht.lhttalk.module.friend;
 
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.BaseView;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
+ * <p><b>Project:</b> LhtTalk </p>
+ * <p><b>Classname:</b> VPContact </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/7/14.
  */
 
-interface ContactFgContact {
-
-    interface View extends BaseView<Presenter> {
+interface VPContact {
+    interface View extends BaseView<VPContact.Presenter> {
 
     }
 
     interface Presenter extends BasePresenter {
+
+        /**
+         * all return in one request
+         */
+        void refreshFriendList();
 
     }
 }

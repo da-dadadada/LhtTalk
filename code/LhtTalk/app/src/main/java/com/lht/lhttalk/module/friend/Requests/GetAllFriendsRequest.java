@@ -23,18 +23,13 @@
  *
  */
 
-package com.lht.lhttalk.module.publ;
+package com.lht.lhttalk.module.friend.Requests;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.base.model.apimodel.AbsApiRequest;
-import com.lht.lhttalk.base.model.apimodel.ApiRequestCallback;
-import com.lht.lhttalk.base.model.apimodel.BaseBeanContainer;
 import com.lht.lhttalk.base.model.apimodel.BaseVsoApiResBean;
-import com.lht.lhttalk.module.api.ReqApiCollections;
-import com.lht.lhttalk.module.publ.bean.BasicInfoParam;
-import com.lht.lhttalk.module.publ.bean.UserBasicInfo;
+import com.lht.lhttalk.module.api.ImApiCollections;
 import com.lht.lhttalk.util.internet.HttpAction;
 import com.lht.lhttalk.util.internet.HttpUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -42,52 +37,59 @@ import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 
 /**
- * Created by chhyu on 2017/7/13.
+ * <p><b>Package:</b> com.lht.lhttalk.module.friend.Requests </p>
+ * <p><b>Project:</b> LhtTalk </p>
+ * <p><b>Classname:</b> GetAllFriendsRequest </p>
+ * <p><b>Description:</b> TODO </p>
+ * Created by leobert on 2017/7/14.
  */
 
-public class AuthRequest extends AbsApiRequest<ReqApiCollections.QueryUserBasicInfoApi, BasicInfoParam> {
+public class GetAllFriendsRequest
+        extends AbsApiRequest<ImApiCollections.FriendListApi,
+        GetAllFriendsRequest.RequestData> {
 
-    private ApiRequestCallback<UserBasicInfo> modelCallback;
-
-    public AuthRequest(BasicInfoParam param, ApiRequestCallback<UserBasicInfo> modelCallback) {
-        super(ReqApiCollections.QueryUserBasicInfoApi.class, param);
-        this.modelCallback = modelCallback;
+    public GetAllFriendsRequest(Class<ImApiCollections.FriendListApi> friendListApiClass,
+                                RequestData data) {
+        super(friendListApiClass, data);
     }
 
     @Override
-    protected String formatUrl(ReqApiCollections.QueryUserBasicInfoApi apiImpl) {
-        return apiImpl.formatUrl(null);
+    protected String formatUrl(ImApiCollections.FriendListApi apiImpl) {
+        return null;
     }
 
     @Override
-    protected RequestParams formatParam(ReqApiCollections.QueryUserBasicInfoApi apiImpl) {
-        return apiImpl.newRequestParams(getData());
+    protected RequestParams formatParam(ImApiCollections.FriendListApi apiImpl) {
+        return null;
     }
 
     @Override
     protected HttpAction getHttpAction() {
-        return HttpAction.GET;
+        return null;
     }
 
     @Override
     protected void handleSuccess(BaseVsoApiResBean baseVsoApiResBean) {
-        UserBasicInfo basicUserInfo = JSON.parseObject(baseVsoApiResBean.getData(), UserBasicInfo.class);
-        modelCallback.onSuccess(new BaseBeanContainer<UserBasicInfo>(basicUserInfo));
+
     }
 
     @Override
     protected void handleFailure(BaseVsoApiResBean baseVsoApiResBean) {
-        modelCallback.onFailure(new BaseBeanContainer<BaseVsoApiResBean>(baseVsoApiResBean));
+
     }
 
     @Override
     protected void handleHttpFailure(int httpCode) {
-        modelCallback.onHttpFailure(httpCode);
+
     }
 
     @Override
     protected RequestHandle handle(HttpUtil httpUtil, Context context, String url, RequestParams params, AsyncHttpResponseHandler handler) {
-        return httpUtil.getWithParams(context, url, params, handler);
+        return null;
+    }
+
+    public static final class RequestData {
+
     }
 
 }

@@ -26,9 +26,7 @@
 package com.lht.lhttalk.module.api;
 
 
-import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.util.debug.DLog;
-import com.lht.lhttalk.util.string.StringUtil;
 import com.loopj.android.http.RequestParams;
 
 /**
@@ -99,12 +97,16 @@ public interface IRestfulApi {
     String formatUrl(Protocol protocol, String[] pathParams, String[] queryStringParams);
 
     abstract class AbsRestApiBase implements IRestfulApi {
-        protected abstract String getUnformatedPath();
+        protected abstract String getUnformattedPath();
 
         /**
          * @return null if do not need to format qs
          */
-        protected abstract String getUnformatedQuerystring();
+        protected abstract String getUnformattedQueryString();
+
+        protected Protocol getProtocol() {
+            return DEFAULT_PROTOCOL;
+        }
 
         @Override
         public String formatUrl(String[] pathParams) {
@@ -113,7 +115,7 @@ public interface IRestfulApi {
 
         @Override
         public String formatUrl(String[] pathParams, String[] queryStringParams) {
-            return this.formatUrl(DEFAULT_PROTOCOL, pathParams, queryStringParams);
+            return this.formatUrl(getProtocol(), pathParams, queryStringParams);
         }
 
         @Override
@@ -128,11 +130,11 @@ public interface IRestfulApi {
             builder.append(getHost()).append(SEPARATOR);
 
             Object[] p1 = pathParams;
-            builder.append(String.format(getUnformatedPath(), p1));
+            builder.append(String.format(getUnformattedPath(), p1));
 
             if (queryStringParams != null) {
                 Object[] p2 = queryStringParams;
-                builder.append(QUERY_SYMBOL).append(String.format(getUnformatedQuerystring(), p2));
+                builder.append(QUERY_SYMBOL).append(String.format(getUnformattedQueryString(), p2));
             }
 
             String ret = trim(builder);

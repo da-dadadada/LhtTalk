@@ -32,11 +32,13 @@ import android.os.Build;
 
 import com.lht.lhttalk.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * <p><b>Package</b> com.lht.vsocyy.util.time
@@ -60,6 +62,24 @@ public class TimeUtil {
 
     private TimeUtil() {
         throw new AssertionError();
+    }
+
+    /**
+     * @param time as 2017-07-14T07:49:32.611Z
+     * @return
+     */
+    public static long formatUtc2TimeStamp(String time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                Locale.CHINA);
+//        String time="2017-07-14T07:49:32.611Z";
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            Date date = format.parse(time);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     /**
