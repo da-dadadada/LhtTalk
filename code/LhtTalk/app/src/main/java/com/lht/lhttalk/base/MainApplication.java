@@ -98,6 +98,9 @@ public class MainApplication extends Application {
         if (ourInstance == null) {
             ourInstance = this;
         }
+
+        individual.leobert.retrofitext.ext.Debug.enableDebug("Retrofit");
+
         activeLifecycleMonitor();
         //角标模块激活
 //        BadgeNumberManager.initOnApplicationStart();

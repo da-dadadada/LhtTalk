@@ -27,7 +27,7 @@ package com.lht.lhttalk.module.friend;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,10 +36,22 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 
 /**
+ *
  * Created by chhyu on 2017/7/12.
  */
 
-public class FriendFragment extends BaseFragment implements VPContact.View {
+public class FriendFragment extends BaseFragment
+        implements VPContact.View<BaseFragment> {
+
+    public static FriendFragment getInstance() {
+        FriendFragment friendFragment =  new FriendFragment();
+        PresenterImpl presenter = new PresenterImpl(friendFragment);
+        friendFragment.setPresenter(presenter);
+        return friendFragment;
+    }
+
+    private VPContact.Presenter presenter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -73,11 +85,24 @@ public class FriendFragment extends BaseFragment implements VPContact.View {
 
     @Override
     protected String getPageName() {
-        return null;
+        return getClass().getSimpleName();
     }
 
     @Override
     public void setPresenter(VPContact.Presenter presenter) {
-        // TODO: 2017/7/14
+        this.presenter = presenter;
+        presenter.start();
+    }
+
+    @Override
+    public void onRestrictResume() {
+        super.onRestrictResume();
+        Log.d("DebugHandler","friend fg resume");
+        presenter.refreshFriendList();
+    }
+
+    @Override
+    public BaseFragment instance() {
+        return this;
     }
 }

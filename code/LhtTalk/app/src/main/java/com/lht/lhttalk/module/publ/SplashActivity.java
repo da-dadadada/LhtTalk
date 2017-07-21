@@ -153,7 +153,7 @@ public class SplashActivity extends AsyncProtectedActivity {
     private void jump2MainActivity(UserBasicInfo data) {
         //自动登录成功
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
+//        intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
         finishWithoutOverrideAnim();
     }

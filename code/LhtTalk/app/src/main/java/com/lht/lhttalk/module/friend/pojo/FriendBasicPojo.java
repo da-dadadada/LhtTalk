@@ -23,31 +23,51 @@
  *
  */
 
-package com.lht.lhttalk.module.friend;
-
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
+package com.lht.lhttalk.module.friend.pojo;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
+ * <p><b>Package:</b> com.lht.lhttalk.module.friend.pojo </p>
  * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> VPContact </p>
+ * <p><b>Classname:</b> FriendBasicPojo </p>
  * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/14.
+ * Created by leobert on 2017/7/21.
  */
 
-interface VPContact {
-    interface View<T> extends BaseView<VPContact.Presenter> {
+public class FriendBasicPojo {
+    private String username;
+    private String nickname;
+    private String avatar;
+    private String pinyin;
 
-        T instance();
+    public String getUsername() {
+        return username;
     }
 
-    interface Presenter extends BasePresenter {
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-        /**
-         * all return in one request
-         */
-        void refreshFriendList();
+    public String getNickname() {
+        return nickname;
+    }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
     }
 }

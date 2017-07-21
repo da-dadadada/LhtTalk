@@ -48,7 +48,7 @@ import devlight.io.library.ntb.NavigationTabBar;
 
 public class HomeActivity extends AsyncProtectedActivity {
 
-    public static String USER_LOGIN_INFO = "user_login_info";
+//    public static String USER_LOGIN_INFO = "user_login_info";
     private NavigationTabBar tabBar;
     private ViewPager vpContainer;
 
@@ -77,7 +77,7 @@ public class HomeActivity extends AsyncProtectedActivity {
     @Override
     protected void initVariable() {
         ContactFragment contactFragment = new ContactFragment();
-        FriendFragment friendFragment = new FriendFragment();
+        FriendFragment friendFragment = FriendFragment.getInstance();
         MineFragment mineFragment = new MineFragment();
 
         fragments.add(contactFragment);

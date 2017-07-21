@@ -42,9 +42,9 @@ public interface ImApiCollections {
     abstract class ImApi extends IRestfulApi.AbsRestApiBase {
         private static final String HOST = "www.vsochina.com";
 
-        private static final String KEY_AUTH_USER = "auth_uname";
+        private static final String KEY_AUTH_USER = "vso_uname";
 
-        private static final String KEY_AUTH_TOKEN = "auth_token";
+        private static final String KEY_AUTH_TOKEN = "vso_token";
 
         @Override
         protected String getHost() {

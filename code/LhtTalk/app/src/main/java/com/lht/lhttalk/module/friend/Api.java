@@ -25,29 +25,34 @@
 
 package com.lht.lhttalk.module.friend;
 
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
+import com.lht.lhttalk.module.friend.pojo.FriendBasicPojo;
+import com.lht.lhttalk.module.friend.pojo.FriendList;
+
+import java.util.Map;
+
+import individual.leobert.retrofitext.core.ApiDef;
+import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
  * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> VPContact </p>
+ * <p><b>Classname:</b> Api </p>
  * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/14.
+ * Created by leobert on 2017/7/21.
  */
 
-interface VPContact {
-    interface View<T> extends BaseView<VPContact.Presenter> {
+@ApiDef
+interface Api {
+    @GET("imapi/friend")
+    Call<FriendList> listAll(@Query("vso_uname") String name,
+                             @Query("vso_token") String token);
 
-        T instance();
-    }
-
-    interface Presenter extends BasePresenter {
-
-        /**
-         * all return in one request
-         */
-        void refreshFriendList();
-
-    }
+    @POST("imapi/friend/del")
+    Call<String> delete(@Field("target") String target,
+                        @Field("relieve") boolean relieve);
 }

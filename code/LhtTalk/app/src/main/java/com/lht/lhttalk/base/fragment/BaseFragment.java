@@ -25,9 +25,9 @@
 
 package com.lht.lhttalk.base.fragment;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import com.lht.lhttalk.Event.AppEvent;
@@ -40,14 +40,6 @@ import java.io.File;
 
 public abstract class BaseFragment extends Fragment {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-    }
 
 //    @Nullable
 //    @Override
@@ -66,7 +58,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-//        Log.e("lmsg", getPageName() + " onHiddenchange");
+        Log.d("DebugHandler","onHiddenChange");
         if (hidden) {
             onRestrictPause();
         } else {
@@ -75,7 +67,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void onRestrictPause() {
-//        Log.e("lmsg", getPageName() + " onRestrictPause");
         if (getCurrentChildFragment() != null) {
             if (getCurrentChildFragment() instanceof BaseFragment) {
                 BaseFragment currentChild = (BaseFragment) getCurrentChildFragment();
@@ -85,7 +76,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void onRestrictResume() {
-//        Log.e("lmsg", getPageName() + " onRestrictResume");
         if (getCurrentChildFragment() != null) {
             if (getCurrentChildFragment() instanceof BaseFragment) {
                 BaseFragment currentChild = (BaseFragment) getCurrentChildFragment();
@@ -122,11 +112,13 @@ public abstract class BaseFragment extends Fragment {
 
     public final void onResume() {
         super.onResume();
+        onRestrictResume();
 //        MobclickAgent.onPageStart(getPageName());
     }
 
     public final void onPause() {
         super.onPause();
+        onRestrictPause();
 //        MobclickAgent.onPageEnd(getPageName());
     }
 
@@ -183,7 +175,6 @@ public abstract class BaseFragment extends Fragment {
 
     public File getLocalPreviewCacheDir() {
         return getMainApplication().getLocalPreviewCacheDir();
-
     }
 
 }

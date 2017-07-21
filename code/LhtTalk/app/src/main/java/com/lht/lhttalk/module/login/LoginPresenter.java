@@ -101,14 +101,6 @@ public class LoginPresenter implements LoginContract.Presenter, IApiRequestPrese
 
     private class LoginRequestCallback implements ApiRequestCallback<LoginResBean> {
 
-//        private String username;
-//        private String password;
-//
-//        public LoginRequestCallback(String username, String pwd) {
-//            this.username = username;
-//            this.password = pwd;
-//        }
-
         @Override
         public void onSuccess(BaseBeanContainer<LoginResBean> beanContainer) {
             view.showWaitView(false);

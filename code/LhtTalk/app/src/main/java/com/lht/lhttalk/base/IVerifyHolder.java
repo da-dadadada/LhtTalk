@@ -30,6 +30,8 @@ import com.lht.lhttalk.module.ucenter.UserBean;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.HashMap;
+
 /**
  * <p><b>Package</b> com.lht.vsocyy.interfaces
  * <p><b>Project</b> VsoCyy
@@ -38,7 +40,7 @@ import org.greenrobot.eventbus.Subscribe;
  * Created by leobert on 2016/5/5.
  */
 public interface IVerifyHolder {
-    UserBean mUserBean = new UserBean(null,null);
+    UserBean mUserBean = new UserBean(null, null);
 
     /**
      * desc: 主线程回调登录成功

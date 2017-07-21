@@ -26,6 +26,17 @@
 package com.lht.lhttalk.module.friend;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+
+import com.lht.lhttalk.base.IVerifyHolder;
+import com.lht.lhttalk.module.api.ApiClient;
+import com.lht.lhttalk.module.friend.pojo.FriendBasicPojo;
+import com.lht.lhttalk.module.friend.pojo.FriendList;
+import com.lht.lhttalk.util.string.StringUtil;
+
+import individual.leobert.retrofitext.RetrofitExt;
+import individual.leobert.retrofitext.ext.ApiResponseHandler;
+import retrofit2.Call;
 
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
@@ -37,7 +48,36 @@ import android.content.Context;
 
 class FriendModel {
 
-    public void getFriendList(Context context) {
+    private Api apiInstance = ApiClient.getInstance().apiInstance(Api.class);
 
+
+    public void getFriendList(Fragment fragment,
+                              ApiResponseHandler<FriendList> responseHandler) {
+        Call<FriendList> call = apiInstance
+                .listAll(IVerifyHolder.mUserBean.getUsername(),
+                        IVerifyHolder.mUserBean.getToken());
+
+        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, responseHandler);
     }
+
+    public void deleteFriend(Context context, String target, boolean relieve,
+                             ApiResponseHandler<String> responseHandler) {
+        if (StringUtil.isEmpty(target))
+            throw new IllegalArgumentException("target is null or empty!");
+
+        Call<String> call = apiInstance
+                .delete(target, relieve);
+
+        RetrofitExt.lifeCycledWithContext(context, call, responseHandler);
+    }
+
+    public void deleteFriend(Context context, FriendBasicPojo target, boolean relieve,
+                             ApiResponseHandler<String> responseHandler) {
+        if (target == null)
+            throw new IllegalArgumentException("target is null");
+
+        this.deleteFriend(context, target.getUsername(), relieve, responseHandler);
+    }
+
+
 }

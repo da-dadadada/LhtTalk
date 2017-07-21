@@ -93,4 +93,9 @@ dependencies {
     compile "org.igniterealtime.smack:smack-android-extensions:4.2.0"
     compile "org.igniterealtime.smack:smack-experimental:4.2.0"
     compile "org.igniterealtime.smack:smack-tcp:4.2.0"
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'individual.leobert.libs:retrofitext:1.0.1'
+    compile 'individual.leobert.libs:retrofitext-core:1.0.1'
+    annotationProcessor 'individual.leobert.libs:retrofitext-compiler:1.0.1'
 }

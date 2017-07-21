@@ -25,7 +25,14 @@
 
 package com.lht.lhttalk.module.friend;
 
-import com.lht.lhttalk.base.BasePresenter;
+import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.module.friend.pojo.FriendBasicPojo;
+import com.lht.lhttalk.module.friend.pojo.FriendList;
+
+import individual.leobert.retrofitext.ext.ApiResponseHandler;
+import okhttp3.Headers;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
@@ -37,10 +44,13 @@ import com.lht.lhttalk.base.BasePresenter;
 
 class PresenterImpl implements VPContact.Presenter{
 
-    private VPContact.View view;
+    private VPContact.View<BaseFragment> view;
 
-    public PresenterImpl(VPContact.View view) {
+    private FriendModel friendModel;
+
+    public PresenterImpl(VPContact.View<BaseFragment> view) {
         this.view = view;
+        friendModel = new FriendModel();
     }
 
     @Override
@@ -50,7 +60,22 @@ class PresenterImpl implements VPContact.Presenter{
 
     @Override
     public void refreshFriendList() {
+        friendModel.getFriendList(view.instance(), new ApiResponseHandler<FriendList>() {
+            @Override
+            public void onSuccess(int i, Call<FriendList> call, Headers headers, FriendList friendList) {
 
+            }
+
+            @Override
+            public void onFailure(int i, Call<FriendList> call, Headers headers, ResponseBody responseBody) {
+
+            }
+
+            @Override
+            public void onFinish(Call<FriendList> call) {
+
+            }
+        });
     }
 
 }

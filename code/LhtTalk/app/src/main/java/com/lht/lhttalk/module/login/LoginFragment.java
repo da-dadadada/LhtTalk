@@ -25,7 +25,6 @@
 
 package com.lht.lhttalk.module.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -133,7 +132,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Override
     public void jump2MainActivity(LoginResBean data) {
         Intent intent = new Intent(getActivity(), HomeActivity.class);
-        intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
+//        intent.putExtra(HomeActivity.USER_LOGIN_INFO, JSON.toJSONString(data));
         startActivity(intent);
         getActivity().finish();
     }
