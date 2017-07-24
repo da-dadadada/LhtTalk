@@ -98,4 +98,5 @@ dependencies {
     compile 'individual.leobert.libs:retrofitext:1.0.1'
     compile 'individual.leobert.libs:retrofitext-core:1.0.1'
     annotationProcessor 'individual.leobert.libs:retrofitext-compiler:1.0.1'
+    compile 'individual.leobert.libs:lrecyclerview:1.0.1'
 }

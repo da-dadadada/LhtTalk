@@ -26,7 +26,6 @@
 package com.lht.lhttalk.module.friend;
 
 import com.lht.lhttalk.base.fragment.BaseFragment;
-import com.lht.lhttalk.module.friend.pojo.FriendBasicPojo;
 import com.lht.lhttalk.module.friend.pojo.FriendList;
 
 import individual.leobert.retrofitext.ext.ApiResponseHandler;
