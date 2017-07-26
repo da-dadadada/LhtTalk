@@ -23,28 +23,26 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
+package com.lht.lhttalk.module.search;
 
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
+import com.lht.lhttalk.module.search.bean.SearchResBean;
+
+import java.util.ArrayList;
+
+import individual.leobert.retrofitext.core.ApiDef;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * Created by chhyu on 2017/7/25.
  */
 
-interface ContactFgContact {
+@ApiDef
+public interface Api {
 
-    interface View extends BaseView<ContactFgContact.Presenter> {
-
-        ContactFragment instance();
-    }
-
-    interface Presenter extends BasePresenter {
-
-        void refreshContactList();
-
-        void deleteFromContact();
-
-        void add2ContactList();
-    }
+    @GET("imapi/user/search")
+    Call<ArrayList<SearchResBean>> doSearch(@Query("nickname") String nickname,
+                                            @Query("vso_uname") String username,
+                                            @Query("vso_token") String token);
 }

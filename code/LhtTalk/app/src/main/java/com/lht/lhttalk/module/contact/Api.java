@@ -25,26 +25,43 @@
 
 package com.lht.lhttalk.module.contact;
 
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
+import com.lht.lhttalk.module.contact.bean.ContactResBean;
+
+import java.util.ArrayList;
+
+import individual.leobert.retrofitext.core.ApiDef;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * Created by chhyu on 2017/7/24.
  */
 
-interface ContactFgContact {
+@ApiDef
+interface Api {
 
-    interface View extends BaseView<ContactFgContact.Presenter> {
+    /**
+     * 刷新聊天列表
+     *
+     * @param pageIndex
+     * @param pageSize
+     * @param username
+     * @param token
+     * @return
+     */
+    @GET("imapi/contact/list")
+    Call<ArrayList<ContactResBean>> contactList(@Query("pageIndex") int pageIndex,
+                                                @Query("pageSize") int pageSize,
+                                                @Query("vso_uname") String username,
+                                                @Query("vso_token") String token);
 
-        ContactFragment instance();
-    }
+    @POST("imapi/contact/del")
+    Call<String> delateFromContact(@Query("vso_uname") String username,
+                                   @Query("vso_token") String token);
 
-    interface Presenter extends BasePresenter {
-
-        void refreshContactList();
-
-        void deleteFromContact();
-
-        void add2ContactList();
-    }
+    @GET("imapi/contact/add")
+    Call<String> add2ContactList(@Query("vso_uname") String username,
+                                 @Query("vso_token") String token);
 }

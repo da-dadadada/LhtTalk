@@ -25,26 +25,35 @@
 
 package com.lht.lhttalk.module.friend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.module.search.SearchActivity;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
 /**
- *
  * Created by chhyu on 2017/7/12.
  */
 
 public class FriendFragment extends BaseFragment
-        implements VPContact.View<BaseFragment> {
+        implements VPContact.View<BaseFragment>, View.OnClickListener {
+
+
+    private TitleBar titleBar;
+    private Button btnSearch;
+    private TextView tvNewFriend;
 
     public static FriendFragment getInstance() {
-        FriendFragment friendFragment =  new FriendFragment();
+        FriendFragment friendFragment = new FriendFragment();
         PresenterImpl presenter = new PresenterImpl(friendFragment);
         friendFragment.setPresenter(presenter);
         return friendFragment;
@@ -70,7 +79,9 @@ public class FriendFragment extends BaseFragment
 
     @Override
     protected void initView(View contentView) {
-
+        titleBar = (TitleBar) contentView.findViewById(R.id.titleBar);
+        btnSearch = (Button) contentView.findViewById(R.id.btn_search_friend);
+        tvNewFriend = (TextView) contentView.findViewById(R.id.tv_new_friend);
     }
 
     @Override
@@ -80,8 +91,21 @@ public class FriendFragment extends BaseFragment
 
     @Override
     protected void initEvent() {
+        titleBar.setDefaultOnBackListener(getActivity());
+        titleBar.setTvTitle("联系人");
+        titleBar.setOnAddOnclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show(getActivity(), "添加", ToastUtils.Duration.s);
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        btnSearch.setOnClickListener(this);
+        tvNewFriend.setOnClickListener(this);
     }
+
 
     @Override
     protected String getPageName() {
@@ -97,12 +121,26 @@ public class FriendFragment extends BaseFragment
     @Override
     public void onRestrictResume() {
         super.onRestrictResume();
-        Log.d("DebugHandler","friend fg resume");
+        Log.d("DebugHandler", "friend fg resume");
         presenter.refreshFriendList();
     }
 
     @Override
     public BaseFragment instance() {
         return this;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_search_friend:
+                // TODO: 2017/7/25 搜索本地好友
+                break;
+            case R.id.tv_new_friend:
+                // TODO: 2017/7/25 好友添加请求
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -23,36 +23,45 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
+package com.lht.lhttalk.module.search;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * Created by chhyu on 2017/7/25.
  */
 
-public class ContactFragment extends BaseFragment implements ContactFgContact.View {
-    private static final String PAGENAME = "ContactFragment";
-    private ContactFgContact.Presenter presenter;
+public class SearchFragment extends BaseFragment implements SearchContract.View {
+    private static final String PAGENAME = "SearchFragment";
+    private SearchContract.Presenter presenter;
+    private EditText etSearchContent;
+    private Button btnSearch;
+    private ProgressBar progressBar;
 
-    public static ContactFragment getInstance() {
-        ContactFragment fragment = new ContactFragment();
-        PresenterImpl presenterImpl = new PresenterImpl(fragment);
-        fragment.setPresenter(presenterImpl);
-        return fragment;
+    public static SearchFragment newInstance() {
+        SearchFragment searchFragment = new SearchFragment();
+        SearchPresenter searchPresenter = new SearchPresenter(searchFragment);
+        searchFragment.setPresenter(searchPresenter);
+        return searchFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fg_contact, null);
+
+        return inflater.inflate(R.layout.fg_search, null);
     }
 
     @Override
@@ -65,39 +74,55 @@ public class ContactFragment extends BaseFragment implements ContactFgContact.Vi
 
     @Override
     protected void initView(View contentView) {
+        etSearchContent = (EditText) contentView.findViewById(R.id.et_search_content);
+        btnSearch = (Button) contentView.findViewById(R.id.btn_search);
+        progressBar = (ProgressBar) contentView.findViewById(R.id.progressBar);
 
     }
 
     @Override
     protected void initVariable() {
-
     }
 
     @Override
     protected void initEvent() {
-
-    }
-
-    @Override
-    public void onRestrictResume() {
-        super.onRestrictResume();
-        presenter.refreshContactList();
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("lmsg", "搜索");
+                presenter.doSearch(etSearchContent.getText().toString());
+            }
+        });
     }
 
     @Override
     protected String getPageName() {
-        return ContactFragment.PAGENAME;
+        return SearchFragment.PAGENAME;
     }
 
-
     @Override
-    public void setPresenter(ContactFgContact.Presenter presenter) {
+    public void setPresenter(SearchContract.Presenter presenter) {
         this.presenter = presenter;
         presenter.start();
     }
 
     @Override
-    public ContactFragment instance() {
-        return this;
+    public void showMsg(String text) {
+        ToastUtils.show(getActivity(), text, ToastUtils.Duration.s);
     }
+
+    @Override
+    public SearchFragment instance() {
+        return SearchFragment.this;
+    }
+
+    @Override
+    public void showWaitView(boolean b) {
+        if (b) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+    }
+
 }

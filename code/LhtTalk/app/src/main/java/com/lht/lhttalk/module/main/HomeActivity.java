@@ -48,7 +48,7 @@ import devlight.io.library.ntb.NavigationTabBar;
 
 public class HomeActivity extends AsyncProtectedActivity {
 
-//    public static String USER_LOGIN_INFO = "user_login_info";
+    //    public static String USER_LOGIN_INFO = "user_login_info";
     private NavigationTabBar tabBar;
     private ViewPager vpContainer;
 
@@ -74,9 +74,10 @@ public class HomeActivity extends AsyncProtectedActivity {
 
     List<BaseFragment> fragments = new ArrayList<>();
     private HomeFragmentPagerAdapter fragmentPagerAdapter;
+
     @Override
     protected void initVariable() {
-        ContactFragment contactFragment = new ContactFragment();
+        ContactFragment contactFragment = ContactFragment.getInstance();
         FriendFragment friendFragment = FriendFragment.getInstance();
         MineFragment mineFragment = new MineFragment();
 
@@ -84,7 +85,7 @@ public class HomeActivity extends AsyncProtectedActivity {
         fragments.add(friendFragment);
         fragments.add(mineFragment);
 
-        fragmentPagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager(),fragments);
+        fragmentPagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager(), fragments);
     }
 
     int[] colors = {Color.RED, Color.GREEN, Color.YELLOW};

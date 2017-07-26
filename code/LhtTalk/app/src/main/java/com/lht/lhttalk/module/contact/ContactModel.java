@@ -23,59 +23,65 @@
  *
  */
 
-package com.lht.lhttalk.module.friend;
+package com.lht.lhttalk.module.contact;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.module.api.ApiClient;
-import com.lht.lhttalk.module.friend.pojo.FriendBasicPojo;
-import com.lht.lhttalk.module.friend.pojo.FriendList;
-import com.lht.lhttalk.util.string.StringUtil;
+import com.lht.lhttalk.module.contact.bean.ContactResBean;
+
+import java.util.ArrayList;
 
 import individual.leobert.retrofitext.RetrofitExt;
 import individual.leobert.retrofitext.ext.ApiResponseHandler;
 import retrofit2.Call;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> FriendModel </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/14.
+ * Created by chhyu on 2017/7/24.
  */
 
-class FriendModel {
+public class ContactModel {
 
     private Api apiInstance = ApiClient.getInstance().apiInstance(Api.class);
 
-
-    public void getFriendList(Fragment fragment,
-                              ApiResponseHandler<FriendList> responseHandler) {
-        Call<FriendList> call = apiInstance
-                .listAll(IVerifyHolder.mUserBean.getUsername(),
-                        IVerifyHolder.mUserBean.getToken());
+    /**
+     * 获取聊天列表
+     *
+     * @param fragment
+     * @param responseHandler
+     */
+    public void getContactList(Fragment fragment, ApiResponseHandler<ArrayList<ContactResBean>> responseHandler) {
+        // TODO: 2017/7/24 pagenation
+        Call<ArrayList<ContactResBean>> call = apiInstance.contactList(0, 10,
+                IVerifyHolder.mUserBean.getUsername(),
+                IVerifyHolder.mUserBean.getToken());
 
         RetrofitExt.lifeCycledWithFragmentV4(fragment, call, responseHandler);
     }
 
-    public void deleteFriend(Context context, String target, boolean relieve,
-                             ApiResponseHandler<String> responseHandler) {
-        if (StringUtil.isEmpty(target))
-            throw new IllegalArgumentException("target is null or empty!");
+    /**
+     * 从聊天列表中删除
+     *
+     * @param fragment
+     * @param responseHandler
+     */
+    public void deleteFromContact(Fragment fragment, ApiResponseHandler<String> responseHandler) {
 
-        Call<String> call = apiInstance
-                .delete(target, relieve);
+        Call<String> call = apiInstance.delateFromContact(IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
 
-        RetrofitExt.lifeCycledWithContext(context, call, responseHandler);
+        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, responseHandler);
     }
 
-    public void deleteFriend(Context context, FriendBasicPojo target, boolean relieve,
-                             ApiResponseHandler<String> responseHandler) {
-        if (target == null)
-            throw new IllegalArgumentException("target is null");
+    /**
+     * 添加到联系人列表
+     *
+     * @param fragment
+     * @param responseHandler
+     */
+    public void add2ContactList(Fragment fragment, ApiResponseHandler<String> responseHandler) {
+        Call<String> call = apiInstance.delateFromContact(IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
 
-        this.deleteFriend(context, target.getUsername(), relieve, responseHandler);
+        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, responseHandler);
     }
 }

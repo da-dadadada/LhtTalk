@@ -23,36 +23,31 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.lht.lhttalk.module.friend.TitleBar
-        android:id="@+id/titleBar"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary" />
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btn_search_friend"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:text="搜索" />
-
-    <TextView
-        android:id="@+id/tv_new_friend"
+    <EditText
+        android:id="@+id/et_search_content"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_new_friend"
-        android:drawableRight="@drawable/v1000_drawable_xuanz"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:text="新朋友"
-        android:textSize="16sp" />
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:hint="请输入搜索内容"
+        android:paddingLeft="10dp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_search_content"
+        android:text="搜索" />
+</RelativeLayout>

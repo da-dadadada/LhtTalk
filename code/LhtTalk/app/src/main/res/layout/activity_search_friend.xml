@@ -24,35 +24,22 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.lht.lhttalk.module.search.SearchActivity">
 
-    <com.lht.lhttalk.module.friend.TitleBar
+    <com.lht.lhttalk.module.search.TitleBar2
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Toolbar" />
 
-    <Button
-        android:id="@+id/btn_search_friend"
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:text="搜索" />
-
-    <TextView
-        android:id="@+id/tv_new_friend"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_new_friend"
-        android:drawableRight="@drawable/v1000_drawable_xuanz"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:text="新朋友"
-        android:textSize="16sp" />
-
+        android:layout_height="match_parent" />
 </LinearLayout>

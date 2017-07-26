@@ -123,6 +123,7 @@
         completions."
     </string>
 
+
     <!--账号管理Activity-->
 
     <!--修改密码-->
@@ -178,5 +179,5 @@
     <!--选择项目状态-->
 
     <!--圈子详情-->
-
+    <string name="add_friend">添加</string>
 </resources>

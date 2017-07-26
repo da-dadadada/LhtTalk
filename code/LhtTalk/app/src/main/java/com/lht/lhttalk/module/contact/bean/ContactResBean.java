@@ -23,28 +23,66 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
-
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
+package com.lht.lhttalk.module.contact.bean;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * Created by chhyu on 2017/7/24.
  */
 
-interface ContactFgContact {
+public class ContactResBean {
 
-    interface View extends BaseView<ContactFgContact.Presenter> {
+    private String linkman;
+    private String avatar;
+    private String nickname;
+    private String email;
+    private long lastChatTime;
+    private ContactBody body;
 
-        ContactFragment instance();
+    public String getLinkman() {
+        return linkman;
     }
 
-    interface Presenter extends BasePresenter {
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
 
-        void refreshContactList();
+    public String getAvatar() {
+        return avatar;
+    }
 
-        void deleteFromContact();
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
-        void add2ContactList();
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public long getLastChatTime() {
+        return lastChatTime;
+    }
+
+    public void setLastChatTime(long lastChatTime) {
+        this.lastChatTime = lastChatTime;
+    }
+
+    public ContactBody getBody() {
+        return body;
+    }
+
+    public void setBody(ContactBody body) {
+        this.body = body;
     }
 }

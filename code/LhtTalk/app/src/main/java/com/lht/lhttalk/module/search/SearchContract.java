@@ -23,27 +23,28 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
+package com.lht.lhttalk.module.search;
 
-import android.content.Context;
+import com.lht.lhttalk.base.BasePresenter;
+import com.lht.lhttalk.base.BaseView;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * Created by chhyu on 2017/7/25.
  */
 
-public class ContactFragmentPresenter implements ContactFgContact.Presenter {
+public interface SearchContract {
 
-    private Context context;
-    private ContactFgContact.View view;
+    interface View extends BaseView<Presenter> {
 
-    public ContactFragmentPresenter(Context context, ContactFgContact.View view) {
-        this.context = context;
-        this.view = view;
-        view.setPresenter(this);
+        void showMsg(String text);
+
+        SearchFragment instance();
+
+        void showWaitView(boolean b);
     }
 
-    @Override
-    public void start() {
+    interface Presenter extends BasePresenter {
 
+        void doSearch(String text);
     }
 }

@@ -23,28 +23,36 @@
  *
  */
 
-package com.lht.lhttalk.module.contact;
+package com.lht.lhttalk.module.search;
 
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
+import android.support.v4.app.Fragment;
+
+import com.lht.lhttalk.base.IVerifyHolder;
+import com.lht.lhttalk.module.api.ApiClient;
+import com.lht.lhttalk.module.search.bean.SearchResBean;
+
+import java.util.ArrayList;
+
+import individual.leobert.retrofitext.RetrofitExt;
+import individual.leobert.retrofitext.ext.ApiResponseHandler;
+import retrofit2.Call;
 
 /**
- * Created by chhyu on 2017/7/12.
+ * Created by chhyu on 2017/7/25.
  */
 
-interface ContactFgContact {
+public class SearchModel {
 
-    interface View extends BaseView<ContactFgContact.Presenter> {
+    private Api apiInstance = ApiClient.getInstance().apiInstance(Api.class);
 
-        ContactFragment instance();
+    private String nickname;
+
+    public SearchModel(String nickname) {
+        this.nickname = nickname;
     }
 
-    interface Presenter extends BasePresenter {
-
-        void refreshContactList();
-
-        void deleteFromContact();
-
-        void add2ContactList();
+    public void doSearch(Fragment fragment, ApiResponseHandler<ArrayList<SearchResBean>> apiResponseHandler) {
+        Call<ArrayList<SearchResBean>> call = apiInstance.doSearch(nickname,IVerifyHolder.mUserBean.getUsername(),IVerifyHolder.mUserBean.getToken());
+        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, apiResponseHandler);
     }
 }
