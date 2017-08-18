@@ -170,7 +170,7 @@
 //        instance = new BadgeNumberManager();
 //    }
 //
-//    public static BadgeNumberManager getInstance() {
+//    public static BadgeNumberManager getJsonApiClient() {
 //        if (instance == null) {
 //            instance = new BadgeNumberManager();
 //        }

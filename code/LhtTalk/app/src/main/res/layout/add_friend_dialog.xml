@@ -25,38 +25,24 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <EditText
-        android:id="@+id/et_search_content"
+        android:id="@+id/et_attach_msg"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:hint="请输入你要搜索的用户名/昵称/邮箱"
-        android:imeOptions="actionSearch"
-        android:paddingLeft="10dp"
-        android:singleLine="true" />
+        android:layout_height="200dp"
+        android:gravity="top"
+        android:hint="请输入附加信息" />
 
-    <Button
-        android:id="@+id/btn_search"
+    <TextView
+        android:id="@+id/tv_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_search_content"
-        android:text="搜索" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_secrch_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btn_search" />
+        android:layout_below="@+id/et_attach_msg"
+        android:layout_marginLeft="30dp"
+        android:padding="5dp"
+        android:text="设置备注和分组"
+        android:visibility="gone" />
 
 </RelativeLayout>

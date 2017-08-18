@@ -26,7 +26,10 @@
 package com.lht.lhttalk.module.main;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.ProgressBar;
@@ -94,23 +97,20 @@ public class HomeActivity extends AsyncProtectedActivity {
     protected void initEvent() {
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         vpContainer.setAdapter(fragmentPagerAdapter);
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.mipmap.ic_launcher), colors[0])
-                        .title("Heart")
-                        .build()
+        models.add(new NavigationTabBar.Model.Builder(
+                getResources().getDrawable(R.mipmap.ic_launcher), colors[0])
+                .title("消息")
+                .build()
         );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.mipmap.ic_launcher), colors[1])
-                        .title("Cup")
-                        .build()
+        models.add(new NavigationTabBar.Model.Builder(
+                getResources().getDrawable(R.mipmap.ic_launcher), colors[1])
+                .title("Cup")
+                .build()
         );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.mipmap.ic_launcher), colors[2])
-                        .title("Diploma")
-                        .build()
+        models.add(new NavigationTabBar.Model.Builder(
+                getResources().getDrawable(R.mipmap.ic_launcher), colors[2])
+                .title("Diploma")
+                .build()
         );
         tabBar.setModels(models);
         tabBar.setViewPager(vpContainer, 0);
@@ -126,23 +126,6 @@ public class HomeActivity extends AsyncProtectedActivity {
                 model.hideBadge();
             }
         });
-        tabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-
-            }
-        });
-
     }
 
     @Override

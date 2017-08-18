@@ -23,10 +23,9 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
+package com.lht.lhttalk.module.InvitationList;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
@@ -34,57 +33,56 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.activity.BaseActivity;
 import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
+import com.lht.lhttalk.module.addFriend.GeneralTitleBar;
 import com.lht.lhttalk.util.ActivityUtils;
 
-public class SearchActivity extends AsyncProtectedActivity {
+/**
+ * 新朋友----处理好友请求
+ */
+public class InvitationListActivity extends AsyncProtectedActivity {
 
+    private GeneralTitleBar titleBar;
     private FrameLayout flContainer;
-    private SearchFragment searchFragment;
-    private SearchPresenter presenter;
-    private TitleBar2 titleBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_friend);
+        setContentView(R.layout.activity_general);
         initView();
         initVariable();
         initEvent();
     }
 
     @Override
-    public BaseActivity getActivity() {
-        return this;
-    }
-
-    @Override
     protected void initView() {
-        titleBar = (TitleBar2) findViewById(R.id.titleBar);
+        titleBar = (GeneralTitleBar) findViewById(R.id.titleBar);
         flContainer = (FrameLayout) findViewById(R.id.fl_container);
-
-        searchFragment = (SearchFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fl_container);
-        if (searchFragment == null) {
-            searchFragment = SearchFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), searchFragment, R.id.fl_container);
-        }
     }
 
     @Override
     protected void initVariable() {
-        presenter = new SearchPresenter(searchFragment);
+
     }
 
     @Override
     protected void initEvent() {
-        titleBar.setTvTitle("搜索好友");
+        titleBar.setTvTitle("新朋友");
         titleBar.setDefaultOnBackListener(this);
+
+        InvitationListFragment newFriendFragment = (InvitationListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_container);
+        if (newFriendFragment == null) {
+            newFriendFragment = InvitationListFragment.getInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), newFriendFragment, R.id.fl_container);
+        }
+    }
+
+    @Override
+    public BaseActivity getActivity() {
+        return InvitationListActivity.this;
     }
 
     @Override
     protected IApiRequestPresenter getApiRequestPresenter() {
-        if (presenter instanceof IApiRequestPresenter)
-            return (IApiRequestPresenter) presenter;
         return null;
     }
 

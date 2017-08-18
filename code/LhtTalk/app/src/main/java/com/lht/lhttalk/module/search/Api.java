@@ -42,7 +42,9 @@ import retrofit2.http.Query;
 public interface Api {
 
     @GET("imapi/user/search")
-    Call<ArrayList<SearchResBean>> doSearch(@Query("nickname") String nickname,
-                                            @Query("vso_uname") String username,
+    Call<ArrayList<SearchResBean>> doSearch(@Query("username") String username,
+                                            @Query("nickname") String nickname,
+                                            @Query("email") String email,
+                                            @Query("vso_uname") String vso_username,
                                             @Query("vso_token") String token);
 }

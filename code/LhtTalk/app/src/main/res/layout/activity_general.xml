@@ -20,43 +20,26 @@
   ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
-  ~
+  ~ 通用View ,只包含back + title
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lht.lhttalk.module.addFriend.AddFriendActivity">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/et_search_content"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:hint="请输入你要搜索的用户名/昵称/邮箱"
-        android:imeOptions="actionSearch"
-        android:paddingLeft="10dp"
-        android:singleLine="true" />
-
-    <Button
-        android:id="@+id/btn_search"
+    <com.lht.lhttalk.module.addFriend.GeneralTitleBar
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_search_content"
-        android:text="搜索" />
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Toolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_secrch_result"
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btn_search" />
-
-</RelativeLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>

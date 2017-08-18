@@ -23,36 +23,25 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
+package com.lht.lhttalk.module.addFriend;
 
-import android.support.v4.app.Fragment;
-
-import com.lht.lhttalk.base.IVerifyHolder;
-import com.lht.lhttalk.module.api.ApiClient;
+import com.lht.lhttalk.base.BasePresenter;
+import com.lht.lhttalk.base.BaseView;
 import com.lht.lhttalk.module.search.bean.SearchResBean;
 
-import java.util.ArrayList;
-
-import individual.leobert.retrofitext.RetrofitExt;
-import individual.leobert.retrofitext.ext.ApiResponseHandler;
-import retrofit2.Call;
-
 /**
- * Created by chhyu on 2017/7/25.
+ * Created by chhyu on 2017/8/16.
  */
 
-public class SearchModel {
+public interface AddFriendContract {
 
-    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
+    interface View extends BaseView<Presenter> {
 
-    private String searchCondition;//搜索条件
-
-    public SearchModel(String searchCondition) {
-        this.searchCondition = searchCondition;
+        AddFriendFragment instance();
     }
 
-    public void doSearch(Fragment fragment, ApiResponseHandler<ArrayList<SearchResBean>> apiResponseHandler) {
-        Call<ArrayList<SearchResBean>> call = apiInstance.doSearch(searchCondition, searchCondition, searchCondition, IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
-        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, apiResponseHandler);
+    interface Presenter extends BasePresenter {
+
+        void doAddFriend(SearchResBean searchResBean);
     }
 }

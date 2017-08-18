@@ -43,7 +43,7 @@ import retrofit2.Call;
 
 public class ContactModel {
 
-    private Api apiInstance = ApiClient.getInstance().apiInstance(Api.class);
+    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
 
     /**
      * 获取聊天列表

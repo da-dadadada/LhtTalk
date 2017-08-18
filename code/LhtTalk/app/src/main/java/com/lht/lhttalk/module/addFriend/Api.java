@@ -23,36 +23,25 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
+package com.lht.lhttalk.module.addFriend;
 
-import android.support.v4.app.Fragment;
+import com.lht.lhttalk.module.addFriend.bean.AddFriendResBean;
 
-import com.lht.lhttalk.base.IVerifyHolder;
-import com.lht.lhttalk.module.api.ApiClient;
-import com.lht.lhttalk.module.search.bean.SearchResBean;
-
-import java.util.ArrayList;
-
-import individual.leobert.retrofitext.RetrofitExt;
-import individual.leobert.retrofitext.ext.ApiResponseHandler;
+import individual.leobert.retrofitext.core.ApiDef;
 import retrofit2.Call;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
- * Created by chhyu on 2017/7/25.
+ * Created by chhyu on 2017/8/16.
  */
 
-public class SearchModel {
+@ApiDef
+public interface Api {
 
-    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
-
-    private String searchCondition;//搜索条件
-
-    public SearchModel(String searchCondition) {
-        this.searchCondition = searchCondition;
-    }
-
-    public void doSearch(Fragment fragment, ApiResponseHandler<ArrayList<SearchResBean>> apiResponseHandler) {
-        Call<ArrayList<SearchResBean>> call = apiInstance.doSearch(searchCondition, searchCondition, searchCondition, IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
-        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, apiResponseHandler);
-    }
+    @POST("imapi/friend/add")
+    Call<AddFriendResBean> doAdd(@Query("target") String target,
+                                 @Query("attach") String attach,
+                                 @Query("vso_uname") String username,
+                                 @Query("vso_token") String token);
 }

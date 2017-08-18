@@ -23,36 +23,38 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
+package com.lht.lhttalk.module.InvitationList;
 
-import android.support.v4.app.Fragment;
-
-import com.lht.lhttalk.base.IVerifyHolder;
-import com.lht.lhttalk.module.api.ApiClient;
-import com.lht.lhttalk.module.search.bean.SearchResBean;
+import com.lht.lhttalk.base.BasePresenter;
+import com.lht.lhttalk.base.BaseView;
+import com.lht.lhttalk.module.InvitationList.bean.InvitationListResBean;
 
 import java.util.ArrayList;
 
-import individual.leobert.retrofitext.RetrofitExt;
-import individual.leobert.retrofitext.ext.ApiResponseHandler;
-import retrofit2.Call;
-
 /**
- * Created by chhyu on 2017/7/25.
+ * Created by chhyu on 2017/8/17.
  */
 
-public class SearchModel {
+public interface InvivationListContact {
 
-    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
+    interface View extends BaseView<Presenter> {
 
-    private String searchCondition;//搜索条件
+        InvitationListFragment instance();
 
-    public SearchModel(String searchCondition) {
-        this.searchCondition = searchCondition;
+        void showWaitView(boolean b);
+
+        void showInvitationsList(ArrayList<InvitationListResBean> res);
+
+        void showEmptyInvitations();
+
+        void refreshInvitationList();
+
     }
 
-    public void doSearch(Fragment fragment, ApiResponseHandler<ArrayList<SearchResBean>> apiResponseHandler) {
-        Call<ArrayList<SearchResBean>> call = apiInstance.doSearch(searchCondition, searchCondition, searchCondition, IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
-        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, apiResponseHandler);
+    interface Presenter extends BasePresenter {
+
+        void getInvitationsList();
+
+        void handleFriendInvitations(InvitationListResBean bean, String action);
     }
 }

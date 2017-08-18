@@ -81,9 +81,9 @@
 //            @Override
 //            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 //                if (isChecked) {
-//                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getJsonApiClient());
 //                } else {
-//                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                    etPassword.setTransformationMethod(PasswordTransformationMethod.getJsonApiClient());
 //                }
 //            }
 //        });

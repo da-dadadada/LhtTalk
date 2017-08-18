@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ MIT License
   ~
@@ -23,28 +24,11 @@
   ~
   -->
 
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lht.lhttalk.module.InvitationList.InvitationListActivity">
 
-    <!--cyy font size-->
-    <!--特殊标题-->
-
-    <!--大标题-->
-
-    <!--正文-->
-
-    <!--小按钮-->
-
-    <!--独立提示性文字-->
-
-    <!--&lt;!&ndash;底部导航栏&ndash;&gt;-->
-    <!--<dimen name="font_size_lv6">10sp</dimen>-->
-
-    <!--地区选择多级列表-->
-
-
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="dp_margin_left80">80dp</dimen>
-</resources>
+</android.support.constraint.ConstraintLayout>

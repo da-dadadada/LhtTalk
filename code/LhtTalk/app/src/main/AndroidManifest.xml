@@ -56,7 +56,9 @@
             android:name=".module.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".module.main.HomeActivity" />
-        <activity android:name=".module.search.SearchActivity"></activity>
+        <activity android:name=".module.search.SearchActivity" />
+        <activity android:name=".module.addFriend.AddFriendActivity" />
+        <activity android:name=".module.InvitationList.InvitationListActivity"></activity>
     </application>
 
 </manifest>

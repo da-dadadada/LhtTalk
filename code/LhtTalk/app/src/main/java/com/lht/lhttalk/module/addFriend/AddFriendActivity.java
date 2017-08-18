@@ -23,30 +23,39 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
+package com.lht.lhttalk.module.addFriend;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.activity.BaseActivity;
 import com.lht.lhttalk.base.activity.asyncprotected.AsyncProtectedActivity;
 import com.lht.lhttalk.base.presenter.IApiRequestPresenter;
+import com.lht.lhttalk.module.search.bean.SearchResBean;
 import com.lht.lhttalk.util.ActivityUtils;
 
-public class SearchActivity extends AsyncProtectedActivity {
+/**
+ * 添加好友
+ */
+public class AddFriendActivity extends AsyncProtectedActivity {
 
+    private static final String PAGENAME = "AddFriendActivity";
+    public static final String KEY_USER_INFO = "userInfo";
+    private GeneralTitleBar titleBar;
     private FrameLayout flContainer;
-    private SearchFragment searchFragment;
-    private SearchPresenter presenter;
-    private TitleBar2 titleBar;
+    private AddFriendFragment addFriendFragment;
+    private AddFriendPresenter presenter;
+    private SearchResBean searchResBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_friend);
+        setContentView(R.layout.activity_general);
+        String s = getIntent().getStringExtra(KEY_USER_INFO);
+        searchResBean = JSON.parseObject(s, SearchResBean.class);
         initView();
         initVariable();
         initEvent();
@@ -54,37 +63,38 @@ public class SearchActivity extends AsyncProtectedActivity {
 
     @Override
     public BaseActivity getActivity() {
-        return this;
+        return AddFriendActivity.this;
     }
 
     @Override
     protected void initView() {
-        titleBar = (TitleBar2) findViewById(R.id.titleBar);
+        titleBar = (GeneralTitleBar) findViewById(R.id.titleBar);
         flContainer = (FrameLayout) findViewById(R.id.fl_container);
 
-        searchFragment = (SearchFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fl_container);
-        if (searchFragment == null) {
-            searchFragment = SearchFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), searchFragment, R.id.fl_container);
+        addFriendFragment = (AddFriendFragment) getSupportFragmentManager().findFragmentById(R.id.fl_container);
+        if (addFriendFragment == null) {
+            addFriendFragment = AddFriendFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addFriendFragment, R.id.fl_container);
         }
+        addFriendFragment.setDatas(searchResBean);
     }
 
     @Override
     protected void initVariable() {
-        presenter = new SearchPresenter(searchFragment);
+        presenter = new AddFriendPresenter(addFriendFragment);
     }
 
     @Override
     protected void initEvent() {
-        titleBar.setTvTitle("搜索好友");
+        titleBar.setTvTitle("添加好友");
         titleBar.setDefaultOnBackListener(this);
     }
 
     @Override
     protected IApiRequestPresenter getApiRequestPresenter() {
-        if (presenter instanceof IApiRequestPresenter)
+        if (presenter instanceof IApiRequestPresenter) {
             return (IApiRequestPresenter) presenter;
+        }
         return null;
     }
 

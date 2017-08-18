@@ -25,6 +25,9 @@
 
 package com.lht.lhttalk.module.friend;
 
+import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.friend.pojo.FriendList;
 
@@ -41,7 +44,7 @@ import retrofit2.Call;
  * Created by leobert on 2017/7/14.
  */
 
-class PresenterImpl implements VPContact.Presenter{
+class PresenterImpl implements VPContact.Presenter {
 
     private VPContact.View<BaseFragment> view;
 
@@ -62,7 +65,7 @@ class PresenterImpl implements VPContact.Presenter{
         friendModel.getFriendList(view.instance(), new ApiResponseHandler<FriendList>() {
             @Override
             public void onSuccess(int i, Call<FriendList> call, Headers headers, FriendList friendList) {
-
+                Log.e("lmsg", "friendList=" + JSON.toJSONString(friendList));
             }
 
             @Override

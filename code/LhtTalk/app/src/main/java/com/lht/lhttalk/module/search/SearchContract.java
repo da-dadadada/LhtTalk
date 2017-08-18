@@ -27,6 +27,9 @@ package com.lht.lhttalk.module.search;
 
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.BaseView;
+import com.lht.lhttalk.module.search.bean.SearchResBean;
+
+import java.util.ArrayList;
 
 /**
  * Created by chhyu on 2017/7/25.
@@ -41,6 +44,8 @@ public interface SearchContract {
         SearchFragment instance();
 
         void showWaitView(boolean b);
+
+        void addSearchDatas(ArrayList<SearchResBean> res);
     }
 
     interface Presenter extends BasePresenter {

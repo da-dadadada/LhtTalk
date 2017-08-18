@@ -23,36 +23,35 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
+package com.lht.lhttalk.module.InvitationList;
 
-import android.support.v4.app.Fragment;
 
-import com.lht.lhttalk.base.IVerifyHolder;
-import com.lht.lhttalk.module.api.ApiClient;
-import com.lht.lhttalk.module.search.bean.SearchResBean;
+import com.lht.lhttalk.module.InvitationList.bean.InvitationListResBean;
 
 import java.util.ArrayList;
 
-import individual.leobert.retrofitext.RetrofitExt;
-import individual.leobert.retrofitext.ext.ApiResponseHandler;
+import individual.leobert.retrofitext.core.ApiDef;
 import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
- * Created by chhyu on 2017/7/25.
+ * Created by chhyu on 2017/8/18.
  */
 
-public class SearchModel {
+@ApiDef
+public interface Api {
 
-    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
+    @GET("imapi/friend/apply")
+    Call<ArrayList<InvitationListResBean>> doGetInvitationsList(@Query("vso_uname") String vso_username,
+                                                                @Query("vso_token") String token);
 
-    private String searchCondition;//搜索条件
-
-    public SearchModel(String searchCondition) {
-        this.searchCondition = searchCondition;
-    }
-
-    public void doSearch(Fragment fragment, ApiResponseHandler<ArrayList<SearchResBean>> apiResponseHandler) {
-        Call<ArrayList<SearchResBean>> call = apiInstance.doSearch(searchCondition, searchCondition, searchCondition, IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
-        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, apiResponseHandler);
-    }
+    @POST("imapi/friend/apply")
+    Call<String> doHandleInvitation(@Query("postTime") long postTime,
+                                      @Query("target") String target,
+                                      @Query("action") String action,
+                                      @Query("vso_uname") String vso_username,
+                                      @Query("vso_token") String token);
 }

@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.module.InvitationList.InvitationListActivity;
 import com.lht.lhttalk.module.search.SearchActivity;
 import com.lht.lhttalk.util.toast.ToastUtils;
 
@@ -137,7 +138,8 @@ public class FriendFragment extends BaseFragment
                 // TODO: 2017/7/25 搜索本地好友
                 break;
             case R.id.tv_new_friend:
-                // TODO: 2017/7/25 好友添加请求
+                Intent intent = new Intent(getActivity(), InvitationListActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

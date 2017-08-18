@@ -23,36 +23,38 @@
  *
  */
 
-package com.lht.lhttalk.module.search;
-
-import android.support.v4.app.Fragment;
-
-import com.lht.lhttalk.base.IVerifyHolder;
-import com.lht.lhttalk.module.api.ApiClient;
-import com.lht.lhttalk.module.search.bean.SearchResBean;
-
-import java.util.ArrayList;
-
-import individual.leobert.retrofitext.RetrofitExt;
-import individual.leobert.retrofitext.ext.ApiResponseHandler;
-import retrofit2.Call;
+package com.lht.lhttalk.module.addFriend.bean;
 
 /**
- * Created by chhyu on 2017/7/25.
+ * Created by chhyu on 2017/8/16.
  */
 
-public class SearchModel {
+public class AddFriendResBean {
+    private String postTime;
+    private String target;
+    private String attach;
 
-    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
-
-    private String searchCondition;//搜索条件
-
-    public SearchModel(String searchCondition) {
-        this.searchCondition = searchCondition;
+    public String getPostTime() {
+        return postTime;
     }
 
-    public void doSearch(Fragment fragment, ApiResponseHandler<ArrayList<SearchResBean>> apiResponseHandler) {
-        Call<ArrayList<SearchResBean>> call = apiInstance.doSearch(searchCondition, searchCondition, searchCondition, IVerifyHolder.mUserBean.getUsername(), IVerifyHolder.mUserBean.getToken());
-        RetrofitExt.lifeCycledWithFragmentV4(fragment, call, apiResponseHandler);
+    public void setPostTime(String postTime) {
+        this.postTime = postTime;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getAttach() {
+        return attach;
+    }
+
+    public void setAttach(String attach) {
+        this.attach = attach;
     }
 }

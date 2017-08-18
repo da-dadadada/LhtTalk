@@ -27,15 +27,19 @@ package com.lht.lhttalk.module.api;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import individual.leobert.retrofitext.RetrofitExt;
 import individual.leobert.retrofitext.core.ApiDefCheckUtil;
+import individual.leobert.retrofitext.coverter.StringConverterFactory;
 import individual.leobert.retrofitext.ext.RequestManager;
 import individual.leobert.retrofitext.coverter.FastJsonConverterFactory;
 import okhttp3.Interceptor;
@@ -60,6 +64,18 @@ public class ApiClient {
     private static final Map<Class, Object> sInterfaceImplementCache =
             new ConcurrentHashMap<>();
 
+    private static final String BASE_URL = "https://www.vsochina.com/";
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Api type define
+    ///////////////////////////////////////////////////////////////////////////
+    private static final int TYPE_JSON = 1;
+    private static final int TYPE_STRING = 2;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({TYPE_JSON, TYPE_STRING})
+    public @interface ApiType {
+    }
 
     public static void setLogEnable(boolean isLogEnable) {
         ApiClient.isLogEnable = isLogEnable;
@@ -68,28 +84,49 @@ public class ApiClient {
 
     private Retrofit retrofit = null;
 
-    private static ApiClient apiClient;
+    private static ApiClient jsonApiClient;
+    private static ApiClient stringApiClient;
+
+
     private static final String KEY_USER_AGENT = "User-Agent";
 
     // TODO: custom ua
     private static final String CUSTOM_USER_AGENT = "MY CUSTOM UA";
 
-    private ApiClient() {
-        retrofit = new Retrofit.Builder()
-//                .baseUrl("http://httpbin.org/")
-                .baseUrl("https://www.vsochina.com/")
-                .client(newCustomUaClient())
-//                .addConverterFactory(StringConverterFactory.create())
-                .addConverterFactory(FastJsonConverterFactory.create())
-                .build();
+    private ApiClient(@ApiType int type) {
+        switch (type) {
+            case TYPE_STRING:
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .client(newCustomUaClient())
+                        .addConverterFactory(StringConverterFactory.create())
+                        .build();
+                break;
+            case TYPE_JSON:
+            default:
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .client(newCustomUaClient())
+                        .addConverterFactory(FastJsonConverterFactory.create())
+                        .build();
+                break;
+        }
     }
 
-    public static ApiClient getInstance() {
-        if (apiClient == null) {
-            apiClient = new ApiClient();
+    public static ApiClient getJsonApiClient() {
+        if (jsonApiClient == null) {
+            jsonApiClient = new ApiClient(TYPE_JSON);
         }
-        return apiClient;
+        return jsonApiClient;
     }
+
+    public static ApiClient getStringApiClient() {
+        if (stringApiClient == null) {
+            stringApiClient = new ApiClient(TYPE_STRING);
+        }
+        return stringApiClient;
+    }
+
 
     public <T> T apiInstance(Class<T> remoteApiClazz) {
         if (!ApiDefCheckUtil.isAllowedApi(remoteApiClazz))
@@ -126,9 +163,10 @@ public class ApiClient {
     }
 
     public static void shutdown() {
-        if (apiClient == null)
-            return;
-        apiClient.retrofit = null;
+        if (jsonApiClient != null)
+            jsonApiClient.retrofit = null;
+        if (stringApiClient != null)
+            stringApiClient.retrofit = null;
         RequestManager.shutdown();
     }
 

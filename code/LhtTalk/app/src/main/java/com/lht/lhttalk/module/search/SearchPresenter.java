@@ -67,6 +67,7 @@ public class SearchPresenter implements SearchContract.Presenter {
             public void onSuccess(int code, Call<ArrayList<SearchResBean>> call, Headers headers, ArrayList<SearchResBean> res) {
                 view.showWaitView(false);
                 Log.e("lmsg", "搜索成功");
+                view.addSearchDatas(res);
             }
 
             @Override

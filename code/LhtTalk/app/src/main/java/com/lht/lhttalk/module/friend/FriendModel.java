@@ -48,7 +48,7 @@ import retrofit2.Call;
 
 class FriendModel {
 
-    private Api apiInstance = ApiClient.getInstance().apiInstance(Api.class);
+    private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
 
 
     public void getFriendList(Fragment fragment,

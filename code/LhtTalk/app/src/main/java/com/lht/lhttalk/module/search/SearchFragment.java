@@ -25,19 +25,30 @@
 
 package com.lht.lhttalk.module.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.util.CircularArray;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.module.addFriend.AddFriendActivity;
+import com.lht.lhttalk.module.search.adapter.SearchResultAdapter;
+import com.lht.lhttalk.module.search.bean.SearchResBean;
 import com.lht.lhttalk.util.toast.ToastUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by chhyu on 2017/7/25.
@@ -49,6 +60,9 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     private EditText etSearchContent;
     private Button btnSearch;
     private ProgressBar progressBar;
+    private RecyclerView rcvSearchResult;
+    private SearchResultAdapter searchResultAdapter;
+    private CircularArray<SearchResBean> searchResBeanCircularArray;
 
     public static SearchFragment newInstance() {
         SearchFragment searchFragment = new SearchFragment();
@@ -77,11 +91,18 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         etSearchContent = (EditText) contentView.findViewById(R.id.et_search_content);
         btnSearch = (Button) contentView.findViewById(R.id.btn_search);
         progressBar = (ProgressBar) contentView.findViewById(R.id.progressBar);
+        rcvSearchResult = (RecyclerView) contentView.findViewById(R.id.rcv_secrch_result);
 
     }
 
     @Override
     protected void initVariable() {
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rcvSearchResult.setLayoutManager(manager);
+        searchResBeanCircularArray = new CircularArray<>();
+
+        searchResultAdapter = new SearchResultAdapter(getActivity(), itemClickListener, rcvSearchResult, searchResBeanCircularArray);
+        rcvSearchResult.setAdapter(searchResultAdapter);
     }
 
     @Override
@@ -89,8 +110,20 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("lmsg", "搜索");
-                presenter.doSearch(etSearchContent.getText().toString());
+                if (searchResBeanCircularArray != null) {
+                    searchResBeanCircularArray.clear();
+                    presenter.doSearch(etSearchContent.getText().toString());
+                }
+            }
+        });
+        etSearchContent.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (searchResBeanCircularArray != null) {
+                    searchResBeanCircularArray.clear();
+                    presenter.doSearch(etSearchContent.getText().toString());
+                }
+                return false;
             }
         });
     }
@@ -125,4 +158,18 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         }
     }
 
+    @Override
+    public void addSearchDatas(ArrayList<SearchResBean> res) {
+        searchResultAdapter.addDatas(res);
+    }
+
+    private SearchResultAdapter.OnItemClickListener itemClickListener = new SearchResultAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int postion, SearchResBean bean) {
+            //跳转到添加朋友界面
+            Intent intent = new Intent(getActivity(), AddFriendActivity.class);
+            intent.putExtra(AddFriendActivity.KEY_USER_INFO, JSON.toJSONString(bean));
+            getActivity().startActivity(intent);
+        }
+    };
 }

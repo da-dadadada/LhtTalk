@@ -91,8 +91,10 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     protected void initEvent() {
-        tvUsername.setText("13404298601");
+        tvUsername.setText("13621560153");
         etPassword.setText("123456");
+//        tvUsername.setText("13404298601");
+//        etPassword.setText("123456");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
