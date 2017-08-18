@@ -57,12 +57,9 @@ import retrofit2.Retrofit;
  * Created by leobert on 2017/6/16.
  */
 
-public class ApiClient {
+public abstract class ApiClient {
     private static boolean isLogEnable = false;
     private static final String TAG = "ApiClient";
-
-    private static final Map<Class, Object> sInterfaceImplementCache =
-            new ConcurrentHashMap<>();
 
     private static final String BASE_URL = "https://www.vsochina.com/";
 
@@ -75,6 +72,36 @@ public class ApiClient {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({TYPE_JSON, TYPE_STRING})
     public @interface ApiType {
+    }
+
+    private static class StringApiClient extends ApiClient {
+
+        private static final Map<Class, Object> sInterfaceImplementCache =
+                new ConcurrentHashMap<>();
+
+        private StringApiClient() {
+            super(TYPE_STRING);
+        }
+
+        @Override
+        protected Map<Class, Object> getInterfaceImplementCache() {
+            return sInterfaceImplementCache;
+        }
+    }
+
+    private static class JsonApiClient extends ApiClient {
+
+        private static final Map<Class, Object> sInterfaceImplementCache =
+                new ConcurrentHashMap<>();
+
+        private JsonApiClient() {
+            super(TYPE_JSON);
+        }
+
+        @Override
+        protected Map<Class, Object> getInterfaceImplementCache() {
+            return sInterfaceImplementCache;
+        }
     }
 
     public static void setLogEnable(boolean isLogEnable) {
@@ -115,14 +142,14 @@ public class ApiClient {
 
     public static ApiClient getJsonApiClient() {
         if (jsonApiClient == null) {
-            jsonApiClient = new ApiClient(TYPE_JSON);
+            jsonApiClient = new JsonApiClient();
         }
         return jsonApiClient;
     }
 
     public static ApiClient getStringApiClient() {
         if (stringApiClient == null) {
-            stringApiClient = new ApiClient(TYPE_STRING);
+            stringApiClient = new StringApiClient();
         }
         return stringApiClient;
     }
@@ -137,15 +164,17 @@ public class ApiClient {
 
     private <T> T getImpl(Class<T> remoteApiClazz) {
         T apiImplement;
-        Object cacheApiImplement = sInterfaceImplementCache.get(remoteApiClazz);
+        Object cacheApiImplement = getInterfaceImplementCache().get(remoteApiClazz);
         if (cacheApiImplement != null) {
             apiImplement = remoteApiClazz.cast(cacheApiImplement);
         } else {
             apiImplement = retrofit.create(remoteApiClazz);
-            sInterfaceImplementCache.put(remoteApiClazz, apiImplement);
+            getInterfaceImplementCache().put(remoteApiClazz, apiImplement);
         }
         return apiImplement;
     }
+
+    protected abstract  Map<Class, Object> getInterfaceImplementCache();
 
     private OkHttpClient newCustomUaClient() {
         return new OkHttpClient().newBuilder()
