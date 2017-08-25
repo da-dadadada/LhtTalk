@@ -30,11 +30,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.CircularArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -42,6 +40,7 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.InvitationList.adapter.InvitationListAdapter;
 import com.lht.lhttalk.module.InvitationList.bean.InvitationListResBean;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -57,6 +56,7 @@ public class InvitationListFragment extends BaseFragment implements InvivationLi
     private TextView tvNoRequest;
     private ProgressBar progressBar;
     private InvitationListAdapter adapter;
+
 
     public static InvitationListFragment getInstance() {
         InvitationListFragment newFriendFragment = new InvitationListFragment();
@@ -96,8 +96,7 @@ public class InvitationListFragment extends BaseFragment implements InvivationLi
     protected void initEvent() {
         //获取好友请求
         presenter.getInvitationsList();
-
-        adapter = new InvitationListAdapter(getActivity(), listener, rcvRequestList, new CircularArray<InvitationListResBean>());
+        adapter = new InvitationListAdapter(getActivity(), listener, new ArrayList<InvitationListResBean>());
         rcvRequestList.setAdapter(adapter);
     }
 
@@ -138,25 +137,27 @@ public class InvitationListFragment extends BaseFragment implements InvivationLi
     }
 
     @Override
+    public void showMsg(String s) {
+        ToastUtils.show(getActivity(), s, ToastUtils.Duration.s);
+    }
+
+    @Override
     public InvitationListFragment instance() {
         return InvitationListFragment.this;
     }
 
     InvitationListAdapter.OnHandleButtonClickListener listener = new InvitationListAdapter.OnHandleButtonClickListener() {
         @Override
-        public void onHandleButtonClick(View view, InvitationListAdapter.MyViewHolder holder, int position, InvitationListResBean bean) {
+        public void onHandleButtonClick(View view, InvitationListAdapter.InViewHolder holder, int position, InvitationListResBean bean) {
             String action = "";
             if (view == holder.getBtnAccept()) {
-                action = String.valueOf(InvitationListResBean.HandleState.ACCEPT);
-                Log.e("lmsg", "接受");
+                action = InvitationListResBean.ACTION_ACCEPT;
             }
             if (view == holder.getBtnIgnore()) {
-                Log.e("lmsg", "忽略");
-                action = String.valueOf(InvitationListResBean.HandleState.IGNORE);
+                action = InvitationListResBean.ACTION_IGNORE;
             }
             if (view == holder.getBtnRefuse()) {
-                Log.e("lmsg", "拒绝");
-                action = String.valueOf(InvitationListResBean.HandleState.REFUSE);
+                action = InvitationListResBean.ACTION_REFUSE;
             }
             presenter.handleFriendInvitations(bean, action);
         }

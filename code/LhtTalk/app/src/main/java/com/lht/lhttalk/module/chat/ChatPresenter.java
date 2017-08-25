@@ -23,38 +23,39 @@
  *
  */
 
-package com.lht.lhttalk.module.friend;
+package com.lht.lhttalk.module.chat;
 
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.friend.pojo.FriendInfoResBean;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
-import java.util.ArrayList;
+import com.lht.lhttalk.base.IVerifyHolder;
+import com.lht.lhttalk.module.smack.service.SmackConnection;
+
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.chat2.Chat;
+import org.jivesoftware.smack.chat2.ChatManager;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> VPContact </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/14.
+ * Created by chhyu on 2017/8/22.
  */
 
-interface VPContact {
-    interface View<T> extends BaseView<VPContact.Presenter> {
+public class ChatPresenter implements ChatContact.Presenter {
 
-        T instance();
+    private ChatContact.View view;
 
-        void showMsg(String msg);
-
-        void displayFriendList(ArrayList<FriendInfoResBean> allFriends);
+    public ChatPresenter(ChatContact.View view) {
+        this.view = view;
     }
 
-    interface Presenter extends BasePresenter {
+    @Override
+    public void start() {
 
-        /**
-         * all return in one request
-         */
-        void refreshFriendList();
+    }
+
+    @Override
+    public void toSendMsg(String s) {
+        Context context = view.getActivity();
 
     }
 }

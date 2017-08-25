@@ -60,41 +60,37 @@ public class InvitationListPresenter implements InvivationListContact.Presenter 
     @Override
     public void getInvitationsList() {
         view.showWaitView(true);
-        invivationListModel.getInvitationsList(view.instance(), apiResponseHandler);
-    }
-
-    private ApiResponseHandler<ArrayList<InvitationListResBean>> apiResponseHandler = new ApiResponseHandler<ArrayList<InvitationListResBean>>() {
-        @Override
-        public void onSuccess(int code, Call<ArrayList<InvitationListResBean>> call, Headers headers, ArrayList<InvitationListResBean> res) {
-            Log.e("lmsg", "获取好友请求列表成功");
-            view.showWaitView(false);
-            //展示请求列表
-            if (res == null || res.size() == 0) {
-                view.showEmptyInvitations();
-            } else {
-                view.showInvitationsList(res);
+        invivationListModel.getInvitationsList(view.instance(), new ApiResponseHandler<ArrayList<InvitationListResBean>>() {
+            @Override
+            public void onSuccess(int code, Call<ArrayList<InvitationListResBean>> call, Headers headers, ArrayList<InvitationListResBean> res) {
+                Log.e("lmsg", "获取好友请求列表成功");
+                view.showWaitView(false);
+                //展示请求列表
+                if (res == null || res.size() == 0) {
+                    view.showEmptyInvitations();
+                } else {
+                    view.showInvitationsList(res);
+                }
             }
-        }
 
-        @Override
-        public void onFailure(int code, Call<ArrayList<InvitationListResBean>> call, Headers headers, ResponseBody res) {
-            view.showWaitView(false);
-            Log.e("lmsg", "获取好友请求列表失败");
+            @Override
+            public void onThrow(Throwable t) {
+                Log.e("lmsg", t.getMessage());
+                super.onThrow(t);
+            }
 
-        }
+            @Override
+            public void onFailure(int code, Call<ArrayList<InvitationListResBean>> call, Headers headers, ResponseBody res) {
+                view.showWaitView(false);
+                Log.e("lmsg", "获取好友请求列表失败");
+            }
 
-        @Override
-        public void onThrow(Throwable t) {
-            Log.e("lmsg", t.getMessage());
-            super.onThrow(t);
-        }
-
-        @Override
-        public void onFinish(Call<ArrayList<InvitationListResBean>> call) {
-            view.showWaitView(false);
-        }
-    };
-
+            @Override
+            public void onFinish(Call<ArrayList<InvitationListResBean>> call) {
+                view.showWaitView(false);
+            }
+        });
+    }
 
     @Override
     public void handleFriendInvitations(InvitationListResBean bean, String action) {

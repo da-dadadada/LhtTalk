@@ -27,6 +27,7 @@ package com.lht.lhttalk.module.friend;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.module.api.ApiClient;
@@ -51,11 +52,10 @@ class FriendModel {
     private Api apiInstance = ApiClient.getJsonApiClient().apiInstance(Api.class);
 
 
-    public void getFriendList(Fragment fragment,
-                              ApiResponseHandler<FriendList> responseHandler) {
-        Call<FriendList> call = apiInstance
-                .listAll(IVerifyHolder.mUserBean.getUsername(),
-                        IVerifyHolder.mUserBean.getToken());
+    public void getFriendList(Fragment fragment, ApiResponseHandler<FriendList> responseHandler) {
+        Log.e("lmsg", "username=" + IVerifyHolder.mUserBean.getUsername() + "/r/n" + ",token=" + IVerifyHolder.mUserBean.getToken());
+        Call<FriendList> call = apiInstance.listAll(IVerifyHolder.mUserBean.getUsername(),
+                IVerifyHolder.mUserBean.getToken());
 
         RetrofitExt.lifeCycledWithFragmentV4(fragment, call, responseHandler);
     }
@@ -65,8 +65,7 @@ class FriendModel {
         if (StringUtil.isEmpty(target))
             throw new IllegalArgumentException("target is null or empty!");
 
-        Call<String> call = apiInstance
-                .delete(target, relieve);
+        Call<String> call = apiInstance.delete(target, relieve);
 
         RetrofitExt.lifeCycledWithContext(context, call, responseHandler);
     }

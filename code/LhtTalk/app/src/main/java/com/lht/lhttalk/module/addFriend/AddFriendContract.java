@@ -38,6 +38,8 @@ public interface AddFriendContract {
     interface View extends BaseView<Presenter> {
 
         AddFriendFragment instance();
+
+        void showMsg(String s);
     }
 
     interface Presenter extends BasePresenter {

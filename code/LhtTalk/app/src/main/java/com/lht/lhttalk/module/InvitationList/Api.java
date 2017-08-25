@@ -33,6 +33,9 @@ import java.util.ArrayList;
 import individual.leobert.retrofitext.core.ApiDef;
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -48,10 +51,11 @@ public interface Api {
     Call<ArrayList<InvitationListResBean>> doGetInvitationsList(@Query("vso_uname") String vso_username,
                                                                 @Query("vso_token") String token);
 
+    @FormUrlEncoded
     @POST("imapi/friend/apply")
-    Call<String> doHandleInvitation(@Query("postTime") long postTime,
-                                      @Query("target") String target,
-                                      @Query("action") String action,
-                                      @Query("vso_uname") String vso_username,
-                                      @Query("vso_token") String token);
+    Call<String> doHandleInvitation(@Field("postTime") long postTime,
+                                    @Field("target") String target,
+                                    @Field("action") String action,
+                                    @Field("vso_uname") String vso_username,
+                                    @Field("vso_token") String token);
 }

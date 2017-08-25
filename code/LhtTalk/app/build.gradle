@@ -73,8 +73,7 @@ dependencies {
         transitive = true
     }
 
-
-
+    // 汉子转拼音
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'individual.leobert.libs:actionsheet:1.0.0'
     compile 'individual.leobert.libs:numbadge:1.0.0'
@@ -97,6 +96,8 @@ dependencies {
     compile 'individual.leobert.libs:retrofitext:1.0.1'
     compile 'individual.leobert.libs:retrofitext-core:1.0.1'
     compile 'individual.leobert.libs:lrecyclerview:1.0.1'
+    compile 'com.gjiazhe:wavesidebar:1.3'
+    compile 'com.belerweb:pinyin4j:2.5.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'individual.leobert.libs:retrofitext-compiler:1.0.1'
 }

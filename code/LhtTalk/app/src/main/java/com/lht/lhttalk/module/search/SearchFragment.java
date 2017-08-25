@@ -31,6 +31,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.CircularArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -167,6 +168,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         @Override
         public void onItemClick(View view, int postion, SearchResBean bean) {
             //跳转到添加朋友界面
+            Log.e("lmsg", "searchResBean=" + JSON.toJSONString(bean));
             Intent intent = new Intent(getActivity(), AddFriendActivity.class);
             intent.putExtra(AddFriendActivity.KEY_USER_INFO, JSON.toJSONString(bean));
             getActivity().startActivity(intent);
