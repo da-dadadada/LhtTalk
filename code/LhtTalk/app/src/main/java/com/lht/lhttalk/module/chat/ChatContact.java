@@ -23,38 +23,26 @@
  *
  */
 
-package com.lht.lhttalk.module.friend;
+package com.lht.lhttalk.module.chat;
+
+import android.content.Context;
 
 import com.lht.lhttalk.base.BasePresenter;
 import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.friend.pojo.FriendInfoResBean;
-
-import java.util.ArrayList;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> VPContact </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/14.
+ * Created by chhyu on 2017/8/22.
  */
 
-interface VPContact {
-    interface View<T> extends BaseView<VPContact.Presenter> {
+public interface ChatContact {
 
-        T instance();
+    interface View extends BaseView<Presenter> {
 
-        void showMsg(String msg);
-
-        void displayFriendList(ArrayList<FriendInfoResBean> allFriends);
+        Context getActivity();
     }
 
     interface Presenter extends BasePresenter {
 
-        /**
-         * all return in one request
-         */
-        void refreshFriendList();
-
+        void toSendMsg(String s);
     }
 }

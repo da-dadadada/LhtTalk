@@ -24,75 +24,61 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/bg_white"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@color/bg_white">
+
+    <TextView
+        android:id="@+id/tv_index"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#873627"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@color/bg_white"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
 
     <ImageView
         android:id="@+id/iv_avatar"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_below="@+id/tv_index"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
+
 
     <TextView
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_index"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/iv_avatar"
         android:text="username"
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_attach_msg"
+        android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_username"
         android:layout_below="@+id/tv_username"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="6dp"
-        android:layout_toRightOf="@+id/iv_avatar"
         android:singleLine="true"
         android:text="attachMsg" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@+id/tv_attach_msg"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_accept"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="同意" />
-
-        <Button
-            android:id="@+id/btn_ignore"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="忽略" />
-
-        <Button
-            android:id="@+id/btn_refuse"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="拒绝" />
-
-    </LinearLayout>
-
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tv_nickname"
+        android:layout_marginTop="8dp"
         android:background="#999999" />
 </RelativeLayout>

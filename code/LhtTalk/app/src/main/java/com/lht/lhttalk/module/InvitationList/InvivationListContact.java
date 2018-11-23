@@ -49,6 +49,7 @@ public interface InvivationListContact {
 
         void refreshInvitationList();
 
+        void showMsg(String s);
     }
 
     interface Presenter extends BasePresenter {

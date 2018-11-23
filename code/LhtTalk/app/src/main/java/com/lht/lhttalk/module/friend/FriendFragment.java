@@ -28,21 +28,31 @@ package com.lht.lhttalk.module.friend;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.CircularArray;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.gjiazhe.wavesidebar.WaveSideBar;
 import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.InvitationList.InvitationListActivity;
+import com.lht.lhttalk.module.chat.ChatActivity;
+import com.lht.lhttalk.module.friend.adapter.FriendListAdapter;
+import com.lht.lhttalk.module.friend.pojo.FriendInfoResBean;
 import com.lht.lhttalk.module.search.SearchActivity;
 import com.lht.lhttalk.util.toast.ToastUtils;
 
+import java.util.ArrayList;
+
 /**
  * Created by chhyu on 2017/7/12.
+ * 好友列表
  */
 
 public class FriendFragment extends BaseFragment
@@ -50,8 +60,11 @@ public class FriendFragment extends BaseFragment
 
 
     private TitleBar titleBar;
-    private Button btnSearch;
     private TextView tvNewFriend;
+    private WaveSideBar waveSideBar;
+    private RecyclerView rcvFriendList;
+    private FriendListAdapter friendListAdapter;
+    private ArrayList<FriendInfoResBean> arrayList;
 
     public static FriendFragment getInstance() {
         FriendFragment friendFragment = new FriendFragment();
@@ -81,13 +94,16 @@ public class FriendFragment extends BaseFragment
     @Override
     protected void initView(View contentView) {
         titleBar = (TitleBar) contentView.findViewById(R.id.titleBar);
-        btnSearch = (Button) contentView.findViewById(R.id.btn_search_friend);
         tvNewFriend = (TextView) contentView.findViewById(R.id.tv_new_friend);
+        waveSideBar = (WaveSideBar) contentView.findViewById(R.id.side_bar);
+        rcvFriendList = (RecyclerView) contentView.findViewById(R.id.rcv_friend_list);
+
     }
 
     @Override
     protected void initVariable() {
-
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rcvFriendList.setLayoutManager(manager);
     }
 
     @Override
@@ -97,14 +113,15 @@ public class FriendFragment extends BaseFragment
         titleBar.setOnAddOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show(getActivity(), "添加", ToastUtils.Duration.s);
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
             }
         });
 
-        btnSearch.setOnClickListener(this);
         tvNewFriend.setOnClickListener(this);
+        arrayList = new ArrayList<>();
+        friendListAdapter = new FriendListAdapter(getActivity(), listener, rcvFriendList, arrayList);
+        rcvFriendList.setAdapter(friendListAdapter);
     }
 
 
@@ -132,11 +149,30 @@ public class FriendFragment extends BaseFragment
     }
 
     @Override
+    public void showMsg(String msg) {
+        ToastUtils.show(getActivity(), msg, ToastUtils.Duration.s);
+    }
+
+    @Override
+    public void displayFriendList(final ArrayList<FriendInfoResBean> allFriends) {
+        arrayList.clear();
+        friendListAdapter.addDatas(allFriends);
+        waveSideBar.setOnSelectIndexItemListener(new WaveSideBar.OnSelectIndexItemListener() {
+            @Override
+            public void onSelectIndexItem(String index) {
+                for (int i = 0; i < allFriends.size(); i++) {
+                    if (allFriends.get(i).getFristLetter().equals(index)) {
+                        ((LinearLayoutManager) rcvFriendList.getLayoutManager()).scrollToPositionWithOffset(i, 0);
+                        return;
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_search_friend:
-                // TODO: 2017/7/25 搜索本地好友
-                break;
             case R.id.tv_new_friend:
                 Intent intent = new Intent(getActivity(), InvitationListActivity.class);
                 startActivity(intent);
@@ -145,4 +181,13 @@ public class FriendFragment extends BaseFragment
                 break;
         }
     }
+
+    FriendListAdapter.OnItemClickListener listener = new FriendListAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int postion, FriendInfoResBean bean) {
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(ChatActivity.KEY_DATA, JSON.toJSONString(bean));
+            getActivity().startActivity(intent);
+        }
+    };
 }

@@ -29,7 +29,11 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.lht.lhttalk.base.fragment.BaseFragment;
+import com.lht.lhttalk.module.friend.pojo.FriendBasicPojo;
+import com.lht.lhttalk.module.friend.pojo.FriendInfoResBean;
 import com.lht.lhttalk.module.friend.pojo.FriendList;
+
+import java.util.ArrayList;
 
 import individual.leobert.retrofitext.ext.ApiResponseHandler;
 import okhttp3.Headers;
@@ -65,12 +69,19 @@ class PresenterImpl implements VPContact.Presenter {
         friendModel.getFriendList(view.instance(), new ApiResponseHandler<FriendList>() {
             @Override
             public void onSuccess(int i, Call<FriendList> call, Headers headers, FriendList friendList) {
+                if (friendList == null) {
+                    view.showMsg("暂时没有好友");
+                    return;
+                }
                 Log.e("lmsg", "friendList=" + JSON.toJSONString(friendList));
+                ArrayList<FriendInfoResBean> allFriends = FriendInfoResBean.getAllFriendInfo(friendList);
+                Log.e("lmsg", "allFriends=" + JSON.toJSONString(allFriends));
+                view.displayFriendList(allFriends);
             }
 
             @Override
             public void onFailure(int i, Call<FriendList> call, Headers headers, ResponseBody responseBody) {
-
+                view.showMsg("搜索好友失败，请稍后重试");
             }
 
             @Override

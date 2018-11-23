@@ -47,9 +47,9 @@ public class SmackService extends Service {
 
     private static final String APP_ID = "com.lht.lhttalk";
 
-    public static final String NEW_MESSAGE = APP_ID+".newmessage";
-    public static final String SEND_MESSAGE = APP_ID+".sendmessage";
-    public static final String NEW_ROSTER = APP_ID+".newroster";
+    public static final String NEW_MESSAGE = APP_ID + ".newmessage";
+    public static final String SEND_MESSAGE = APP_ID + ".sendmessage";
+    public static final String NEW_ROSTER = APP_ID + ".newroster";
 
     public static final String BUNDLE_FROM_JID = "b_from";
     public static final String BUNDLE_MESSAGE_BODY = "b_body";
@@ -63,7 +63,7 @@ public class SmackService extends Service {
 
 
     public static SmackConnection.ConnectionState getState() {
-        if(sConnectionState == null){
+        if (sConnectionState == null) {
             return SmackConnection.ConnectionState.DISCONNECTED;
         }
         return sConnectionState;
@@ -128,7 +128,7 @@ public class SmackService extends Service {
 
             @Override
             public void run() {
-                if(mConnection != null){
+                if (mConnection != null) {
                     mConnection.disconnect();
                 }
             }
@@ -137,13 +137,13 @@ public class SmackService extends Service {
     }
 
     private void initConnection() {
-        if(mConnection == null){
+        if (mConnection == null) {
             SharedPreferences spToken = MainApplication.getOurInstance().getTokenSp();
-            username = spToken.getString(KEY_USERNAME,"");
-            token = spToken.getString(KEY_ACCESS_TOKEN,"");
+            username = spToken.getString(KEY_USERNAME, "");
+            token = spToken.getString(KEY_ACCESS_TOKEN, "");
 
 
-            mConnection = new SmackConnection(this,username,token);
+            mConnection = new SmackConnection(this, username, token);
         }
         try {
             mConnection.connect();

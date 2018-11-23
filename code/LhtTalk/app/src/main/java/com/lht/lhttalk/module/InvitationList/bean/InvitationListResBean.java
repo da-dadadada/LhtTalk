@@ -32,6 +32,12 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 
 public class InvitationListResBean {
+
+    public static final String ACTION_ACCEPT = "ACCEPT";
+    public static final String ACTION_REFUSE = "REFUSE";
+    public static final String ACTION_IGNORE = "IGNORE";
+    public static final String ACTION_DELETE = "DELETE";
+
     private String postTime;
 
     @JSONField(name = "do")
@@ -103,6 +109,7 @@ public class InvitationListResBean {
         INITIAL,
         ACCEPT,
         IGNORE,
-        REFUSE
+        REFUSE,
+        DELETE
     }
 }

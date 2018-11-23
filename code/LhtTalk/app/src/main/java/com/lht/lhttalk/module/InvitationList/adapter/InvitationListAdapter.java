@@ -50,30 +50,86 @@ import java.util.ArrayList;
  * Created by chhyu on 2017/8/17.
  */
 
-public class InvitationListAdapter extends BaseLoadingAdapter {
+public class InvitationListAdapter extends RecyclerView.Adapter {
 
+    private static final int TYPE_IN = 1;
+    private static final int TYPE_OUT = 2;
     private Context context;
-    private CircularArray<InvitationListResBean> datas;
+    private ArrayList<InvitationListResBean> datas;
     private OnHandleButtonClickListener listener;
 
-    public InvitationListAdapter(Context context, OnHandleButtonClickListener listener, RecyclerView recyclerView, CircularArray<InvitationListResBean> datas) {
-        super(recyclerView, datas);
+    public InvitationListAdapter(Context context, OnHandleButtonClickListener listener, ArrayList<InvitationListResBean> datas) {
         this.context = context;
         this.datas = datas;
         this.listener = listener;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent) {
-        View view = View.inflate(context, R.layout.friend_request_item, null);
-        MyViewHolder holder = new MyViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        RecyclerView.ViewHolder holder = null;
+        switch (viewType) {
+            case TYPE_IN:
+                view = View.inflate(context, R.layout.friend_request_in_item, null);
+                holder = new InViewHolder(view);
+                break;
+            case TYPE_OUT:
+                view = View.inflate(context, R.layout.friend_request_out_item, null);
+                holder = new OutViewHolder(view);
+                break;
+            default:
+                break;
+        }
         return holder;
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder1, final int position) {
-        final MyViewHolder holder = (MyViewHolder) holder1;
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final InvitationListResBean bean = datas.get(position);
+        int itemViewType = getItemViewType(position);
+        Log.e("lmsg", "state=" + bean.getState());
+        switch (itemViewType) {
+            case TYPE_IN:
+                handleTypeInRequest(holder, bean, position);
+                break;
+            case TYPE_OUT:
+                handleTypeOutRequest(holder, bean);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    /**
+     * 请求添加别人为好友
+     *
+     * @param holder1
+     * @param bean
+     */
+    private void handleTypeOutRequest(final RecyclerView.ViewHolder holder1, InvitationListResBean bean) {
+        final OutViewHolder holder = (OutViewHolder) holder1;
+        Glide.with(context).load(bean.getAvatar()).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.ivAvatar) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                holder.ivAvatar.setImageDrawable(circularBitmapDrawable);
+            }
+        });
+        holder.tvUsername.setText(bean.getUsername());
+        holder.tvAttachMsg.setText(bean.getAttach());
+    }
+
+    /**
+     * 别人请求添加为好友
+     *
+     * @param holder1
+     * @param bean
+     * @param position
+     */
+    private void handleTypeInRequest(RecyclerView.ViewHolder holder1, InvitationListResBean bean, int position) {
+        final InViewHolder holder = (InViewHolder) holder1;
         Glide.with(context).load(bean.getAvatar()).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.ivAvatar) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -85,19 +141,19 @@ public class InvitationListAdapter extends BaseLoadingAdapter {
         holder.tvUsername.setText(bean.getUsername());
         holder.tvAttachMsg.setText(bean.getAttach());
 
-        if (bean.getState().equals(InvitationListResBean.HandleState.ACCEPT)) {
+        if (bean.getState().equals(InvitationListResBean.ACTION_ACCEPT)) {
             holder.btnAccept.setEnabled(false);
             holder.btnAccept.setText("已同意");
             holder.btnIgnore.setEnabled(false);
             holder.btnRefuse.setEnabled(false);
         }
-        if (bean.getState().equals(InvitationListResBean.HandleState.IGNORE)) {
+        if (bean.getState().equals(InvitationListResBean.ACTION_IGNORE)) {
             holder.btnAccept.setEnabled(false);
             holder.btnIgnore.setText("已忽略");
             holder.btnIgnore.setEnabled(false);
             holder.btnRefuse.setEnabled(false);
         }
-        if (bean.getState().equals(InvitationListResBean.HandleState.REFUSE)) {
+        if (bean.getState().equals(InvitationListResBean.ACTION_REFUSE)) {
             holder.btnAccept.setEnabled(false);
             holder.btnRefuse.setText("已拒绝");
             holder.btnIgnore.setEnabled(false);
@@ -106,7 +162,33 @@ public class InvitationListAdapter extends BaseLoadingAdapter {
         handleClickResult(holder, bean, position);
     }
 
-    private void handleClickResult(final MyViewHolder holder, final InvitationListResBean bean, final int position) {
+    @Override
+    public int getItemViewType(int position) {
+        String type = datas.get(position).getType();
+        if (type.equals("in")) {
+            return TYPE_IN;
+        } else {
+            return TYPE_OUT;
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return datas == null ? 0 : datas.size();
+    }
+
+    public void addDatas(ArrayList<InvitationListResBean> _datas) {
+        if (datas == null)
+            datas = new ArrayList<>();
+        if (_datas == null)
+            return;
+        for (InvitationListResBean bean : _datas) {
+            datas.add(bean);
+        }
+        notifyDataSetChanged();
+    }
+
+    private void handleClickResult(final InViewHolder holder, final InvitationListResBean bean, final int position) {
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +215,10 @@ public class InvitationListAdapter extends BaseLoadingAdapter {
         });
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * 别人请求加好友
+     */
+    public class InViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView ivAvatar;
         private final TextView tvUsername;
@@ -142,7 +227,7 @@ public class InvitationListAdapter extends BaseLoadingAdapter {
         private final Button btnIgnore;
         private final Button btnRefuse;
 
-        public MyViewHolder(View itemView) {
+        public InViewHolder(View itemView) {
             super(itemView);
             ivAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
             tvUsername = (TextView) itemView.findViewById(R.id.tv_username);
@@ -166,7 +251,25 @@ public class InvitationListAdapter extends BaseLoadingAdapter {
         }
     }
 
+    /**
+     * 请求添加别人为好友
+     */
+    public class OutViewHolder extends RecyclerView.ViewHolder {
+
+        private final ImageView ivAvatar;
+        private final TextView tvUsername;
+        private final TextView tvAttachMsg;
+
+        public OutViewHolder(View itemView) {
+            super(itemView);
+            ivAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
+            tvUsername = (TextView) itemView.findViewById(R.id.tv_username);
+            tvAttachMsg = (TextView) itemView.findViewById(R.id.tv_attach_msg);
+
+        }
+    }
+
     public interface OnHandleButtonClickListener {
-        void onHandleButtonClick(View view, MyViewHolder holder, int position, InvitationListResBean bean);
+        void onHandleButtonClick(View view, InViewHolder holder, int position, InvitationListResBean bean);
     }
 }

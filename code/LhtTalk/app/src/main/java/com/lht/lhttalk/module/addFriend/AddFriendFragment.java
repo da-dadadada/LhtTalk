@@ -43,6 +43,7 @@ import com.lht.lhttalk.R;
 import com.lht.lhttalk.base.fragment.BaseFragment;
 import com.lht.lhttalk.module.search.bean.SearchResBean;
 import com.lht.lhttalk.util.time.TimeUtil;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
 import java.text.SimpleDateFormat;
 
@@ -155,5 +156,10 @@ public class AddFriendFragment extends BaseFragment implements AddFriendContract
     @Override
     public AddFriendFragment instance() {
         return AddFriendFragment.this;
+    }
+
+    @Override
+    public void showMsg(String s) {
+        ToastUtils.show(getActivity(), s, ToastUtils.Duration.s);
     }
 }

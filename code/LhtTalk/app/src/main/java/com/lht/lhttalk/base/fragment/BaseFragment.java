@@ -35,6 +35,7 @@ import com.lht.lhttalk.base.IVerifyHolder;
 import com.lht.lhttalk.base.MainApplication;
 import com.lht.lhttalk.module.ucenter.UserBean;
 import com.lht.lhttalk.util.debug.DLog;
+import com.lht.lhttalk.util.toast.ToastUtils;
 
 import java.io.File;
 
@@ -58,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d("DebugHandler","onHiddenChange");
+        Log.d("DebugHandler", "onHiddenChange");
         if (hidden) {
             onRestrictPause();
         } else {

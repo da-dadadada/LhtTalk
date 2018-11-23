@@ -23,11 +23,11 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical">
+    android:background="@color/bg_white">
 
     <com.lht.lhttalk.module.friend.TitleBar
         android:id="@+id/titleBar"
@@ -35,19 +35,47 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary" />
 
-    <Button
-        android:id="@+id/btn_search_friend"
+    <RelativeLayout
+        android:id="@+id/rl_search"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:text="搜索" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleBar"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_conner_15dp_white"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/toolbar_tv_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/v1010_drawable_icon_search_gray"
+            android:drawablePadding="10dp"
+            android:hint="搜索好友"
+            android:textColor="#333333" />
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/toolbar_tv_search"
+            android:src="#e0e0e0"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_new_friend"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_new_friend"
+        android:layout_height="35dp"
+        android:layout_below="@+id/rl_search"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_new_friend_selector"
         android:drawableRight="@drawable/v1000_drawable_xuanz"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -55,4 +83,24 @@
         android:text="新朋友"
         android:textSize="16sp" />
 
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_friend_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_new_friend" />
+
+    <com.gjiazhe.wavesidebar.WaveSideBar
+        android:id="@+id/side_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_new_friend"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:paddingRight="8dp"
+        app:sidebar_lazy_respond="false"
+        app:sidebar_max_offset="80dp"
+        app:sidebar_position="right"
+        app:sidebar_text_alignment="center"
+        app:sidebar_text_color="#8D6E63"
+        app:sidebar_text_size="10sp" />
+</RelativeLayout>

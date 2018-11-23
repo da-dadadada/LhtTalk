@@ -23,38 +23,58 @@
  *
  */
 
-package com.lht.lhttalk.module.friend;
-
-import com.lht.lhttalk.base.BasePresenter;
-import com.lht.lhttalk.base.BaseView;
-import com.lht.lhttalk.module.friend.pojo.FriendInfoResBean;
-
-import java.util.ArrayList;
+package com.lht.lhttalk.module.chat.bean;
 
 /**
- * <p><b>Package:</b> com.lht.lhttalk.module.friend </p>
- * <p><b>Project:</b> LhtTalk </p>
- * <p><b>Classname:</b> VPContact </p>
- * <p><b>Description:</b> TODO </p>
- * Created by leobert on 2017/7/14.
+ * Created by chhyu on 2017/8/22.
  */
 
-interface VPContact {
-    interface View<T> extends BaseView<VPContact.Presenter> {
+public class MsgEntity {
 
-        T instance();
+    public static final int TYPE_FRIEND = 1;
+    public static final int TYPE_SELF = 2;
 
-        void showMsg(String msg);
+    /**
+     * 消息类型，用于区分好友和自己
+     */
+    private int type;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 发送/接收的消息
+     */
+    private String message;
 
-        void displayFriendList(ArrayList<FriendInfoResBean> allFriends);
+    public MsgEntity(int type, String avatar, String message) {
+        this.type = type;
+        this.avatar = avatar;
+        this.message = message;
     }
 
-    interface Presenter extends BasePresenter {
-
-        /**
-         * all return in one request
-         */
-        void refreshFriendList();
-
+    public int getType() {
+        return type;
     }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 }

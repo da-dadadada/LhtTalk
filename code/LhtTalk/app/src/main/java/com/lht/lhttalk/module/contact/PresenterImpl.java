@@ -62,12 +62,12 @@ public class PresenterImpl implements ContactFgContact.Presenter {
 
             @Override
             public void onSuccess(int code, Call<ArrayList<ContactResBean>> call, Headers headers, ArrayList<ContactResBean> res) {
-                Log.e("lmsg", "刷新聊天列表成功");
+//                Log.e("lmsg", "刷新聊天列表成功");
             }
 
             @Override
             public void onFailure(int code, Call<ArrayList<ContactResBean>> call, Headers headers, ResponseBody res) {
-                Log.e("lmsg", "刷新聊天列表失败");
+//                Log.e("lmsg", "刷新聊天列表失败");
             }
 
             @Override

@@ -88,7 +88,7 @@ public class SplashActivity extends AsyncProtectedActivity {
                     jump2LoginActivity();
             }
         }, 2000);
-        autoLogin();
+//        autoLogin();
     }
 
     private void autoLogin() {

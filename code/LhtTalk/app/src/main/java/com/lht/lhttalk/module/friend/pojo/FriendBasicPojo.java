@@ -25,6 +25,8 @@
 
 package com.lht.lhttalk.module.friend.pojo;
 
+import java.util.ArrayList;
+
 /**
  * <p><b>Package:</b> com.lht.lhttalk.module.friend.pojo </p>
  * <p><b>Project:</b> LhtTalk </p>
@@ -70,4 +72,5 @@ public class FriendBasicPojo {
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
     }
+
 }

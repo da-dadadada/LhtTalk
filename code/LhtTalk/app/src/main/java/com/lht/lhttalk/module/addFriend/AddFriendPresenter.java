@@ -83,6 +83,7 @@ public class AddFriendPresenter implements AddFriendContract.Presenter {
     ApiResponseHandler<AddFriendResBean> apiResponseHandler = new ApiResponseHandler<AddFriendResBean>() {
         @Override
         public void onSuccess(int code, Call<AddFriendResBean> call, Headers headers, AddFriendResBean res) {
+            view.showMsg("请求成功，等待好友通过");
             Log.e("lmsg", "请求成功");
         }
 

@@ -58,7 +58,8 @@
         <activity android:name=".module.main.HomeActivity" />
         <activity android:name=".module.search.SearchActivity" />
         <activity android:name=".module.addFriend.AddFriendActivity" />
-        <activity android:name=".module.InvitationList.InvitationListActivity"></activity>
+        <activity android:name=".module.InvitationList.InvitationListActivity" />
+        <activity android:name=".module.chat.ChatActivity"></activity>
     </application>
 
 </manifest>
