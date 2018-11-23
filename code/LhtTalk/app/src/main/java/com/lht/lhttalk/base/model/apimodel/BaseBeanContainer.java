@@ -33,6 +33,7 @@ package com.lht.lhttalk.base.model.apimodel;
  * 创建并对象转换
  * Created by leobert on 2016/5/4.
  */
+@Deprecated
 public class BaseBeanContainer<T> {
     private T data;
 

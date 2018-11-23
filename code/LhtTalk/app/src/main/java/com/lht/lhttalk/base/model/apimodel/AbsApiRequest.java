@@ -47,7 +47,7 @@ import java.lang.reflect.InvocationTargetException;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2017/3/7.
  */
-
+@Deprecated
 public abstract class AbsApiRequest<API, T> implements IApiRequest {
     private final T data;
     private final HttpUtil httpUtil;
